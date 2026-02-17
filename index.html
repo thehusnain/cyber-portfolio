@@ -2,13 +2,112 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Husnain | Portfolio</title>
     <meta name="author" content="Husnain">  
     <link rel="stylesheet" href="src/css/main.css">
     <link rel="stylesheet" href="src/css/animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <style>
+        @media (max-width: 768px) {
+            * {
+                max-width: 100vw;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-size: 14px;
+                overflow-x: hidden;
+                width: 100%;
+                position: relative;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2;
+                word-break: break-word;
+            }
+            
+            .terminal-window {
+                width: 95% !important;
+                max-width: 95% !important;
+                margin: 1rem auto !important;
+                padding: 1.2rem !important;
+            }
+            
+            .terminal-text {
+                font-size: 0.85rem !important;
+            }
+            
+            .terminal-text p {
+                margin-bottom: 0.6rem !important;
+                word-break: break-word;
+            }
+            
+            .badge-container iframe {
+                width: 100% !important;
+                margin: 0 !important;
+                transform: none !important;
+                height: 180px !important;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .cert-image-preview .cert-thumb {
+                height: 140px !important;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            section {
+                padding: 3rem 1rem !important;
+            }
+            
+            h2 {
+                font-size: 1.8rem !important;
+            }
+            
+            .subtitle {
+                font-size: 1rem !important;
+                padding: 0 0.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem !important;
+            }
+            
+            .terminal-window {
+                padding: 1rem !important;
+            }
+            
+            .terminal-text {
+                font-size: 0.8rem !important;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem !important;
+                font-size: 0.9rem !important;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .cta-buttons {
+                width: 100%;
+                padding: 0 0.5rem;
+            }
+            
+            .badge-container iframe {
+                height: 160px !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Terminal Boot Screen - signed: husnain -->
@@ -63,36 +162,35 @@
 
     <section class="hero">
         <div class="tag">cybersecurity enthusiast · aspiring red teamer</div>
-        <h1>HUSNAIN </h1>
+        <h1>HUSNAIN</h1>
         <p class="subtitle">Passionate about offensive security — learning & practicing ethically</p>
 
-            <div class="terminal-window">
-                <div class="terminal-header">
-                    <div class="terminal-dot dot-red"></div>
-                    <div class="terminal-dot dot-yellow"></div>
-                    <div class="terminal-dot dot-green"></div>
-                </div>
-                <div class="terminal-text">
-                    <p class="output">Cybersecurity focus areas:</p>
-                    <p class="output"><span class="prompt">&gt;</span> Web Application Penetration Testing</p>
-                    <p class="output"><span class="prompt">&gt;</span> Red Team Methodologies</p>  
-                    <p class="output"><span class="prompt">&gt;</span> Cryptography & Network Security</p>
-                    <p class="output"><span class="prompt">&gt;</span> CTF Challenges & Vulnerable Labs</p>
-                    
-                    <p class="output">&nbsp;</p> <!-- Add spacing -->
-                    
-                    <p><span class="prompt">$</span> <span class="command">cat contact.txt</span></p>
-                    <p class="output">GitHub: <a href="https://github.com/thehusnain" target="_blank" class="link">github.com/thehusnain</a> <span class="muted">· by Husnain</span></p>
-                    <br>
-                    <p><span class="prompt">$</span> <span class="output">_</span><span style="animation: blink 1s infinite;">|</span></p>
-                </div>
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
             </div>
+            <div class="terminal-text">
+                <p class="output">Cybersecurity focus areas:</p>
+                <p class="output"><span class="prompt">&gt;</span> Web Application Penetration Testing</p>
+                <p class="output"><span class="prompt">&gt;</span> Red Team Methodologies</p>  
+                <p class="output"><span class="prompt">&gt;</span> Cryptography & Network Security</p>
+                <p class="output"><span class="prompt">&gt;</span> CTF Challenges & Vulnerable Labs</p>
+                
+                <p class="output">&nbsp;</p>
+                
+                <p><span class="prompt">$</span> <span class="command">cat contact.txt</span></p>
+                <p class="output">GitHub: <a href="https://github.com/thehusnain" target="_blank" class="link">github.com/thehusnain</a> <span class="muted">· by Husnain</span></p>
+                <br>
+                <p><span class="prompt">$</span> <span class="output">_</span><span style="animation: blink 1s infinite;">|</span></p>
+            </div>
+        </div>
 
-            <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                <span class="cta-sign">signed: husnain</span>
-            </div>
+        <div class="cta-buttons">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            <span class="cta-sign">signed: husnain</span>
         </div>
     </section>
 
@@ -500,7 +598,7 @@
                         
                         <!-- Certificate Image Preview -->
                         <div class="cert-image-preview" onclick="openCertificateImage('src/assets/techjam.png')">
-                            <img src="/src/assets/techjam.png" alt="CTF Participation Certificate" class="cert-thumb">
+                            <img src="src/assets/techjam.png" alt="CTF Participation Certificate" class="cert-thumb">
                             <div class="preview-overlay">
                                 <i class="fas fa-search-plus"></i> Click to view
                             </div>
@@ -741,6 +839,119 @@ fetch("https://webhook.site/a8015251-dcfa-446d-a235-8a266ea5aaa7", {
   </small>
 </footer>
 
+<script>
+    // Mobile menu toggle function
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+    }
+    
+    function closeMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.remove('active');
+    }
+    
+    // Boot screen fade out
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            document.getElementById('bootScreen').classList.add('fade-out');
+        }, 4500);
+    });
+    
+    // Certificate image viewer
+    function openCertificateImage(src) {
+        // Create modal if it doesn't exist
+        let modal = document.getElementById('certImageModal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'certImageModal';
+            modal.className = 'cert-image-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closeCertificateImage()">&times;</span>
+                    <img id="certFullImage" src="" alt="Certificate">
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        const img = document.getElementById('certFullImage') || modal.querySelector('img');
+        img.src = src;
+        modal.style.display = 'flex';
+    }
+    
+    function closeCertificateImage() {
+        const modal = document.getElementById('certImageModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('certImageModal');
+        if (modal && e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>
+
+<style>
+    /* Certificate Image Modal */
+    .cert-image-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 99999;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .cert-image-modal .modal-content {
+        max-width: 90%;
+        max-height: 90vh;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        position: relative;
+    }
+    
+    .cert-image-modal img {
+        max-width: 100%;
+        max-height: 80vh;
+        border: 2px solid #00FF8C;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0, 255, 140, 0.5);
+    }
+    
+    .cert-image-modal .close-modal {
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 10000;
+    }
+    
+    @media (max-width: 768px) {
+        .cert-image-modal .close-modal {
+            top: -50px;
+            right: 0;
+        }
+    }
+</style>
 
 </body>
 </html>
