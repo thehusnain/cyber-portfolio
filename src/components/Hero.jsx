@@ -4,7 +4,7 @@ import './Hero.css';
 const Hero = () => {
   const [typedLines, setTypedLines] = useState([]);
   const [isDone, setIsDone] = useState(false);
-  
+
   const terminalRef = useRef(null);
 
   const lines = [
@@ -15,7 +15,6 @@ const Hero = () => {
     { type: 'output', prompt: '>', text: 'CTF Challenges & Vulnerable Labs' },
     { type: 'output', text: ' ' },
     { type: 'command', prompt: '$', text: 'whoami' },
-    { type: 'output', text: 'thehusnain' }
   ];
 
   useEffect(() => {
@@ -76,7 +75,7 @@ const Hero = () => {
               <div className="ring ring-3"></div>
             </div>
             <img src="/assets/profile.png" alt="Husnain" className="profile-image"
-                 onError={(e) => e.target.src='https://ui-avatars.com/api/?name=Husnain&background=0a0a0a&color=00FF8C&size=220'} />
+              onError={(e) => e.target.src = 'https://ui-avatars.com/api/?name=Husnain&background=0a0a0a&color=00FF8C&size=220'} />
           </div>
 
           <div className="cv-name-block">
@@ -129,21 +128,21 @@ const Hero = () => {
                 <div className="cv-info-card-val">Top 2% Global</div>
               </div>
             </div>
-            <div className="cv-info-card fade-in" style={{animationDelay: "0.1s"}}>
+            <div className="cv-info-card fade-in" style={{ animationDelay: "0.1s" }}>
               <div className="cv-info-card-icon"><i className="fas fa-shield-alt"></i></div>
               <div>
                 <div className="cv-info-card-title">Specialisation</div>
                 <div className="cv-info-card-val">Web Pen Testing</div>
               </div>
             </div>
-            <div className="cv-info-card fade-in" style={{animationDelay: "0.2s"}}>
+            <div className="cv-info-card fade-in" style={{ animationDelay: "0.2s" }}>
               <div className="cv-info-card-icon"><i className="fas fa-flag"></i></div>
               <div>
                 <div className="cv-info-card-title">CTF Challenges</div>
                 <div className="cv-info-card-val">Active Participant</div>
               </div>
             </div>
-            <div className="cv-info-card fade-in" style={{animationDelay: "0.3s"}}>
+            <div className="cv-info-card fade-in" style={{ animationDelay: "0.3s" }}>
               <div className="cv-info-card-icon"><i className="fas fa-certificate"></i></div>
               <div>
                 <div className="cv-info-card-title">Certifications</div>

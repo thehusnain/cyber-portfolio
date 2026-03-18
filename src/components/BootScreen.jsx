@@ -50,7 +50,7 @@ const BootScreen = ({ onComplete }) => {
         </div>
 
         <div className="boot-footer-modern">
-          <div className="boot-skip-hint">[ CLICK ANYWHERE TO ENTER ]</div>
+          <div className="boot-skip-hint">[ PORTFOLIO LOADED SUCCESFULLY ]</div>
         </div>
       </div>
     </div>
