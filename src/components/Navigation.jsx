@@ -19,14 +19,15 @@ const Navigation = () => {
 
   return (
     <>
+      <button 
+        className={`sidebar-toggle ${isOpen ? 'open' : ''}`} 
+        onClick={handleToggle} 
+        aria-label="Toggle menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
       <nav className={`sidebar-nav ${isOpen ? 'active' : ''}`} id="sidebarNav">
-        <button 
-          className={`sidebar-toggle ${isOpen ? 'open' : ''}`} 
-          onClick={handleToggle} 
-          aria-label="Toggle menu"
-        >
-          <span></span><span></span><span></span>
-        </button>
 
         <div className="sidebar-inner">
           <div className="sidebar-brand">

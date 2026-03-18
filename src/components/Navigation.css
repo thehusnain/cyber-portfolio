@@ -20,7 +20,7 @@
   .main-content { margin-left: var(--sidebar-w); transition: margin-left 0.35s ease, padding 0.25s ease; }
 }
 
-.sidebar-toggle { z-index: 9110; border: none; background: transparent; }
+.sidebar-toggle { z-index: 9110; border: none; background: transparent; display: none; }
 .sidebar-inner {
   display: flex;
   flex-direction: column;

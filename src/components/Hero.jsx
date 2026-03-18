@@ -158,12 +158,12 @@ const Hero = () => {
               <a href="#contact" className="btn btn-secondary cyber-btn">Get In Touch</a>
             </div>
             <div className="cv-tools">
-              <span className="tech-tag">Kali Linux</span>
-              <span className="tech-tag">Burp Suite</span>
-              <span className="tech-tag">Nmap</span>
-              <span className="tech-tag">Wireshark</span>
-              <span className="tech-tag">Metasploit</span>
-              <span className="tech-tag">SQLMap</span>
+              <span className="tech-tag"><i className="fab fa-linux"></i> Kali Linux</span>
+              <span className="tech-tag"><i className="fas fa-spider"></i> Burp Suite</span>
+              <span className="tech-tag"><i className="fas fa-search"></i> Nmap</span>
+              <span className="tech-tag"><i className="fas fa-network-wired"></i> Wireshark</span>
+              <span className="tech-tag"><i className="fas fa-biohazard"></i> Metasploit</span>
+              <span className="tech-tag"><i className="fas fa-database"></i> SQLMap</span>
             </div>
           </div>
         </div>
