@@ -1,7 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Hero.css';
 
 const Hero = () => {
+  const [typedLines, setTypedLines] = useState([]);
+  const [isDone, setIsDone] = useState(false);
+  
+  const terminalRef = useRef(null);
+
+  const lines = [
+    { type: 'command', text: '$ cat focus_areas.txt' },
+    { type: 'output', prompt: '>', text: 'Web Application Penetration Testing' },
+    { type: 'output', prompt: '>', text: 'Red Team Methodologies' },
+    { type: 'output', prompt: '>', text: 'Cryptography & Network Security' },
+    { type: 'output', prompt: '>', text: 'CTF Challenges & Vulnerable Labs' },
+    { type: 'output', text: ' ' },
+    { type: 'command', prompt: '$', text: 'whoami' },
+    { type: 'output', text: 'thehusnain' }
+  ];
+
+  useEffect(() => {
+    let currentLineIndex = 0;
+    let currentCharIndex = 0;
+    let currentLines = [];
+
+    const typeNextChar = () => {
+      if (currentLineIndex >= lines.length) {
+        setIsDone(true);
+        return;
+      }
+
+      const currentLine = lines[currentLineIndex];
+      const targetText = currentLine.text;
+
+      if (currentCharIndex === 0) {
+        currentLines.push({ ...currentLine, displayedText: '' });
+      }
+
+      if (currentCharIndex < targetText.length) {
+        currentLines[currentLineIndex].displayedText += targetText[currentCharIndex];
+        setTypedLines([...currentLines]);
+        currentCharIndex++;
+        setTimeout(typeNextChar, currentLine.type === 'command' ? 50 : 20);
+      } else {
+        currentLineIndex++;
+        currentCharIndex = 0;
+        setTimeout(typeNextChar, 150);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          typeNextChar();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (terminalRef.current) {
+      observer.observe(terminalRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="hero cv-hero" id="home">
       <div className="cv-wrapper">
@@ -30,7 +93,7 @@ const Hero = () => {
 
         <div className="cv-info-grid">
           <div className="cv-terminal-col">
-            <div className="terminal-window">
+            <div className="terminal-window" ref={terminalRef}>
               <div className="terminal-header">
                 <div className="terminal-dot dot-red"></div>
                 <div className="terminal-dot dot-yellow"></div>
@@ -38,14 +101,22 @@ const Hero = () => {
                 <span style={{ marginLeft: 'auto', color: '#555', fontSize: '0.8rem' }}>focus_areas.sh</span>
               </div>
               <div className="terminal-text">
-                <p className="output">$ cat focus_areas.txt</p>
-                <p className="output"><span className="prompt">&gt;</span> Web Application Penetration Testing</p>
-                <p className="output"><span className="prompt">&gt;</span> Red Team Methodologies</p>
-                <p className="output"><span className="prompt">&gt;</span> Cryptography &amp; Network Security</p>
-                <p className="output"><span className="prompt">&gt;</span> CTF Challenges &amp; Vulnerable Labs</p>
-                <p className="output">&nbsp;</p>
-                <p><span className="prompt">$</span> <span className="command">whoami</span></p>
-                <p className="output">thehusnain <span className="typing-cursor hide">▌</span></p>
+                {typedLines.map((line, idx) => (
+                  <p key={idx} className={line.type === 'output' ? 'output' : ''}>
+                    {line.prompt && <span className="prompt">{line.prompt}</span>}
+                    {line.type === 'command' ? (
+                      <span className="command">{line.displayedText}</span>
+                    ) : (
+                      line.displayedText
+                    )}
+                    {idx === typedLines.length - 1 && !isDone && (
+                      <span className="typing-cursor">▌</span>
+                    )}
+                  </p>
+                ))}
+                {isDone && (
+                  <p className="output">thehusnain <span className="typing-cursor">▌</span></p>
+                )}
               </div>
             </div>
           </div>
