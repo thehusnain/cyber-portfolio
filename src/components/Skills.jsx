@@ -23,40 +23,32 @@ const Skills = () => {
   return (
     <section id="skills">
       <div className="section-container">
-        <h2>TryHackMe Statistics</h2>
-        <div className="skills-grid">
+        <h2>Technical Skills</h2>
+        <div className="skills-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
           <div className="skill-category fade-in">
-            <h3>Rank &amp; Achievements</h3>
-            <SkillItem name="Global Ranking" val="Top 2%" pct="95%" ref={(el) => barsRef.current.push(el)} />
-            <SkillItem name="Rooms Completed" val="45+" pct="85%" ref={(el) => barsRef.current.push(el)} />
-            <SkillItem name="Learning Paths" val="3" pct="80%" ref={(el) => barsRef.current.push(el)} />
-          </div>
-
-          <div className="skill-category fade-in">
-            <h3>Technical Skills</h3>
-            <SkillItem name="Web Security" val="75%" pct="75%" ref={(el) => barsRef.current.push(el)} />
-            <SkillItem name="Network Security" val="70%" pct="70%" ref={(el) => barsRef.current.push(el)} />
-            <SkillItem name="Cryptography" val="65%" pct="65%" ref={(el) => barsRef.current.push(el)} />
+            <h3>Domain Expertise</h3>
+            <SkillItem name="Web Application Security" val="85%" pct="85%" ref={(el) => barsRef.current.push(el)} />
+            <SkillItem name="Network Penetration Testing" val="75%" pct="75%" ref={(el) => barsRef.current.push(el)} />
+            <SkillItem name="Cryptography" val="70%" pct="70%" ref={(el) => barsRef.current.push(el)} />
           </div>
 
           <div className="skill-category fade-in">
             <h3>Tool Proficiency</h3>
-            <SkillItem name="Burp Suite" val="75%" pct="75%" ref={(el) => barsRef.current.push(el)} />
-            <SkillItem name="Wireshark" val="70%" pct="70%" ref={(el) => barsRef.current.push(el)} />
-            <SkillItem name="Kali Linux Tools" val="80%" pct="80%" ref={(el) => barsRef.current.push(el)} />
+            <SkillItem name="Burp Suite Professional" val="85%" pct="85%" ref={(el) => barsRef.current.push(el)} />
+            <SkillItem name="Nmap & Network Analysis" val="80%" pct="80%" ref={(el) => barsRef.current.push(el)} />
+            <SkillItem name="Metasploit Framework" val="70%" pct="70%" ref={(el) => barsRef.current.push(el)} />
           </div>
         </div>
 
-        <div className="thm-badge fade-in">
-          <h3>TryHackMe Profile</h3>
+        <div className="thm-badge fade-in" style={{ marginTop: '3rem', textAlign: 'center', background: 'rgba(10, 10, 10, 0.5)', padding: '2rem', borderRadius: '15px', border: '1px solid rgba(0, 255, 140, 0.2)' }}>
+          <h3 style={{ marginBottom: '1.5rem', color: '#fff' }}>TryHackMe Profile</h3>
           <div className="badge-container">
             <a href="https://tryhackme.com/p/thehusnain" target="_blank" rel="noreferrer">
-              <img src="https://tryhackme-badges.s3.amazonaws.com/thehusnain.png" alt="TryHackMe Badge" style={{ maxWidth: '100%', borderRadius: '8px' }} />
+              <img src="https://tryhackme-badges.s3.amazonaws.com/thehusnain.png" alt="TryHackMe Badge" style={{ maxWidth: '100%', borderRadius: '8px', transition: 'transform 0.3s' }} onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'} />
             </a>
           </div>
-          <p style={{ marginTop: '1rem', color: '#aaa', fontSize: '0.9rem' }}>
-            Username: <strong style={{ color: '#00FF8C' }}>thehusnain</strong>
-            &nbsp;• Rank: <strong style={{ color: '#00D9FF' }}>Top 2%</strong>
+          <p style={{ marginTop: '1.5rem', color: '#aaa', fontSize: '0.95rem' }}>
+            Active learner on TryHackMe, consistently practicing and improving offensive security skills.
           </p>
         </div>
       </div>

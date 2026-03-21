@@ -39,12 +39,6 @@ const CertificatesPage = () => {
           desc="Comprehensive coverage of networking, web applications, and security fundamentals."
         />
         <CertCard 
-          img="/assets/techjam.png"
-          title="CTF Competition Participation"
-          issuer="PAF-IAST Cyber-Sec Society"
-          desc="Practical recognition for participating in competitive security challenges."
-        />
-        <CertCard 
           img="/assets/webinar.png"
           title="Cyber Security Fundamentals Webinar"
           issuer="SecureDevLabs"

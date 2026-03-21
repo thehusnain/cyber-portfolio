@@ -9,9 +9,9 @@ const Contact = () => {
         <div className="contact-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
           <div className="contact-grid">
             <ContactItem icon="fa-envelope" title="Email" link="mailto:huxnain.cs@gmail.com" text="huxnain.cs@gmail.com" />
-            <ContactItem icon="fa-github" title="GitHub" link="https://github.com/thehusnain" text="github.com/thehusnain" delay="0.1s" />
-            <ContactItem icon="fa-terminal" title="TryHackMe" link="https://tryhackme.com/p/thehusnain" text="tryhackme.com/p/thehusnain" delay="0.2s" />
-            <ContactItem icon="fa-linkedin" title="LinkedIn" link="https://linkedin.com/in/husnain-fiaz-7a4761369" text="linkedin.com/in/husnain-fiaz-7a4761369" delay="0.3s" />
+            <ContactItem icon="fa-github" title="GitHub" link="https://github.com/thehusnain" text="github.com/husnain" delay="0.1s" />
+            <ContactItem icon="fa-terminal" title="TryHackMe" link="https://tryhackme.com/p/thehusnain" text="tryhackme.com/p/husnain" delay="0.2s" />
+            <ContactItem icon="fa-linkedin" title="LinkedIn" link="https://linkedin.com/in/husnain-fiaz-7a4761369" text="linkedin.com/in/husnain" delay="0.3s" />
             <ContactItem icon="fa-discord" title="Discord" link="#" text="thephantomdelux" delay="0.4s" />
             <ContactItem icon="fa-location-dot" title="Location" link="#" text="Haripur, Pakistan" delay="0.5s" />
           </div>

@@ -114,7 +114,7 @@ const Hero = () => {
                   </p>
                 ))}
                 {isDone && (
-                  <p className="output">thehusnain <span className="typing-cursor">▌</span></p>
+                  <p className="output">husnain <span className="typing-cursor">▌</span></p>
                 )}
               </div>
             </div>

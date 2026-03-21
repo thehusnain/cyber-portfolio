@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navigation.css';
 
 const Navigation = () => {
@@ -13,6 +14,7 @@ const Navigation = () => {
     { name: 'Experience', path: '/#experience', icon: 'fa-briefcase' },
     { name: 'Education', path: '/#education', icon: 'fa-graduation-cap' },
     { name: 'Certs', path: '/#certifications', icon: 'fa-award' },
+    { name: 'CTFs', path: '/ctfs', icon: 'fa-flag' },
     { name: 'Projects', path: '/#projects', icon: 'fa-code' },
     { name: 'Contact', path: '/#contact', icon: 'fa-envelope' }
   ];
@@ -31,7 +33,7 @@ const Navigation = () => {
 
         <div className="sidebar-inner">
           <div className="sidebar-brand">
-            <div className="sidebar-logo">&gt;_thehusnain</div>
+            <div className="sidebar-logo">&gt;_husnain</div>
             <div className="sidebar-tagline">red team · security</div>
           </div>
 
@@ -43,9 +45,9 @@ const Navigation = () => {
 
           <div className="sidebar-links">
             {navLinks.map((link, index) => (
-              <a href={link.path} key={index} onClick={() => setIsOpen(false)}>
+              <Link to={link.path} key={index} onClick={() => setIsOpen(false)}>
                 <i className={`fas ${link.icon}`}></i><span>{link.name}</span>
-              </a>
+              </Link>
             ))}
           </div>
 
