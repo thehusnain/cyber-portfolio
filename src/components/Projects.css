@@ -7,7 +7,7 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -55,8 +55,22 @@
   letter-spacing: 1px;
   display: inline-block;
   margin-right: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .project-link:hover {
   text-shadow: 0 0 10px rgba(0, 255, 140, 0.5);
 }
+
+@media (max-width: 768px) {
+  #projects {
+    padding: 3rem 1rem;
+  }
+  .project-card {
+    padding: 1.5rem;
+  }
+  .projects-grid {
+    gap: 1.5rem;
+  }
+}
+

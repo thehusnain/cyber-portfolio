@@ -8,6 +8,12 @@ const Projects = () => {
         <h2>Projects</h2>
         <div className="projects-grid">
           <ProjectCard 
+            title="🧱 SecureWall (scw)"
+            description="SecureWall is a professional CLI firewall management and monitoring tool for Debian-based Linux distributions (including Ubuntu and Kali). It manages the system firewall, detects interfaces, applies predefined rules, and analyzes firewall logs."
+            tags={['Bash', 'Linux', 'Firewall', 'CLI', 'Security']}
+            repoLink="https://github.com/thehusnain/SecureWall"
+          />
+          <ProjectCard 
             title="🛡️ WebShield Scanner"
             description="A comprehensive web application security scanner that tests websites for vulnerabilities using Nmap, SQLMap, SSLScan, and Nikto. Features automated report generation with AI analysis."
             tags={['Nmap', 'SQLMap', 'SSLScan', 'Nikto', 'AI Reporting']}
