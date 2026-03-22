@@ -1,87 +1,108 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, Sphere, Box, Plane, Sparkles } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useState, useEffect, useMemo } from 'react';
 import './BootScreen.css';
 
-// Forensic Scanner Core Model
-const ForensicScanner = ({ sequence }) => {
-  const globeRef = useRef(null);
-  const scanPlaneRef = useRef(null);
-  const dataPointsRef = useRef(null);
-
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-    
-    // Rotating Globe representing the global database
-    if (globeRef.current) {
-      globeRef.current.rotation.y = t * 0.4;
-      globeRef.current.rotation.x = t * 0.1;
-    }
-    
-    // Scanning Plane moving up and down
-    if (scanPlaneRef.current) {
-      scanPlaneRef.current.position.y = Math.sin(t * 2) * 1.5;
-    }
-    
-    if (dataPointsRef.current) {
-      dataPointsRef.current.rotation.y = -t * 0.2;
-    }
-  });
+// Randomly generate floating threat nodes
+const ThreatNodes = () => {
+  const nodes = useMemo(() => {
+    return Array.from({ length: 35 }).map((_, i) => {
+      const isRed = Math.random() > 0.5;
+      const types = ['WARNING', 'SYSTEM HACK', 'BREACH DETECTED', 'MALWARE'];
+      const icons = ['fa-exclamation-triangle', 'fa-lock', 'fa-shield-alt', 'fa-bug', 'fa-wifi', 'fa-map-marker-alt'];
+      
+      return {
+        id: i,
+        type: types[Math.floor(Math.random() * types.length)],
+        icon: icons[Math.floor(Math.random() * icons.length)],
+        colorClass: isRed ? 'threat-red' : 'threat-cyan',
+        top: Math.random() * 100 + '%',
+        left: Math.random() * 100 + '%',
+        width: Math.random() * 120 + 80 + 'px',
+        animationDuration: Math.random() * 20 + 10 + 's',
+        animationDelay: '-' + Math.random() * 20 + 's',
+        direction: Math.random() > 0.5 ? 'float-left' : 'float-right',
+      };
+    });
+  }, []);
 
   return (
-    <group position={[0, 0, 0]}>
-      {/* Target Wireframe Globe */}
-      <mesh ref={globeRef}>
-        <sphereGeometry args={[2, 24, 24]} />
-        <meshBasicMaterial color="#00D9FF" wireframe transparent opacity={sequence === 3 ? 0.8 : 0.2} />
-      </mesh>
-
-      {/* Internal Identity Core (Appears when match is found) */}
-      <Sphere args={[1.5, 32, 32]} scale={sequence === 3 ? 1 : 0.001}>
-        <meshStandardMaterial 
-          color="#00FF8C" 
-          emissive="#00FF8C" 
-          emissiveIntensity={1} 
-          wireframe={false} 
-          transparent
-          opacity={sequence === 3 ? 1 : 0}
-        />
-      </Sphere>
-
-      {/* Scanning Laser Plane */}
-      <mesh ref={scanPlaneRef} rotation={[Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[6, 6]} />
-        <meshBasicMaterial 
-          color="#00FF8C" 
-          transparent 
-          opacity={sequence >= 1 && sequence < 3 ? 0.4 : 0.0} 
-          side={THREE.DoubleSide} 
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-
-      {/* Floating Database Nodes */}
-      <group ref={dataPointsRef}>
-        <Sparkles count={300} scale={8} size={2.5} speed={0.8} opacity={0.6} color="#00D9FF" />
-      </group>
-    </group>
+    <div className="threat-nodes-container">
+      {nodes.map(node => (
+        <div 
+          key={node.id} 
+          className={`threat-node ${node.colorClass} ${node.direction}`}
+          style={{
+            top: node.top,
+            left: node.left,
+            width: node.width,
+            animationDuration: node.animationDuration,
+            animationDelay: node.animationDelay
+          }}
+        >
+          <div className="threat-header">
+            <i className={`fas ${node.icon}`}></i>
+          </div>
+          <div className="threat-body">
+            {node.type}
+          </div>
+          <div className="threat-footer">
+            <div className="line-bar"></div>
+            <span>0x{Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}</span>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
-// Grid floor for scale
-const TacticalGrid = () => {
-  const gridRef = useRef(null);
-  useFrame((state) => {
-    if (gridRef.current) {
-      gridRef.current.position.z = (state.clock.getElapsedTime() * 5) % 2;
-    }
-  });
-
+// Facial Recognition Scanner Component
+const FacialScanner = ({ sequence }) => {
   return (
-    <group position={[0, -4, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <gridHelper ref={gridRef} args={[80, 80, '#00D9FF', '#001a1a']} />
-    </group>
+    <div className="facial-scanner-wrapper">
+      <div className="fs-corner fs-tl"></div>
+      <div className="fs-corner fs-tr"></div>
+      <div className="fs-corner fs-bl"></div>
+      <div className="fs-corner fs-br"></div>
+      
+      {/* Background Grid */}
+      <div className="fs-grid"></div>
+
+      {/* Simplified User Avatar */}
+      <div className={`fs-face-container ${sequence === 3 ? 'match-success' : ''}`}>
+        {sequence >= 1 && (
+          <>
+            <div className="fs-user-icon">
+              <i className="fas fa-user"></i>
+            </div>
+            
+            {/* Analysis Nodes */}
+            {sequence === 2 && (
+              <div className="fs-vector-nodes">
+                <div className="node n1"></div>
+                <div className="node n2"></div>
+                <div className="node n3"></div>
+                <div className="node n4"></div>
+                <div className="node n5"></div>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Scanning Laser */}
+      {sequence >= 1 && sequence < 3 && (
+        <div className="fs-laser">
+          <div className="fs-laser-beam"></div>
+          <div className="fs-laser-light"></div>
+        </div>
+      )}
+
+      {/* Verification Overlay */}
+      {sequence === 3 && (
+        <div className="fs-verified-overlay">
+          <i className="fas fa-check-circle fs-icon"></i>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -90,17 +111,16 @@ const BootScreen = ({ onComplete }) => {
   const [sequence, setSequence] = useState(0);
   const [bootLogs, setBootLogs] = useState([]);
   const [hexData, setHexData] = useState([]);
-  const [profileScan, setProfileScan] = useState(false);
 
   const messages = useMemo(() => [
-    "INITIALIZING FORENSIC SUITE...",
-    "CONNECTING TO GLOBAL SURVEILLANCE NODE...",
-    "ACQUIRING TARGET TELEMETRY...",
-    "EXTRACTING BIOMETRIC HASH...",
-    "SEARCHING KNOWN THREAT DATABASES...",
-    "CROSS-REFERENCING FINGERPRINTS...",
-    "ANALYZING FACIAL RECOGNITION VECTORS...",
-    "IDENTITY MATCH CONFIRMED.",
+    "INITIATING FACIAL RECOGNITION MODULE...",
+    "CALIBRATING DEPTH SENSORS...",
+    "DETECTING FACIAL GEOMETRY...",
+    "MAPPING 3D FACIAL LANDMARKS...",
+    "RUNNING BIOMETRIC ANALYSIS...",
+    "COMPUTING FEATURE VECTOR...",
+    "MATCHING AGAINST DATABASE...",
+    "FACE DETECTED SUCCESSFULLY.",
   ], []);
 
   const handleSkip = () => {
@@ -112,20 +132,17 @@ const BootScreen = ({ onComplete }) => {
   };
 
   useEffect(() => {
-    const s1 = setTimeout(() => setSequence(1), 1800); // SCANNING
-    const s2 = setTimeout(() => {
-      setSequence(2);
-      setProfileScan(true);
-    }, 4000); // ANALYZING
-    const s3 = setTimeout(() => setSequence(3), 6200); // MATCH FOUND
-    const s4 = setTimeout(() => handleSkip(), 8500);   // FADE OUT
+    const s1 = setTimeout(() => setSequence(1), 2000); // CAPTURING FACE
+    const s2 = setTimeout(() => setSequence(2), 4500); // ANALYZING VECTORS
+    const s3 = setTimeout(() => setSequence(3), 7000); // MATCH FOUND
+    const s4 = setTimeout(() => handleSkip(), 9500);   // FADE OUT
 
     const hexInterval = setInterval(() => {
       const newHex = Array.from({ length: 6 }, () => 
         Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0').toUpperCase()
       );
       setHexData(newHex);
-    }, 80);
+    }, 60);
 
     let logIndex = 0;
     const logInterval = setInterval(() => {
@@ -133,7 +150,7 @@ const BootScreen = ({ onComplete }) => {
         setBootLogs(prev => [...prev, messages[logIndex]]);
         logIndex++;
       }
-    }, 500);
+    }, 600);
 
     return () => {
       clearTimeout(s1); clearTimeout(s2); clearTimeout(s3); clearTimeout(s4);
@@ -143,86 +160,71 @@ const BootScreen = ({ onComplete }) => {
   }, [messages]);
 
   return (
-    <div className={`boot-screen-3d ${fading ? 'fade-out' : ''}`} onClick={handleSkip}>
+    <div className={`boot-screen-threat ${fading ? 'fade-out' : ''}`} onClick={handleSkip}>
       
-      {/* 3D Background */}
-      <div className="canvas-container">
-        <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
-          <ambientLight intensity={0.3} />
-          <pointLight position={[0, 4, 0]} intensity={2} color="#00D9FF" />
-          <ForensicScanner sequence={sequence} />
-          <TacticalGrid />
-        </Canvas>
-      </div>
+      {/* Background Map & Nodes */}
+      <div className="bg-world-map"></div>
+      <ThreatNodes />
 
-      {/* Forensic Interface Overlay */}
-      <div className="cyber-hud-overlay">
+      {/* Cyber HUD Overlay */}
+      <div className="threat-hud-overlay">
         
         {/* Top Header */}
-        <div className="hud-header">
-          <div className="stream stream-left">
+        <div className="th-header">
+          <div className="th-stream">
             {hexData.slice(0, 3).map((h, i) => <span key={i}>0x{h}</span>)}
           </div>
-          <div className="hud-status forensic-status">
-            <span className="dot pulse-blue"></span>
-            AFIS_TERMINAL_ONLINE
+          <div className="th-status-box">
+            <span className="dot pulse-red"></span>
+            FACIAL RECOGNITION SYSTEM
           </div>
-          <div className="stream stream-right">
+          <div className="th-stream">
             {hexData.slice(3, 6).map((h, i) => <span key={i}>0x{h}</span>)}
           </div>
         </div>
 
-        {/* Live Forensic Logs */}
-        <div className="boot-console">
+        {/* Live Logs */}
+        <div className="th-console">
           {bootLogs.map((log, i) => (
-            <div key={i} className="log-line">
-              <span className="log-prefix">sys_log&gt;</span> {log}
+            <div key={i} className="th-log-line">
+              <span className="th-log-prefix">[SYS_LOG]</span> {log}
             </div>
           ))}
-          <div className="log-line typing-cursor">_</div>
+          <div className="th-log-line typing-cursor">_</div>
         </div>
 
-        {/* Dynamic Center Identity Box */}
-        <div className="hud-center-target forensic-target">
-          <div className="corner c-top-left"></div>
-          <div className="corner c-top-right"></div>
-          <div className="corner c-bottom-left"></div>
-          <div className="corner c-bottom-right"></div>
+        {/* Center Target & Sequence */}
+        <div className="th-center-panel">
+          <FacialScanner sequence={sequence} />
           
-          <div className="sequence-panel">
-            {sequence === 0 && <h2 className="phase-text blink">INITIALIZING SCANNER</h2>}
-            {sequence === 1 && <h2 className="phase-text tech blink">ACQUIRING BIOMETRICS...</h2>}
-            {sequence === 2 && <h2 className="phase-text">CROSS-REFERENCING DB</h2>}
+          <div className="th-sequence-text">
+            {sequence === 0 && <h2 className="th-phase blink cyan-text">INITIALIZING SCANNER</h2>}
+            {sequence === 1 && <h2 className="th-phase tech blink red-text">SCANNING FACE...</h2>}
+            {sequence === 2 && <h2 className="th-phase cyan-text">ANALYZING FACIAL GEOMETRY</h2>}
             {sequence === 3 && (
-              <div className="match-found-panel">
-                <h2 className="phase-text granted glitch" data-text="MATCH FOUND">MATCH FOUND</h2>
-                <div className="identity-card">
-                  <div className="id-photo"><i className="fas fa-user-secret"></i></div>
-                  <div className="id-details">
-                    <p>SUBJECT: <span>HUSNAIN</span></p>
-                    <p>CLEARANCE: <span>MAXIMUM</span></p>
-                  </div>
-                </div>
+              <div className="th-match-panel">
+                <h2 className="th-phase granted" data-text="FACE DETECTED">FACE DETECTED</h2>
+                <p className="th-clearance">ACCESS GRANTED</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Footer Metrics */}
-        <div className="hud-footer">
-          <div className="hud-metrics">
-            <div>CONFIDENCE: {sequence === 3 ? '99.9%' : Math.floor(Math.random() * 50 + 20) + '%'}</div>
-            <div>NODES: {Math.floor(Math.random() * 9000 + 1000)}</div>
+        <div className="th-footer">
+          <div className="th-metrics">
+            <div className="cyan-text">CONFIDENCE: {sequence === 3 ? '99.9%' : (sequence * 30 + 10) + '%'}</div>
+            <div className="red-text">LANDMARKS: {Math.floor(Math.random() * 180 + 68)}</div>
           </div>
           
-          <div className="hud-progress-wrapper">
-            <div className="hud-progress-track">
-              <div className={`hud-progress-fill phase-${sequence}`}></div>
+          <div className="th-progress-wrapper">
+            <div className="th-progress-track">
+              <div className={`th-progress-fill phase-${sequence}`}></div>
             </div>
-            <div className="hud-progress-label">FORENSIC ANALYSIS PROGRESS</div>
+            <div className="th-progress-label">IDENTIFICATION PROGRESS</div>
           </div>
           
-          <div className="skip-hint">[ CLICK SCREEN TO OVERRIDE ]</div>
+          <div className="th-skip-hint">[ SYSTEM OVERRIDE - CLICK TO BYPASS ]</div>
         </div>
 
       </div>
