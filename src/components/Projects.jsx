@@ -21,18 +21,10 @@ const Projects = () => {
             repoLink="https://github.com/webshield-tech"
           />
           <ProjectCard 
-            title="🧪 Vulnerable Practice Lab"
-            description="Personal vulnerable lab environment for practicing penetration testing techniques legally. Includes intentionally vulnerable web applications and network services for skill development."
-            tags={['Docker', 'Kali Linux', 'Web Exploitation', 'Network Security']}
-            demoLink="#"
-            delay="0.1s"
-          />
-          <ProjectCard 
-            title="🔐 Cryptography Toolkit"
-            description="Collection of cryptography tools and scripts for encryption, decryption, and cryptographic analysis. Includes implementations of various ciphers and cryptographic protocols."
-            tags={['Python', 'Cryptography', 'Encryption', 'Security']}
-            demoLink="#contact"
-            delay="0.2s"
+            title="🕵🏽‍♂️ WhatsOSINT"
+            description="View data of a WhatsApp number, including its status, photo, etc. 🕵🏽‍♂️"
+            tags={['Python', 'OSINT', 'WhatsApp']}
+            repoLink="https://github.com/thehusnain/WhatsInfo"
           />
         </div>
       </div>
