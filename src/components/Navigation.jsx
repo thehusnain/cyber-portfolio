@@ -8,15 +8,17 @@ const Navigation = () => {
   const handleToggle = () => setIsOpen(!isOpen);
 
   const navLinks = [
-    { name: 'Home', path: '/#home', icon: 'fa-home' },
-    { name: 'About', path: '/#about', icon: 'fa-user' },
-    { name: 'THM Stats', path: '/#skills', icon: 'fa-chart-bar' },
-    { name: 'Experience', path: '/#experience', icon: 'fa-briefcase' },
-    { name: 'Education', path: '/#education', icon: 'fa-graduation-cap' },
-    { name: 'Certs', path: '/#certifications', icon: 'fa-award' },
-    { name: 'CTFs', path: '/ctfs', icon: 'fa-flag' },
-    { name: 'Projects', path: '/#projects', icon: 'fa-code' },
-    { name: 'Contact', path: '/#contact', icon: 'fa-envelope' }
+    { name: 'Home',       path: '/#home',            icon: 'fa-home' },
+    { name: 'About',      path: '/#about',           icon: 'fa-user' },
+    { name: 'FSociety',   path: '/#fsociety',        icon: 'fa-user-secret' },
+    { name: 'THM Stats',  path: '/#skills',          icon: 'fa-chart-bar' },
+    { name: 'Experience', path: '/#experience',      icon: 'fa-briefcase' },
+    { name: 'Education',  path: '/#education',       icon: 'fa-graduation-cap' },
+    { name: 'Certs',      path: '/#certifications',  icon: 'fa-award' },
+    { name: 'CTFs',       path: '/ctfs',             icon: 'fa-flag' },
+    { name: 'Projects',   path: '/#projects',        icon: 'fa-code' },
+    { name: 'Resume',     path: '/#downloads',       icon: 'fa-file-pdf' },
+    { name: 'Contact',    path: '/#contact',         icon: 'fa-envelope' },
   ];
 
   return (

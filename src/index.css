@@ -1,17 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;600;700&display=swap');
+
 :root {
   --neon-green: #00FF8C;
   --neon-blue: #00D9FF;
-  --bg-dark: #0a0a0a;
-  --bg-darker: #121212;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --font-mono: 'Fira Code', 'Courier New', monospace;
-  --font-header: 'Share Tech Mono', 'Courier New', monospace;
-  
+  --neon-purple: #BD00FF;
+  --neon-red: #FF003C;
+  --bg-dark: #060608;
+  --bg-darker: #08080B;
+  --bg-card: rgba(12,12,18,0.85);
+  --text-primary: #e8e8f0;
+  --text-secondary: #8888aa;
+  --font-mono: 'Share Tech Mono', 'Fira Code', 'Courier New', monospace;
+  --font-header: 'Orbitron', 'Share Tech Mono', monospace;
+  --font-body: 'Exo 2', 'Rajdhani', sans-serif;
+  --font-display: 'Rajdhani', 'Exo 2', sans-serif;
+
   --sidebar-w: 230px;
   --sidebar-collapsed-w: 74px;
-  --sb-bg: rgba(8, 8, 10, 0.97);
-  --sb-border: rgba(0, 255, 140, 0.12);
+  --sb-bg: rgba(6, 6, 10, 0.97);
+  --sb-border: rgba(0, 255, 140, 0.10);
 }
 
 * {
@@ -21,49 +28,60 @@
 }
 
 body {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 1.05rem;
   background: var(--bg-darker);
   color: var(--text-primary);
   overflow-x: hidden;
+  line-height: 1.7;
 }
 
+/* ── Grid dot background ── */
 body::before {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(var(--neon-green) 1px, transparent 1px);
-  background-size: 50px 50px;
-  opacity: 0.05;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image:
+    radial-gradient(rgba(0,255,140,0.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 1;
   z-index: -2;
   pointer-events: none;
 }
 
+/* ── CRT scan-lines ── */
 body::after {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: repeating-linear-gradient(0deg,
-    rgba(0, 0, 0, 0.15),
-    rgba(0, 0, 0, 0.15) 1px,
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.12),
+    rgba(0,0,0,0.12) 1px,
     transparent 1px,
-    transparent 2px);
+    transparent 3px
+  );
   z-index: -1;
-  opacity: 0.35;
+  opacity: 0.3;
   pointer-events: none;
 }
 
-/* Global Typography & Utils */
+/* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-header);
   font-weight: 700;
   margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+p, li, span, label, input, textarea {
+  font-family: var(--font-body);
+}
+
+code, pre, .mono {
+  font-family: var(--font-mono);
 }
 
 a {
@@ -77,27 +95,61 @@ a:hover {
   text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
 }
 
+/* ── Glitch effect ── */
 .glitch {
   position: relative;
   color: white;
-  animation: glitch 1s linear infinite;
+  font-family: var(--font-header);
+  animation: glitch 3s linear infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  font: inherit;
+}
+.glitch::before {
+  color: var(--neon-red);
+  animation: glitch-before 3s linear infinite;
+  clip-path: polygon(0 15%, 100% 15%, 100% 40%, 0 40%);
+  opacity: 0;
+}
+.glitch::after {
+  color: var(--neon-blue);
+  animation: glitch-after 3s linear infinite;
+  clip-path: polygon(0 60%, 100% 60%, 100% 85%, 0 85%);
+  opacity: 0;
 }
 
 @keyframes glitch {
-  0%, 88%, 100% {
-      transform: translate(0);
-      text-shadow: 0 0 12px rgba(0, 255, 140, 0.6);
-  }
-  90% {
-      transform: translate(-3px, 1px);
-      text-shadow: 3px 0 0 rgba(255, 0, 60, 0.7), -3px 0 0 rgba(0, 217, 255, 0.7);
-  }
-  93% {
-      transform: translate(3px, -1px);
-      text-shadow: -3px 0 0 rgba(255, 0, 60, 0.7), 3px 0 0 rgba(0, 217, 255, 0.7);
-  }
-  96% {
-      transform: translate(0);
-      text-shadow: 0 0 12px rgba(0, 255, 140, 0.6);
-  }
+  0%, 85%, 100% { transform: translate(0); text-shadow: 0 0 14px rgba(0,255,140,0.5); }
+  87%            { transform: translate(-3px, 1px); }
+  90%            { transform: translate(3px, -1px); }
+  93%            { transform: translate(0); }
 }
+@keyframes glitch-before {
+  0%, 85%, 100% { opacity: 0; transform: translate(0); }
+  87%            { opacity: 1; transform: translate(-4px, 0); }
+  90%            { opacity: 1; transform: translate(2px, 0); }
+  92%            { opacity: 0; }
+}
+@keyframes glitch-after {
+  0%, 85%, 100% { opacity: 0; transform: translate(0); }
+  88%            { opacity: 1; transform: translate(4px, 0); }
+  91%            { opacity: 1; transform: translate(-2px, 0); }
+  93%            { opacity: 0; }
+}
+
+/* ── Utility animations ── */
+@keyframes pulse {
+  0%, 100% { transform: scale(0.95); box-shadow: 0 0 10px var(--neon-green); }
+  50%       { transform: scale(1.05); box-shadow: 0 0 20px var(--neon-green); }
+}
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp 0.6s ease-out both; }

@@ -1,0 +1,279 @@
+/* ═══════════════════════════════════════
+   FSOCIETY-PK SECTION
+   ═══════════════════════════════════════ */
+.fsociety-section {
+  padding: 5rem 2rem;
+  position: relative;
+  z-index: 10;
+  background: rgba(6, 4, 12, 0.6);
+  border-top: 1px solid rgba(189,0,255,0.08);
+  border-bottom: 1px solid rgba(189,0,255,0.08);
+}
+
+/* ── Header ── */
+.fsociety-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.fsociety-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 5px;
+  color: rgba(0,255,140,0.6);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.fsociety-header h2 {
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  color: #fff;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.1em;
+}
+
+.fsociety-tagline {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: rgba(0,255,140,0.7);
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+/* ── Main card ── */
+.fsociety-card {
+  position: relative;
+  display: flex;
+  gap: 3rem;
+  align-items: stretch;
+  background: rgba(8,12,12,0.9);
+  border: 1px solid rgba(0,255,140,0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  backdrop-filter: blur(16px);
+  flex-wrap: wrap;
+}
+
+.fsociety-card-glow {
+  position: absolute;
+  top: -80px; left: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,140,0.08) 0%, transparent 70%);
+  pointer-events: none;
+  animation: fsGlowPulse 4s ease-in-out infinite;
+}
+@keyframes fsGlowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.4); opacity: 1; }
+}
+
+/* ── Brand column (left) ── */
+.fsociety-brand-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-width: 200px;
+  padding-right: 2.5rem;
+  border-right: 1px solid rgba(0,255,140,0.12);
+}
+
+.fsociety-logo-wrap {
+  position: relative;
+  width: 100px; height: 100px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.fsociety-logo-inner {
+  width: 70px; height: 70px;
+  background: rgba(0,255,140,0.1);
+  border: 1px solid rgba(0,255,140,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  color: #00FF8C;
+  box-shadow: 0 0 24px rgba(0,255,140,0.3);
+  z-index: 2;
+}
+
+.fsociety-logo-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+.ring-a {
+  border-top-color: rgba(0,255,140,0.6);
+  border-bottom-color: rgba(0,255,140,0.6);
+  animation: fsSpin 6s linear infinite;
+}
+.ring-b {
+  border-left-color: rgba(0,217,255,0.4);
+  border-right-color: rgba(0,217,255,0.4);
+  animation: fsSpin 10s linear infinite reverse;
+  inset: 8px;
+}
+@keyframes fsSpin { to { transform: rotate(360deg); } }
+
+.fsociety-org-name {
+  font-family: var(--font-header);
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.fsociety-founder-badge {
+  background: linear-gradient(135deg, rgba(0,255,140,0.2), rgba(0,217,255,0.1));
+  border: 1px solid rgba(0,255,140,0.4);
+  color: #00FF8C;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 0 14px rgba(0,255,140,0.2);
+}
+
+.fsociety-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.fsociety-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(0,255,140,0.2);
+  border-radius: 6px;
+  color: rgba(0,255,140,0.7);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.fsociety-link:hover {
+  border-color: #00FF8C;
+  color: #00FF8C;
+  background: rgba(0,255,140,0.06);
+  box-shadow: 0 0 12px rgba(0,255,140,0.2);
+}
+.fsociety-link i { width: 14px; text-align: center; flex-shrink: 0; }
+
+/* ── Detail column (right) ── */
+.fsociety-detail-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 260px;
+}
+
+/* ── Terminal ── */
+.fsociety-terminal {
+  background: rgba(4,8,8,0.95);
+  border-radius: 8px;
+  border: 1px solid rgba(0,255,140,0.15);
+  overflow: hidden;
+}
+
+.fsociety-terminal-bar {
+  background: #10201a;
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(0,255,140,0.1);
+}
+.td { width: 12px; height: 12px; border-radius: 50%; }
+.td-r { background: #ff5f56; }
+.td-y { background: #ffbd2e; }
+.td-g { background: #27c93f; }
+.fsociety-terminal-title {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(0,255,140,0.5);
+  letter-spacing: 1px;
+}
+
+.fsociety-terminal-body {
+  padding: 1.2rem 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #999;
+}
+.fs-prompt { color: #00FF8C; margin-right: 0.5rem; }
+.fs-cmd    { color: #00D9FF; }
+.fs-out    { color: #777; }
+.fs-highlight { color: var(--neon-green) !important; font-weight: 600; }
+.fs-cursor-line { margin-top: 0.2rem; }
+.typing-cursor { animation: blink 1s step-end infinite; color: var(--neon-green); }
+
+/* ── Stats row ── */
+.fsociety-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.fs-stat {
+  text-align: center;
+  background: rgba(0,255,140,0.05);
+  border: 1px solid rgba(0,255,140,0.12);
+  border-radius: 8px;
+  padding: 0.8rem 0.5rem;
+  transition: all 0.3s;
+}
+.fs-stat:hover {
+  border-color: rgba(0,255,140,0.35);
+  background: rgba(0,255,140,0.1);
+  box-shadow: 0 4px 16px rgba(0,255,140,0.1);
+}
+
+.fs-stat-val {
+  font-family: var(--font-header);
+  font-size: 1rem;
+  font-weight: 900;
+  color: #00FF8C;
+  letter-spacing: 2px;
+}
+.fs-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .fsociety-card {
+    flex-direction: column;
+    padding: 1.8rem 1.4rem;
+    gap: 2rem;
+  }
+  .fsociety-brand-col {
+    border-right: none;
+    border-bottom: 1px solid rgba(189,0,255,0.12);
+    padding-right: 0;
+    padding-bottom: 1.5rem;
+  }
+  .fsociety-stats { grid-template-columns: repeat(2, 1fr); }
+}

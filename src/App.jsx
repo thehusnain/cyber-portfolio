@@ -3,19 +3,19 @@ import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import CertificatesPage from './pages/CertificatesPage';
 import CtfsPage from './pages/CtfsPage';
-import BootScreen from './components/BootScreen';
+import CinematicIntro from './components/CinematicIntro';
 import CyberBackground from './components/CyberBackground';
 import { useState } from 'react';
 import './index.css';
 
 function App() {
-  const [booting, setBooting] = useState(true);
+  const [intro, setIntro] = useState(true);
 
   return (
     <Router>
-      {booting && <BootScreen onComplete={() => setBooting(false)} />}
+      {intro && <CinematicIntro onComplete={() => setIntro(false)} />}
       <CyberBackground />
-      {!booting && (
+      {!intro && (
         <>
           <Navigation />
           <main className="main-content">

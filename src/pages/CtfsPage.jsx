@@ -20,6 +20,19 @@ const CtfsPage = () => {
 
       <div className="ctfs-grid">
         <CtfCard 
+          img="/assets/ctfs/Hack4Bug-ctf/hack4bug.png"
+          title="Hack4Bug CTF"
+          rank="Active Participant"
+          team="Team: Meoww"
+          desc="Participated in the Hack4Bug CTF competition as a member of Team Meoww. Tackled challenges spanning web exploitation, forensics, and reverse engineering. Earned the official CTF Player Badge and contributed to the team's writeups and solves across multiple categories."
+          stats={["CTF Player Badge", "Team: Meoww"]}
+          gallery={[
+            "/assets/ctfs/Hack4Bug-ctf/scoreboard.png",
+            "/assets/ctfs/Hack4Bug-ctf/team.png",
+          ]}
+          badge="/assets/ctfs/Hack4Bug-ctf/Hack4Bug - CTF Player Badge.pdf"
+        />
+        <CtfCard 
           img="/assets/ctfs/ramadanctf.png"
           title="Ramadan CTF 2026"
           rank="Global Rank: 22 / 697 Teams"
@@ -48,7 +61,7 @@ const CtfsPage = () => {
   );
 };
 
-const CtfCard = ({ img, title, rank, team, desc, stats }) => (
+const CtfCard = ({ img, title, rank, team, desc, stats, gallery, badge }) => (
   <div className="ctf-card fade-in">
     <div className="ctf-img-wrapper">
       <img src={img} alt={title} />
@@ -60,14 +73,34 @@ const CtfCard = ({ img, title, rank, team, desc, stats }) => (
       <div className="ctf-team">{team}</div>
       <h3>{title}</h3>
       <p>{desc}</p>
+
+      {gallery && gallery.length > 0 && (
+        <div className="ctf-gallery">
+          {gallery.map((src, i) => (
+            <a key={i} href={src} target="_blank" rel="noreferrer" className="ctf-thumb">
+              <img src={src} alt={`${title} screenshot ${i + 1}`} />
+              <div className="ctf-thumb-overlay"><i className="fas fa-expand-alt"></i></div>
+            </a>
+          ))}
+        </div>
+      )}
+
       <div className="ctf-stats">
         {stats.map((stat, i) => (
           <span key={i} className="ctf-badge">{stat}</span>
         ))}
       </div>
-      <a href={img} target="_blank" rel="noreferrer" className="ctf-btn">
-        <i className="fas fa-expand"></i> View Performance
-      </a>
+
+      <div className="ctf-actions">
+        <a href={img} target="_blank" rel="noreferrer" className="ctf-btn">
+          <i className="fas fa-expand"></i> View Performance
+        </a>
+        {badge && (
+          <a href={badge} download className="ctf-btn ctf-btn-secondary">
+            <i className="fas fa-certificate"></i> Download Badge
+          </a>
+        )}
+      </div>
     </div>
   </div>
 );
