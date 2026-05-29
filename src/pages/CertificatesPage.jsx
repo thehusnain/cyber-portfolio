@@ -1,66 +1,111 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../components/Certifications.css'; // Reusing some base styles
-import './CertificatesPage.css'; // Page specific styles
+import './CertificatesPage.css';
+
+const DEFAULT_FULL_CERTS = [
+  {
+    img: "/assets/readteamcertificate.png",
+    title: "Certified Threat Intelligence & Governance Analyst (CTIGA)",
+    issuer: "Red Team Leaders",
+    desc: "Advanced training covering threat actor profiling, threat intelligence lifecycle, security governance frameworks, indicators of compromise, and intelligence reporting.",
+    date: "Feb 2026",
+    icon: "fa-shield-halved"
+  },
+  {
+    img: "/assets/cisco.png",
+    title: "Introduction to Cybersecurity",
+    issuer: "Cisco Networking Academy",
+    desc: "Fundamental concepts in cybersecurity, exploring safety online, data confidentiality, vulnerability identification, and mitigation strategies.",
+    date: "2026",
+    icon: "fa-network-wired"
+  },
+  {
+    img: "/assets/presecuirty.png",
+    title: "Pre Security Learning Path",
+    issuer: "TryHackMe",
+    desc: "Foundational cybersecurity path including Web Technologies, Network Fundamentals, Linux Operating System basics, and basic security concepts.",
+    date: "2026",
+    icon: "fa-laptop-code"
+  },
+  {
+    img: "/assets/webinar.png",
+    title: "Cyber Security Fundamentals Webinar",
+    issuer: "SecureDevLabs",
+    desc: "Webinar covering essential components of modern web security, secure code design principles, and mitigation of top OWASP vulnerability classes.",
+    date: "2025",
+    icon: "fa-users"
+  }
+];
 
 const CertificatesPage = () => {
+  const [certs, setCerts] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    const savedCerts = localStorage.getItem('portfolio-certs');
+    if (savedCerts) {
+      try {
+        setCerts(JSON.parse(savedCerts));
+      } catch (e) {
+        setCerts(DEFAULT_FULL_CERTS);
+      }
+    } else {
+      setCerts(DEFAULT_FULL_CERTS);
+      localStorage.setItem('portfolio-certs', JSON.stringify(DEFAULT_FULL_CERTS));
+    }
   }, []);
 
   return (
-    <div className="cert-container" style={{ padding: '2rem', paddingTop: '100px', maxWidth: '1200px', margin: '0 auto' }}>
-      <Link to="/#certifications" className="back-link" style={{ display: 'inline-block', marginBottom: '2rem', color: '#aaa', textDecoration: 'none', transition: 'color 0.3s' }}>
+    <div className="certificates-page-container">
+      <Link to="/" className="cert-back-link">
         <i className="fas fa-arrow-left"></i> Back to Portfolio
       </Link>
       
-      <header className="cert-header" style={{ textAlign: 'center', marginBottom: '4rem' }}>
-        <h1 className="glitch" data-text="CERTIFICATIONS" style={{ fontSize: '3rem', marginBottom: '1rem', color: '#fff' }}>CERTIFICATIONS</h1>
-        <p className="subtitle" style={{ color: '#aaa' }}>Official recognition of my cybersecurity expertise and continuous learning</p>
+      <header className="certificates-page-header">
+        <h1>Certifications</h1>
+        <p className="certificates-page-subtitle">
+          Credentials, learning paths, and training achievements in cybersecurity and software engineering.
+        </p>
       </header>
 
-      <div className="cert-grid-page">
-        <CertCard 
-          img="/assets/readteamcertificate.png"
-          title="Certified Threat Intelligence & Governance Analyst"
-          issuer="Red Team Leaders"
-          desc="Advanced certification focusing on threat intelligence methodologies and security governance."
-        />
-        <CertCard 
-          img="/assets/cisco.png"
-          title="Introduction to Cybersecurity"
-          issuer="Cisco Networking Academy"
-          desc="Foundation knowledge in cybersecurity threats, risks, and mitigation strategies."
-        />
-        <CertCard 
-          img="/assets/presecuirty.png"
-          title="Pre Security Learning Path"
-          issuer="TryHackMe"
-          desc="Comprehensive coverage of networking, web applications, and security fundamentals."
-        />
-        <CertCard 
-          img="/assets/webinar.png"
-          title="Cyber Security Fundamentals Webinar"
-          issuer="SecureDevLabs"
-          desc="Acknowledge of participation in advanced cybersecurity fundamentals webinar."
-        />
+      <div className="certificates-detailed-grid">
+        {certs.map((cert, index) => (
+          <CertCard 
+            key={index}
+            img={cert.img}
+            title={cert.title}
+            issuer={cert.issuer}
+            desc={cert.desc}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
 const CertCard = ({ img, title, issuer, desc }) => (
-  <div className="full-cert-card fade-in">
-    <div className="cert-img-wrapper">
-      <img src={img} alt={title} />
+  <div className="cert-page-card fade-in">
+    <div className="cert-page-img-wrap">
+      <img 
+        src={img} 
+        alt={title} 
+        onError={(e) => {
+          e.target.src = 'https://ui-avatars.com/api/?name=Certificate&background=0f172a&color=00d9ff&size=400';
+        }}
+      />
     </div>
-    <div className="cert-info">
+    <div className="cert-page-info">
       <h3>{title}</h3>
-      <span className="cert-issuer">{issuer}</span>
+      <span className="cert-page-issuer">{issuer}</span>
       <p>{desc}</p>
-      <a href={img} target="_blank" rel="noreferrer" className="cert-btn"><i className="fas fa-eye"></i> View Full Image</a>
+      <div className="cert-page-actions">
+        <a href={img} target="_blank" rel="noreferrer" className="btn btn-secondary cert-page-btn">
+          <i className="fas fa-eye"></i> View Full Image
+        </a>
+      </div>
     </div>
   </div>
 );
 
 export default CertificatesPage;
+export { DEFAULT_FULL_CERTS };

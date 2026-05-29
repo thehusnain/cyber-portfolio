@@ -6,52 +6,78 @@ const Contact = () => {
     <section id="contact">
       <div className="section-container">
         <h2>Get In Touch</h2>
-        <div className="contact-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
-          <div className="contact-grid">
-            <ContactItem icon="fa-envelope" title="Email" link="mailto:huxnain.cs@gmail.com" text="huxnain.cs@gmail.com" />
-            <ContactItem icon="fa-github" title="GitHub" link="https://github.com/thehusnain" text="github.com/husnain" delay="0.1s" />
-            <ContactItem icon="fa-terminal" title="TryHackMe" link="https://tryhackme.com/p/thehusnain" text="tryhackme.com/p/husnain" delay="0.2s" />
-            <ContactItem icon="fa-linkedin" title="LinkedIn" link="https://linkedin.com/in/husnain-fiaz-7a4761369" text="linkedin.com/in/husnain" delay="0.3s" />
-            <ContactItem icon="fa-discord" title="Discord" link="#" text="thephantomdelux" delay="0.4s" />
-            <ContactItem icon="fa-location-dot" title="Location" link="#" text="Haripur, Pakistan" delay="0.5s" />
+        
+        <div className="contact-grid-layout">
+          
+          {/* Contact Details Grid */}
+          <div className="contact-info-pane fade-in">
+            <h3>Contact Information</h3>
+            <p className="contact-pane-desc">
+              Feel free to reach out for research collaboration, job opportunities, or ethical security inquiries.
+            </p>
+            
+            <div className="contact-list">
+              <ContactItem icon="fa-envelope" title="Email" link="mailto:contact@husnain.rocks" text="contact@husnain.rocks" />
+              <ContactItem icon="fa-github" title="GitHub" link="https://github.com/thehusnain" text="github.com/thehusnain" />
+              <ContactItem icon="fa-linkedin" title="LinkedIn" link="https://linkedin.com/in/husnain-fiaz-7a4761369" text="linkedin.com/in/husnain-fiaz" />
+              <ContactItem icon="fa-terminal" title="TryHackMe" link="https://tryhackme.com/p/thehusnain" text="tryhackme.com/p/thehusnain" />
+            </div>
           </div>
 
-          <div className="contact-form fade-in">
+          {/* Contact Form */}
+          <div className="contact-form-pane fade-in">
             <form action="https://formspree.io/f/xojnqqle" method="POST">
-              <div className="form-group">
-                <label>$ name --input</label>
-                <input type="text" name="name" placeholder="your name" required />
-                <small className="field-sign">Signed by husnain</small>
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="form-name">Name</label>
+                  <input type="text" id="form-name" name="name" placeholder="Your Name" required />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="form-email">Email Address</label>
+                  <input type="email" id="form-email" name="email" placeholder="email@example.com" required />
+                </div>
               </div>
-              <div className="form-group">
-                <label>$ email --input</label>
-                <input type="email" name="email" placeholder="your email address" required />
+              
+              <div className="form-group" style={{ marginTop: '1.25rem' }}>
+                <label htmlFor="form-message">Message</label>
+                <textarea id="form-message" name="message" rows="5" placeholder="How can I help you?" required></textarea>
               </div>
-              <div className="form-group">
-                <label>$ message --input</label>
-                <textarea name="message" placeholder="Your message here..." required></textarea>
-              </div>
+              
               <input type="text" name="_gotcha" style={{ display: 'none' }} />
-              <button type="submit" className="submit-btn cyber-btn">Send Message</button>
+              
+              <div className="form-submit-row">
+                <button type="submit" className="btn btn-primary submit-btn">
+                  Send Message <i className="fas fa-paper-plane"></i>
+                </button>
+              </div>
             </form>
           </div>
+          
         </div>
       </div>
     </section>
   );
 };
 
-const ContactItem = ({ icon, title, link, text, delay = '0s' }) => {
-  const iconClass = ['GitHub', 'LinkedIn', 'Discord'].includes(title) ? 'fab' : 'fas';
+const ContactItem = ({ icon, title, link, text }) => {
+  const isBrandIcon = ['GitHub', 'LinkedIn'].includes(title);
+  const iconClass = isBrandIcon ? 'fab' : 'fas';
+  
   return (
-    <div className="contact-item fade-in" style={{ animationDelay: delay }}>
-      <div className={`contact-icon ${title.toLowerCase()}`}>
+    <div className="contact-detail-item">
+      <div className="contact-detail-icon">
         <i className={`${iconClass} ${icon}`}></i>
       </div>
-      <h3>{title}</h3>
-      <a href={link} target={link.startsWith('http') ? '_blank' : '_self'} rel="noreferrer">
-        {text}
-      </a>
+      <div className="contact-detail-content">
+        <span className="contact-detail-label">{title}</span>
+        {link === '#' ? (
+          <span className="contact-detail-value">{text}</span>
+        ) : (
+          <a href={link} target="_blank" rel="noreferrer" className="contact-detail-value">
+            {text}
+          </a>
+        )}
+      </div>
     </div>
   );
 };

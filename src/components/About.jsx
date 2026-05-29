@@ -1,96 +1,68 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import './About.css';
 
 const About = () => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [hasStarted, setHasStarted] = useState(false);
-  const codeRef = useRef(null);
-
-  const codeText = `info="Husnain"
-role="Cybersecurity Learner & Aspiring Red Teamer"
-location="Haripur, Pakistan"
-education="BS Computer Science"
-
-echo "Loading Achievements..."
-THM_RANK="Top 2% Global"
-CERTS=("Threat Intel (CTIGA)" "Pre Security" "CTF Participant")
-
-echo "Initializing Tools and Skills..."
-skills=("Web Pen Testing" "Cryptography" "Burp Suite" "Wireshark")
-
-for skill in "\${skills[@]}"; do
-  echo " -> Loading module: \$skill"
-done
-
-echo "System fully operational. Awaiting engagement..."
-`;
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-    
-    if (codeRef.current) {
-      observer.observe(codeRef.current);
-    }
-    
-    return () => {
-      if (codeRef.current) {
-        observer.unobserve(codeRef.current);
-      }
-    };
-  }, [hasStarted]);
-
-  useEffect(() => {
-    if (hasStarted) {
-      let i = 0;
-      const interval = setInterval(() => {
-        setDisplayedText(codeText.slice(0, i));
-        i++;
-        if (i > codeText.length) {
-          clearInterval(interval);
-        }
-      }, 20);
-      return () => clearInterval(interval);
-    }
-  }, [hasStarted, codeText]);
-
   return (
     <section id="about">
       <div className="section-container">
         <h2>About Me</h2>
-        <div className="about-container">
-          <div className="about-content fade-in">
-            <div className="about-text">
-              <ul className="about-points">
-                <li>Hi — I'm <span className="highlight">Husnain</span>, a passionate cybersecurity enthusiast and BS Computer Science student from <strong>Haripur, Pakistan</strong>.</li>
-                <li>Ranked in the <strong>top 2%</strong> globally on TryHackMe, demonstrating consistent dedication to learning.</li>
-                <li>Active participant in CTF challenges and creator of personalized vulnerable labs for legal practice.</li>
-                <li>Specialized focus on <strong>web application penetration testing</strong> and <strong>cryptography fundamentals</strong>.</li>
-                <li>Utilizing <strong>Kali Linux</strong> as my primary OS, with a tech stack including Burp Suite, Wireshark, Metasploit, and GitHub.</li>
-              </ul>
+        
+        <div className="about-grid">
+          {/* Left Column: Bio text */}
+          <div className="about-details fade-in">
+            <p>
+              Hello! I'm <strong className="highlight">Husnain</strong>, a dedicated Computer Science student 
+              specialized in cybersecurity, offensive security methodologies, and ethical hacking.
+            </p>
+            <p>
+              My journey is fueled by a relentless passion for identifying vulnerabilities and understanding the 
+              intricacies of secure network systems. Through rigorous self-guided practice and academic coursework, 
+              I have developed hands-on capabilities in Web Application Penetration Testing, Cryptography, 
+              and Forensics analysis.
+            </p>
+            <p>
+              I actively participate in international Capture The Flag (CTF) competitions, collaborating with my team 
+              <strong className="highlight"> FSOCIETY</strong>. In addition, I founded <strong className="highlight">FSOCIETY-PK</strong>, 
+              a local research collective aiming to build open-source security tools and train emerging talents.
+            </p>
+          </div>
+
+          {/* Right Column: Highlight Info Cards (Stacked) */}
+          <div className="about-cards-info-stacked fade-in">
+            <div className="about-info-card-stacked">
+              <div className="card-header-icon-wrap">
+                <i className="fas fa-university"></i>
+              </div>
+              <div className="card-desc">
+                <h4>Academic Education</h4>
+                <p className="card-main-val">BS in Computer Science</p>
+                <p className="card-sub-val">PAF-IAST, Pakistan</p>
+              </div>
             </div>
-            <div className="about-image">
-              <div className="code-window">
-                <div className="code-header">
-                  <div className="code-dot dot-red"></div>
-                  <div className="code-dot dot-yellow"></div>
-                  <div className="code-dot dot-green"></div>
-                  <span className="code-title">about.sh</span>
-                </div>
-                <div className="code-content" ref={codeRef}>
-                  <pre><code style={{ color: '#00FF8C', whiteSpace: 'pre-wrap', fontFamily: 'var(--font-mono)', lineHeight: '1.6' }}>
-{displayedText}<span className="typing-cursor hide" style={{ opacity: hasStarted && displayedText.length === codeText.length ? 0 : 1, animation: displayedText.length === codeText.length ? 'blink 1s step-end infinite' : 'none' }}>▌</span>
-                  </code></pre>
-                </div>
+            
+            <div className="about-info-card-stacked">
+              <div className="card-header-icon-wrap">
+                <i className="fas fa-laptop-code"></i>
+              </div>
+              <div className="card-desc">
+                <h4>Hands-On Laboratories</h4>
+                <p className="card-main-val">TryHackMe Practice Labs</p>
+                <p className="card-sub-val">Vulnerability Scanning, Privilege Escalation</p>
+              </div>
+            </div>
+
+            <div className="about-info-card-stacked">
+              <div className="card-header-icon-wrap">
+                <i className="fas fa-users"></i>
+              </div>
+              <div className="card-desc">
+                <h4>Security Teams</h4>
+                <p className="card-main-val">FSOCIETY (CTF Team)</p>
+                <p className="card-sub-val">Collaborative Threat Solving &amp; Pwn</p>
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </section>

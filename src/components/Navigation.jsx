@@ -1,71 +1,115 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
 
-const Navigation = () => {
+const Navigation = ({ theme, onToggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggle = () => setIsOpen(!isOpen);
+  // Desktop Collapse State - Persisted in localStorage!
+  const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(() => {
+    return localStorage.getItem('sidebar-desktop-collapsed') === 'true';
+  });
+
+  useEffect(() => {
+    if (isDesktopCollapsed) {
+      document.body.classList.add('sidebar-hidden');
+    } else {
+      document.body.classList.remove('sidebar-hidden');
+    }
+  }, [isDesktopCollapsed]);
+
+  const toggleSidebarDesktop = () => {
+    const nextVal = !isDesktopCollapsed;
+    setIsDesktopCollapsed(nextVal);
+    localStorage.setItem('sidebar-desktop-collapsed', String(nextVal));
+  };
 
   const navLinks = [
-    { name: 'Home',       path: '/#home',            icon: 'fa-home' },
-    { name: 'About',      path: '/#about',           icon: 'fa-user' },
-    { name: 'FSociety',   path: '/#fsociety',        icon: 'fa-user-secret' },
-    { name: 'THM Stats',  path: '/#skills',          icon: 'fa-chart-bar' },
-    { name: 'Experience', path: '/#experience',      icon: 'fa-briefcase' },
-    { name: 'Education',  path: '/#education',       icon: 'fa-graduation-cap' },
-    { name: 'Certs',      path: '/#certifications',  icon: 'fa-award' },
-    { name: 'CTFs',       path: '/ctfs',             icon: 'fa-flag' },
-    { name: 'Projects',   path: '/#projects',        icon: 'fa-code' },
-    { name: 'Resume',     path: '/#downloads',       icon: 'fa-file-pdf' },
-    { name: 'Contact',    path: '/#contact',         icon: 'fa-envelope' },
+    { name: 'Home',         path: '/#home',           icon: 'fa-home' },
+    { name: 'About',        path: '/#about',          icon: 'fa-user' },
+    { name: 'FSOCIETY-PK', path: '/fsociety',         icon: 'fa-user-secret' },
+    { name: 'Experience',   path: '/#experience',     icon: 'fa-briefcase' },
+    { name: 'Certificates', path: '/#certifications', icon: 'fa-award' },
+    { name: 'CTFs',         path: '/ctfs',            icon: 'fa-flag' },
+    { name: 'Projects',     path: '/#projects',       icon: 'fa-code' },
+    { name: 'Resume/CV',    path: '/#downloads',      icon: 'fa-file-pdf' },
+    { name: 'Contact',      path: '/#contact',        icon: 'fa-envelope' },
   ];
 
   return (
     <>
-      <button 
-        className={`sidebar-toggle ${isOpen ? 'open' : ''}`} 
-        onClick={handleToggle} 
-        aria-label="Toggle menu"
+      {/* Floating Restore Hamburger Button when desktop sidebar is collapsed */}
+      {isDesktopCollapsed && (
+        <button 
+          className="sidebar-expand-floating" 
+          onClick={toggleSidebarDesktop}
+          title="Expand Sidebar Navigation"
+        >
+          <i className="fas fa-bars"></i>
+        </button>
+      )}
+
+      {/* Floating Theme Toggle — top-right on desktop */}
+      <button
+        className="theme-toggle-floating"
+        onClick={onToggleTheme}
+        title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        aria-label="Toggle Theme"
       >
-        <span></span><span></span><span></span>
+        {theme === 'dark'
+          ? <><i className="fas fa-sun"></i><span>Light</span></>
+          : <><i className="fas fa-moon"></i><span>Dark</span></>
+        }
       </button>
 
-      <nav className={`sidebar-nav ${isOpen ? 'active' : ''}`} id="sidebarNav">
+      {/* Mobile Header Bar */}
+      <header className="mobile-header">
+        <div className="mobile-logo">&lt;_husnain</div>
+        <div className="mobile-actions">
+          <button className="theme-btn-mobile" onClick={onToggleTheme} aria-label="Toggle Theme">
+            {theme === 'dark' ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
+          </button>
+          <button
+            className={`sidebar-toggle ${isOpen ? 'open' : ''}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </header>
 
+      {/* Sidebar */}
+      <nav className={`sidebar-nav ${isOpen ? 'active' : ''}`} id="sidebarNav">
         <div className="sidebar-inner">
           <div className="sidebar-brand">
-            <div className="sidebar-logo">&gt;_husnain</div>
-            <div className="sidebar-tagline">red team · security</div>
-          </div>
-
-          <div className="sidebar-profile-mini">
-            <img src="/assets/profile.png" alt="Husnain"
-                 onError={(e) => e.target.src='https://ui-avatars.com/api/?name=Husnain&background=0a0a0a&color=00FF8C&size=80'} />
-            <div className="sidebar-status"><span className="status-dot"></span> Online</div>
+            <div className="brand-header-flex">
+              <div className="sidebar-logo">&lt;_husnain</div>
+              {/* Desktop collapse button inside the brand section */}
+              <button 
+                className="desktop-collapse-toggle" 
+                onClick={toggleSidebarDesktop}
+                title="Collapse Sidebar"
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
+            </div>
+            <div className="sidebar-tagline">cybersec student · researcher</div>
           </div>
 
           <div className="sidebar-links">
-            {navLinks.map((link, index) => (
-              <Link to={link.path} key={index} onClick={() => setIsOpen(false)}>
-                <i className={`fas ${link.icon}`}></i><span>{link.name}</span>
+            {navLinks.map((link, i) => (
+              <Link to={link.path} key={i} onClick={() => setIsOpen(false)}>
+                <i className={`fas ${link.icon}`}></i>
+                <span>{link.name}</span>
               </Link>
             ))}
           </div>
-
-          <div className="sidebar-socials">
-            <a href="https://github.com/thehusnain" target="_blank" rel="noreferrer" title="GitHub"><i className="fab fa-github"></i></a>
-            <a href="https://tryhackme.com/p/thehusnain" target="_blank" rel="noreferrer" title="TryHackMe"><i className="fas fa-terminal"></i></a>
-            <a href="https://linkedin.com/in/husnain-fiaz-7a4761369" target="_blank" rel="noreferrer" title="LinkedIn"><i className="fab fa-linkedin"></i></a>
-            <a href="mailto:huxnain.cs@gmail.com" title="Email"><i className="fas fa-envelope"></i></a>
-          </div>
         </div>
       </nav>
+
       {isOpen && (
-        <div 
-          className="sidebar-overlay active" 
-          onClick={() => setIsOpen(false)}
-        ></div>
+        <div className="sidebar-overlay active" onClick={() => setIsOpen(false)}></div>
       )}
     </>
   );

@@ -6,21 +6,30 @@ const Experience = () => {
     <section id="experience">
       <div className="section-container">
         <h2>Experience &amp; Education</h2>
-        <div className="timeline">
+        
+        <div className="timeline-container">
+          <div className="timeline-line"></div>
+          
           <TimelineItem 
             title="BS Computer Science"
+            subtitle="Government Akhtar Nawaz Khan Shaheed Degree College, KTS"
             date="2023 - Present"
-            description="Pursuing Bachelor's degree in Computer Science with focus on cybersecurity fundamentals, networking, operating systems, and secure software development principles."
+            description="Pursuing my Bachelor's degree in Computer Science, focusing on cybersecurity foundations, data structures, networking protocols, operating systems, and secure software development practices."
+            icon="fa-graduation-cap"
           />
           <TimelineItem 
-            title="Self-Learning & Practice"
+            title="Self-Driven Cybersecurity Practice"
+            subtitle="Offensive Security Training"
             date="2025 - Present"
-            description="Intensive self-study in cybersecurity through TryHackMe, CTF challenges, and vulnerable lab environments. Building practical skills in web penetration testing."
+            description="Intense self-guided training on TryHackMe and CTF competitions. Building capabilities in web penetration testing, network analysis, cryptography foundations, and forensic investigation."
+            icon="fa-laptop-code"
           />
           <TimelineItem 
-            title="Vulnerable Lab Creation"
+            title="Vulnerable Labs Creator"
+            subtitle="Ethical Lab Development"
             date="2025 - Present"
-            description="Creating and maintaining personal vulnerable labs for legal practice and testing of security techniques. Implementing vulnerabilities to understand exploitation and remediation."
+            description="Creating and configuring custom vulnerable environments to safely practice exploitation, privilege escalation, and vulnerability mitigation. Writing documentation on security findings."
+            icon="fa-shield-halved"
           />
         </div>
       </div>
@@ -28,12 +37,19 @@ const Experience = () => {
   );
 };
 
-const TimelineItem = ({ title, date, description }) => (
-  <div className="timeline-item Math-in">
-    <div className="timeline-dot"></div>
-    <div className="timeline-content">
-      <h3>{title}</h3>
-      <div className="timeline-date">{date}</div>
+const TimelineItem = ({ title, subtitle, date, description, icon }) => (
+  <div className="timeline-item fade-in">
+    <div className="timeline-badge">
+      <i className={`fas ${icon}`}></i>
+    </div>
+    <div className="timeline-card">
+      <div className="timeline-header-block">
+        <div>
+          <h3>{title}</h3>
+          <span className="timeline-subtitle">{subtitle}</span>
+        </div>
+        <span className="timeline-date">{date}</span>
+      </div>
       <p className="timeline-description">{description}</p>
     </div>
   </div>

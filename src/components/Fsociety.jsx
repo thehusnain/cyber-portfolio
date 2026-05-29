@@ -1,103 +1,46 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Fsociety.css';
 
 const Fsociety = () => {
   return (
     <section id="fsociety" className="fsociety-section">
       <div className="section-container">
-
-        {/* ── Header ── */}
+        
+        {/* Header - badge moved below title */}
         <div className="fsociety-header">
-          <div className="fsociety-badge">[ ORGANIZATION ]</div>
-          <h2 className="glitch" data-text="FSOCIETY-PK">FSOCIETY-PK</h2>
+          <h2>FSOCIETY-PK</h2>
+          <div style={{ marginTop: '1.25rem' }}>
+            <span className="fsociety-badge">Research Collective</span>
+          </div>
           <p className="fsociety-tagline">
-            "We are finally free. We are finally awake."
+            Building open-source security tools and fostering cybersecurity education in Pakistan.
           </p>
         </div>
 
-        {/* ── Main card ── */}
-        <div className="fsociety-card">
-          <div className="fsociety-card-glow" />
-
-          {/* Left: branding */}
-          <div className="fsociety-brand-col">
+        {/* Card Container */}
+        <div className="fsociety-card" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="fsociety-brand-col" style={{ borderRight: 'none', padding: '3.5rem 2.5rem' }}>
             <div className="fsociety-logo-wrap">
-              <div className="fsociety-logo-ring ring-a" />
-              <div className="fsociety-logo-ring ring-b" />
               <div className="fsociety-logo-inner">
                 <i className="fas fa-user-secret" />
               </div>
             </div>
             <div className="fsociety-org-name">FSOCIETY-PK</div>
             <div className="fsociety-founder-badge">
-              <i className="fas fa-crown" /> FOUNDER
+              <i className="fas fa-crown" /> Founder &amp; Lead
             </div>
 
-            <div className="fsociety-links">
-              <a
-                href="https://fsocietypk.tech"
-                target="_blank"
-                rel="noreferrer"
-                className="fsociety-link"
-              >
-                <i className="fas fa-globe" />
-                fsocietypk.tech
-              </a>
-              <a
-                href="https://github.com/orgs/fsociety-pk/dashboard"
-                target="_blank"
-                rel="noreferrer"
-                className="fsociety-link"
-              >
-                <i className="fab fa-github" />
-                github/fsociety-pk
-              </a>
-            </div>
-          </div>
+            <p style={{ maxWidth: '600px', margin: '0 auto 2.5rem auto', color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
+              FSOCIETY-PK is a cybersecurity group founded to advance offensive security research, 
+              participate in Capture The Flag challenges, and publish open-source security tools. 
+              Explore our core objectives, documentation, and tools list on our dedicated hub.
+            </p>
 
-          {/* Right: details */}
-          <div className="fsociety-detail-col">
-            <div className="fsociety-terminal">
-              <div className="fsociety-terminal-bar">
-                <span className="td td-r" /><span className="td td-y" /><span className="td td-g" />
-                <span className="fsociety-terminal-title">fsociety-pk.sh</span>
-              </div>
-              <div className="fsociety-terminal-body">
-                <p><span className="fs-prompt">$</span> <span className="fs-cmd">cat mission.txt</span></p>
-                <p className="fs-out">FSociety-PK is a Pakistani cybersecurity collective dedicated</p>
-                <p className="fs-out">to ethical hacking, open-source security research, and</p>
-                <p className="fs-out">building the next generation of cyber defenders in Pakistan.</p>
-                <br />
-                <p><span className="fs-prompt">$</span> <span className="fs-cmd">whoami --role</span></p>
-                <p className="fs-out fs-highlight">Husnain — Founder &amp; Lead Operator</p>
-                <br />
-                <p><span className="fs-prompt">$</span> <span className="fs-cmd">cat focus.txt</span></p>
-                <p className="fs-out">&gt; Red Team Operations</p>
-                <p className="fs-out">&gt; CTF Competitions &amp; Writeups</p>
-                <p className="fs-out">&gt; Web App Penetration Testing</p>
-                <p className="fs-out">&gt; Community Training &amp; Research</p>
-                <br />
-                <p className="fs-cursor-line"><span className="fs-prompt">$</span> <span className="typing-cursor">▌</span></p>
-              </div>
-            </div>
-
-            <div className="fsociety-stats">
-              <div className="fs-stat">
-                <div className="fs-stat-val">PK</div>
-                <div className="fs-stat-label">Origin</div>
-              </div>
-              <div className="fs-stat">
-                <div className="fs-stat-val">CTF</div>
-                <div className="fs-stat-label">Focus</div>
-              </div>
-              <div className="fs-stat">
-                <div className="fs-stat-val">OSS</div>
-                <div className="fs-stat-label">Research</div>
-              </div>
-              <div className="fs-stat">
-                <div className="fs-stat-val">RED</div>
-                <div className="fs-stat-label">Team Ops</div>
-              </div>
+            <div className="fsociety-overview-cta">
+              <Link to="/fsociety" className="btn btn-primary" style={{ padding: '0.9rem 2rem' }}>
+                Explore Organization Hub <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
+              </Link>
             </div>
           </div>
         </div>

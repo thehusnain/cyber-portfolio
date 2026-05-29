@@ -3,30 +3,40 @@ import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import CertificatesPage from './pages/CertificatesPage';
 import CtfsPage from './pages/CtfsPage';
-import CinematicIntro from './components/CinematicIntro';
-import CyberBackground from './components/CyberBackground';
-import { useState } from 'react';
+import FsocietyPage from './pages/FsocietyPage';
+import SheriffControlPage from './pages/SheriffControlPage';
+import { useState, useEffect } from 'react';
 import './index.css';
 
 function App() {
-  const [intro, setIntro] = useState(true);
+  // Theme state: default to dark theme
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    return savedTheme || 'dark';
+  });
+
+  useEffect(() => {
+    // Apply the theme to documentElement
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
 
   return (
     <Router>
-      {intro && <CinematicIntro onComplete={() => setIntro(false)} />}
-      <CyberBackground />
-      {!intro && (
-        <>
-          <Navigation />
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/certificates" element={<CertificatesPage />} />
-              <Route path="/ctfs" element={<CtfsPage />} />
-            </Routes>
-          </main>
-        </>
-      )}
+      <Navigation theme={theme} onToggleTheme={toggleTheme} />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home theme={theme} />} />
+          <Route path="/certificates" element={<CertificatesPage />} />
+          <Route path="/ctfs" element={<CtfsPage />} />
+          <Route path="/fsociety" element={<FsocietyPage />} />
+          <Route path="/sheriff-control" element={<SheriffControlPage />} />
+        </Routes>
+      </main>
     </Router>
   );
 }
