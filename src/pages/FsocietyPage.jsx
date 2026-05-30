@@ -10,7 +10,7 @@ const FsocietyPage = () => {
   }, []);
 
   const terminalDocs = {
-    manifesto: `[ FSOCIETY-PK MANIFESTO ]
+    manifesto: `[ Fsociety pk MANIFESTO ]
 ==================================================
 1. We believe in open, accessible security education.
 2. We research, build, and publish open-source security tools.
@@ -67,7 +67,7 @@ Requirements:
       
       {/* Header */}
       <header className="fsociety-page-header">
-        <h1>FSOCIETY-PK</h1>
+        <h1>Fsociety pk</h1>
         <div style={{ marginTop: '1.25rem' }}>
           <span className="fs-page-badge">Official Organization Hub</span>
         </div>
@@ -131,7 +131,7 @@ Requirements:
               <div className="code-dot dot-red"></div>
               <div className="code-dot dot-yellow"></div>
               <div className="code-dot dot-green"></div>
-              <span className="code-title">FSOCIETYPK@CONSOLE:~/org$ cat {activeTab === 'manifesto' ? 'manifesto.txt' : activeTab === 'operators' ? 'operators.db' : activeTab === 'projects' ? 'tools_manifest.json' : 'join_collective.cfg'}</span>
+              <span className="code-title">Fsocietypk@CONSOLE:~/org$ cat {activeTab === 'manifesto' ? 'manifesto.txt' : activeTab === 'operators' ? 'operators.db' : activeTab === 'projects' ? 'tools_manifest.json' : 'join_collective.cfg'}</span>
             </div>
             <div className="code-content fs-console-workspace">
               <pre><code>{terminalDocs[activeTab]}</code><span className="typing-cursor"></span></pre>

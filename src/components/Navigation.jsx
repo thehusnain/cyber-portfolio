@@ -4,112 +4,111 @@ import './Navigation.css';
 
 const Navigation = ({ theme, onToggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
 
-  // Desktop Collapse State - Persisted in localStorage!
-  const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(() => {
-    return localStorage.getItem('sidebar-desktop-collapsed') === 'true';
-  });
-
+  // Scroll to Hide / Show Top Bar
   useEffect(() => {
-    if (isDesktopCollapsed) {
-      document.body.classList.add('sidebar-hidden');
-    } else {
-      document.body.classList.remove('sidebar-hidden');
-    }
-  }, [isDesktopCollapsed]);
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      // Show if scrolling up, or if near top
+      const isVisible = prevScrollPos > currentScrollPos || currentScrollPos < 10;
+      
+      setVisible(isVisible);
+      setPrevScrollPos(currentScrollPos);
+    };
 
-  const toggleSidebarDesktop = () => {
-    const nextVal = !isDesktopCollapsed;
-    setIsDesktopCollapsed(nextVal);
-    localStorage.setItem('sidebar-desktop-collapsed', String(nextVal));
-  };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
 
-  const navLinks = [
+  const mainLinks = [
     { name: 'Home',         path: '/#home',           icon: 'fa-home' },
     { name: 'About',        path: '/#about',          icon: 'fa-user' },
-    { name: 'FSOCIETY-PK', path: '/fsociety',         icon: 'fa-user-secret' },
     { name: 'Experience',   path: '/#experience',     icon: 'fa-briefcase' },
-    { name: 'Certificates', path: '/#certifications', icon: 'fa-award' },
-    { name: 'CTFs',         path: '/ctfs',            icon: 'fa-flag' },
     { name: 'Projects',     path: '/#projects',       icon: 'fa-code' },
     { name: 'Resume/CV',    path: '/#downloads',      icon: 'fa-file-pdf' },
     { name: 'Contact',      path: '/#contact',        icon: 'fa-envelope' },
   ];
 
+  const separateLinks = [
+    { name: 'Fsociety pk',  path: '/fsociety',        icon: 'fa-user-secret' },
+    { name: 'Internship',   path: '/internship',      icon: 'fa-user-shield' },
+    { name: 'Certificates', path: '/certificates',    icon: 'fa-award' },
+    { name: 'CTFs',         path: '/ctfs',            icon: 'fa-flag' },
+  ];
+
   return (
     <>
-      {/* Floating Restore Hamburger Button when desktop sidebar is collapsed */}
-      {isDesktopCollapsed && (
-        <button 
-          className="sidebar-expand-floating" 
-          onClick={toggleSidebarDesktop}
-          title="Expand Sidebar Navigation"
-        >
-          <i className="fas fa-bars"></i>
-        </button>
-      )}
+      <header className={`top-navbar ${visible ? 'nav-visible' : 'nav-hidden'} theme-${theme}`}>
+        <div className="navbar-container">
+          {/* Desktop Navigation Blocks */}
+          <div className="desktop-nav-block">
+            <div className="nav-row main-sections-row">
+              {mainLinks.map((link, i) => (
+                <Link to={link.path} key={i} className="nav-item">
+                  <i className={`fas ${link.icon}`}></i> <span>{link.name}</span>
+                </Link>
+              ))}
+            </div>
+            <div className="nav-row separate-pages-row">
+              {separateLinks.map((link, i) => (
+                <Link to={link.path} key={i} className="nav-item separate-page-item">
+                  <i className={`fas ${link.icon}`}></i> <span>{link.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
 
-      {/* Floating Theme Toggle — top-right on desktop */}
-      <button
-        className="theme-toggle-floating"
-        onClick={onToggleTheme}
-        title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        aria-label="Toggle Theme"
-      >
-        {theme === 'dark'
-          ? <><i className="fas fa-sun"></i><span>Light</span></>
-          : <><i className="fas fa-moon"></i><span>Dark</span></>
-        }
-      </button>
+          {/* Actions Column */}
+          <div className="navbar-actions">
+            <button 
+              className="theme-toggle-btn" 
+              onClick={onToggleTheme} 
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle Theme"
+            >
+              {theme === 'dark' ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
+            </button>
+            
+            <button 
+              className={`mobile-menu-toggle ${isOpen ? 'open' : ''}`} 
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              <span></span><span></span><span></span>
+            </button>
+          </div>
+        </div>
 
-      {/* Mobile Header Bar */}
-      <header className="mobile-header">
-        <div className="mobile-logo">&lt;_husnain</div>
-        <div className="mobile-actions">
-          <button className="theme-btn-mobile" onClick={onToggleTheme} aria-label="Toggle Theme">
-            {theme === 'dark' ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
-          </button>
-          <button
-            className={`sidebar-toggle ${isOpen ? 'open' : ''}`}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            <span></span><span></span><span></span>
-          </button>
+        {/* Mobile Navigation Drawer Overlay inside header */}
+        <div className={`mobile-nav-drawer ${isOpen ? 'active' : ''}`}>
+          <div className="mobile-drawer-section">
+            <h3>Portfolio Sections</h3>
+            <div className="mobile-links-grid">
+              {mainLinks.map((link, i) => (
+                <Link to={link.path} key={i} onClick={() => setIsOpen(false)} className="mobile-nav-item">
+                  <i className={`fas ${link.icon}`}></i> <span>{link.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+          
+          <div className="mobile-drawer-section">
+            <h3>Dedicated Pages</h3>
+            <div className="mobile-links-grid">
+              {separateLinks.map((link, i) => (
+                <Link to={link.path} key={i} onClick={() => setIsOpen(false)} className="mobile-nav-item separate">
+                  <i className={`fas ${link.icon}`}></i> <span>{link.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
-
-      {/* Sidebar */}
-      <nav className={`sidebar-nav ${isOpen ? 'active' : ''}`} id="sidebarNav">
-        <div className="sidebar-inner">
-          <div className="sidebar-brand">
-            <div className="brand-header-flex">
-              <div className="sidebar-logo">&lt;_husnain</div>
-              {/* Desktop collapse button inside the brand section */}
-              <button 
-                className="desktop-collapse-toggle" 
-                onClick={toggleSidebarDesktop}
-                title="Collapse Sidebar"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-            </div>
-            <div className="sidebar-tagline">cybersec student · researcher</div>
-          </div>
-
-          <div className="sidebar-links">
-            {navLinks.map((link, i) => (
-              <Link to={link.path} key={i} onClick={() => setIsOpen(false)}>
-                <i className={`fas ${link.icon}`}></i>
-                <span>{link.name}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </nav>
-
+      
       {isOpen && (
-        <div className="sidebar-overlay active" onClick={() => setIsOpen(false)}></div>
+        <div className="drawer-overlay active" onClick={() => setIsOpen(false)}></div>
       )}
     </>
   );

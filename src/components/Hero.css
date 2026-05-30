@@ -14,15 +14,17 @@
 /* Grid Layout */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 3rem;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2rem;
   align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 @media (max-width: 991px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
     text-align: center;
   }
 }
@@ -31,13 +33,8 @@
 .hero-details {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-
-@media (max-width: 991px) {
-  .hero-details {
-    align-items: center;
-  }
+  align-items: center;
+  text-align: center;
 }
 
 .hero-badge {
@@ -84,7 +81,7 @@
   font-size: 1.05rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 2.25rem;
+  margin: 0 auto 2.25rem auto;
   max-width: 600px;
 }
 
@@ -94,12 +91,7 @@
   margin-bottom: 2.5rem;
   width: 100%;
   flex-wrap: wrap;
-}
-
-@media (max-width: 991px) {
-  .hero-cta-buttons {
-    justify-content: center;
-  }
+  justify-content: center;
 }
 
 /* Tech Tag Badges - Colored system */
@@ -107,12 +99,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-}
-
-@media (max-width: 991px) {
-  .hero-tech-tags {
-    justify-content: center;
-  }
+  justify-content: center;
 }
 
 .tech-badge-colored {

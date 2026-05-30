@@ -3,12 +3,12 @@ import './Internships.css';
 
 const DEFAULT_INTERNSHIPS = [
   {
-    company: "Red Team Labs",
-    role: "Cybersecurity Research Intern",
-    instructor: "Dr. Azhar Khan (Principal Security Engineer)",
-    repoLink: "https://github.com/thehusnain/redteam-labs",
-    certificateLink: "#",
-    desc: "Conducted security audits, vulnerability scanning, and red team simulation tasks. Practiced advanced privilege escalation techniques, network protocol analysis, and wrote custom system monitors."
+    company: "Secure Dev Labs",
+    role: "Ethical Hacking Intern",
+    instructor: "Muhammad Saad Rajput",
+    repoLink: "https://github.com/thehusnain/SDL-Internship",
+    certificateLink: "/assets/internships/securedevlabs/secure-dev-labs.jpg",
+    desc: "One-month hands-on internship focusing on reconnaissance, web mapping, vulnerability validation, and structured reporting. Track: Ethical Hacking. Intern: Husnain Fiaz."
   }
 ];
 
@@ -19,7 +19,16 @@ const Internships = () => {
     const saved = localStorage.getItem('portfolio-internships');
     if (saved) {
       try {
-        setInternships(JSON.parse(saved));
+        let parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          // Force filter out the Red Team Labs internship
+          parsed = parsed.filter(item => item.company !== "Red Team Labs" && !item.role.includes("Research Intern"));
+          setInternships(parsed);
+          localStorage.setItem('portfolio-internships', JSON.stringify(parsed));
+        } else {
+          setInternships(DEFAULT_INTERNSHIPS);
+          localStorage.setItem('portfolio-internships', JSON.stringify(DEFAULT_INTERNSHIPS));
+        }
       } catch (e) {
         setInternships(DEFAULT_INTERNSHIPS);
       }

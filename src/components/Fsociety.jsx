@@ -7,38 +7,28 @@ const Fsociety = () => {
     <section id="fsociety" className="fsociety-section">
       <div className="section-container">
         
-        {/* Header - badge moved below title */}
-        <div className="fsociety-header">
-          <h2>FSOCIETY-PK</h2>
-          <div style={{ marginTop: '1.25rem' }}>
-            <span className="fsociety-badge">Research Collective</span>
+        <div className="fsociety-compact-card">
+          <div className="fsociety-logo-inner">
+            <i className="fas fa-user-secret" />
           </div>
-          <p className="fsociety-tagline">
-            Building open-source security tools and fostering cybersecurity education in Pakistan.
-          </p>
-        </div>
-
-        {/* Card Container */}
-        <div className="fsociety-card" style={{ gridTemplateColumns: '1fr' }}>
-          <div className="fsociety-brand-col" style={{ borderRight: 'none', padding: '3.5rem 2.5rem' }}>
-            <div className="fsociety-logo-wrap">
-              <div className="fsociety-logo-inner">
-                <i className="fas fa-user-secret" />
-              </div>
+          
+          <div className="fsociety-compact-info">
+            <h2>Fsociety pk</h2>
+            
+            <div className="fsociety-badge-row">
+              <span className="fsociety-badge">Research Collective</span>
+              <span className="fsociety-badge live-badge">
+                <i className="fas fa-globe"></i> Live: <a href="https://fsocietypk.tech" target="_blank" rel="noreferrer">fsocietypk.tech</a>
+              </span>
             </div>
-            <div className="fsociety-org-name">FSOCIETY-PK</div>
-            <div className="fsociety-founder-badge">
-              <i className="fas fa-crown" /> Founder &amp; Lead
-            </div>
-
-            <p style={{ maxWidth: '600px', margin: '0 auto 2.5rem auto', color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
-              FSOCIETY-PK is a cybersecurity group founded to advance offensive security research, 
-              participate in Capture The Flag challenges, and publish open-source security tools. 
-              Explore our core objectives, documentation, and tools list on our dedicated hub.
+            
+            <p className="fsociety-tagline">
+              A cybersecurity group founded to advance offensive security research and publish open-source tools. 
+              Our official collective research hub is live at <a href="https://fsocietypk.tech" target="_blank" rel="noreferrer" className="highlight">fsocietypk.tech</a>.
             </p>
-
+            
             <div className="fsociety-overview-cta">
-              <Link to="/fsociety" className="btn btn-primary" style={{ padding: '0.9rem 2rem' }}>
+              <Link to="/fsociety" className="btn btn-primary">
                 Explore Organization Hub <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
               </Link>
             </div>

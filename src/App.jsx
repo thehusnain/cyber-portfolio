@@ -5,6 +5,7 @@ import CertificatesPage from './pages/CertificatesPage';
 import CtfsPage from './pages/CtfsPage';
 import FsocietyPage from './pages/FsocietyPage';
 import SheriffControlPage from './pages/SheriffControlPage';
+import InternshipsPage from './pages/InternshipsPage';
 import { useState, useEffect } from 'react';
 import './index.css';
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/ctfs" element={<CtfsPage />} />
           <Route path="/fsociety" element={<FsocietyPage />} />
           <Route path="/sheriff-control" element={<SheriffControlPage />} />
+          <Route path="/internship" element={<InternshipsPage />} />
         </Routes>
       </main>
     </Router>

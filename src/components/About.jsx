@@ -22,8 +22,8 @@ const About = () => {
             </p>
             <p>
               I actively participate in international Capture The Flag (CTF) competitions, collaborating with my team 
-              <strong className="highlight"> FSOCIETY</strong>. In addition, I founded <strong className="highlight">FSOCIETY-PK</strong>, 
-              a local research collective aiming to build open-source security tools and train emerging talents.
+              <strong className="highlight">FSOCIETY</strong>. In addition, I founded <strong className="highlight">Fsociety pk</strong>,
+              a local research collective that builds open-source security tools and trains emerging talent.
             </p>
           </div>
 
@@ -36,7 +36,7 @@ const About = () => {
               <div className="card-desc">
                 <h4>Academic Education</h4>
                 <p className="card-main-val">BS in Computer Science</p>
-                <p className="card-sub-val">PAF-IAST, Pakistan</p>
+                <p className="card-sub-val">Government Akhtar Nawaz Khan Shaheed Degree College, KTS</p>
               </div>
             </div>
             

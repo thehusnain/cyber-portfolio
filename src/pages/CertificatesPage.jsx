@@ -35,6 +35,15 @@ const DEFAULT_FULL_CERTS = [
     date: "2025",
     icon: "fa-users"
   }
+  ,
+  {
+    img: "/assets/internships/securedevlabs/secure-dev-labs.jpg",
+    title: "Secure Dev Labs — Ethical Hacking Internship",
+    issuer: "Secure Dev Labs",
+    desc: "One-month hands-on internship focused on reconnaissance, web mapping, vulnerability validation, and reporting. Instructor: Muhammad Saad Rajput. Intern: Husnain Fiaz.",
+    date: "2026",
+    icon: "fa-briefcase"
+  }
 ];
 
 const CertificatesPage = () => {

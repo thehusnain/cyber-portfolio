@@ -3,7 +3,6 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import Fsociety from '../components/Fsociety';
 import Experience from '../components/Experience';
-import Internships from '../components/Internships';
 import Projects from '../components/Projects';
 import Certifications from '../components/Certifications';
 import CtfsSummary from '../components/CtfsSummary';
@@ -32,7 +31,6 @@ const Home = () => {
       <About />
       <Fsociety />
       <Experience />
-      <Internships />
       <Certifications />
       <CtfsSummary />
       <Projects />

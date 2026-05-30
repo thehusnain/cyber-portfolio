@@ -67,8 +67,21 @@ const SheriffControlPage = () => {
     }
 
     const savedInterns = localStorage.getItem('portfolio-internships');
-    if (savedInterns) setInternships(JSON.parse(savedInterns));
-    else {
+    if (savedInterns) {
+      try {
+        let parsed = JSON.parse(savedInterns);
+        if (Array.isArray(parsed)) {
+          parsed = parsed.filter(item => item.company !== "Red Team Labs" && !item.role.includes("Research Intern"));
+          setInternships(parsed);
+          localStorage.setItem('portfolio-internships', JSON.stringify(parsed));
+        } else {
+          setInternships(DEFAULT_INTERNSHIPS);
+          localStorage.setItem('portfolio-internships', JSON.stringify(DEFAULT_INTERNSHIPS));
+        }
+      } catch (e) {
+        setInternships(DEFAULT_INTERNSHIPS);
+      }
+    } else {
       setInternships(DEFAULT_INTERNSHIPS);
       localStorage.setItem('portfolio-internships', JSON.stringify(DEFAULT_INTERNSHIPS));
     }
