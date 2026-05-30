@@ -14,9 +14,11 @@ const InternshipsPage = () => {
       try {
         let parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          // Keep it clean and filter out Red Team Labs
-          parsed = parsed.filter(item => item.company !== "Red Team Labs" && !item.role.includes("Research Intern"));
-          setInternships(parsed);
+          parsed = parsed.filter(
+            item => item.company !== "Red Team Labs" && !item.role.includes("Research Intern")
+          );
+          // If filtering wiped everything, fall back to defaults
+          setInternships(parsed.length > 0 ? parsed : DEFAULT_INTERNSHIPS);
         } else {
           setInternships(DEFAULT_INTERNSHIPS);
         }

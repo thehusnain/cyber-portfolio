@@ -31,10 +31,10 @@ const DEFAULT_CTFS = [
   {
     img: "/assets/ctfs/pico-ctf/my-performance.png",
     title: "picoCTF 2026",
-    rank: "Rank #784 out of 8,747 teams (top 9% globally).",
+    rank: "Rank #784 out of 8,747 teams",
     team: "Team: Fsociety pk",
-    desc: "Competed in picoCTF 2026 and achieved rank #784 out of 8,747 teams (top 9% globally) with Team Fsociety pk. Scored a total of 8600 team points. Personal score details are visible in the performance image. Solved challenges in Binary Exploitation, Forensics, Cryptography, and Reverse Engineering.",
-    stats: ["8600 Team Score", "Rank #784", "Top 9% Global"],
+    desc: "Competed in picoCTF 2026 and achieved rank #784 out of 8,747 teams with Team Fsociety pk. Scored a total of 8600 team points. Personal score details are visible in the performance image. Solved challenges in Binary Exploitation, Forensics, Cryptography, and Reverse Engineering.",
+    stats: ["8600 Team Score", "Rank #784", "8,747 Teams"],
     gallery: [
       "/assets/ctfs/pico-ctf/scoreboard.png",
       "/assets/ctfs/pico-ctf/team.png",

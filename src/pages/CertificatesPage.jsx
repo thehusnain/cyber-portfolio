@@ -1,120 +1,281 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './CertificatesPage.css';
 
-const DEFAULT_FULL_CERTS = [
+const ALL_CERTS = [
   {
     img: "/assets/readteamcertificate.png",
-    title: "Certified Threat Intelligence & Governance Analyst (CTIGA)",
+    title: "Certified Threat Intelligence & Governance Analyst",
+    short: "CTIGA",
     issuer: "Red Team Leaders",
-    desc: "Advanced training covering threat actor profiling, threat intelligence lifecycle, security governance frameworks, indicators of compromise, and intelligence reporting.",
     date: "Feb 2026",
-    icon: "fa-shield-halved"
+    category: "Cybersecurity",
+    categoryColor: "#ff5f7e",
+    categoryBg: "rgba(255,95,126,0.08)",
+    categoryBorder: "rgba(255,95,126,0.2)",
+    desc: "Advanced training covering threat actor profiling, threat intelligence lifecycle, security governance frameworks, indicators of compromise, and professional intelligence reporting.",
+    icon: "fa-shield-halved",
+    link: "/assets/readteamcertificate.png",
+    isPdf: false,
   },
   {
     img: "/assets/cisco.png",
     title: "Introduction to Cybersecurity",
+    short: "Cisco",
     issuer: "Cisco Networking Academy",
-    desc: "Fundamental concepts in cybersecurity, exploring safety online, data confidentiality, vulnerability identification, and mitigation strategies.",
     date: "2026",
-    icon: "fa-network-wired"
+    category: "Networking",
+    categoryColor: "#00d9ff",
+    categoryBg: "rgba(0,217,255,0.08)",
+    categoryBorder: "rgba(0,217,255,0.2)",
+    desc: "Fundamental concepts in cybersecurity: online safety, data confidentiality, vulnerability identification, and mitigation strategies using Cisco frameworks.",
+    icon: "fa-network-wired",
+    link: "/assets/cisco.png",
+    isPdf: false,
   },
   {
     img: "/assets/presecuirty.png",
     title: "Pre Security Learning Path",
+    short: "THM",
     issuer: "TryHackMe",
-    desc: "Foundational cybersecurity path including Web Technologies, Network Fundamentals, Linux Operating System basics, and basic security concepts.",
     date: "2026",
-    icon: "fa-laptop-code"
+    category: "Learning Path",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16,185,129,0.08)",
+    categoryBorder: "rgba(16,185,129,0.2)",
+    desc: "Foundational cybersecurity path covering Web Technologies, Network Fundamentals, Linux Operating System basics, and core security concepts. Part of TryHackMe's structured curriculum.",
+    icon: "fa-laptop-code",
+    link: "/assets/presecuirty.png",
+    isPdf: false,
   },
   {
     img: "/assets/webinar.png",
     title: "Cyber Security Fundamentals Webinar",
+    short: "Webinar",
     issuer: "SecureDevLabs",
-    desc: "Webinar covering essential components of modern web security, secure code design principles, and mitigation of top OWASP vulnerability classes.",
     date: "2025",
-    icon: "fa-users"
-  }
-  ,
+    category: "Training",
+    categoryColor: "#a855f7",
+    categoryBg: "rgba(168,85,247,0.08)",
+    categoryBorder: "rgba(168,85,247,0.2)",
+    desc: "Webinar covering essential components of modern web security, secure code design principles, and mitigation of top OWASP vulnerability classes. Hosted by SecureDevLabs.",
+    icon: "fa-users",
+    link: "/assets/webinar.png",
+    isPdf: false,
+  },
   {
     img: "/assets/internships/securedevlabs/secure-dev-labs.jpg",
-    title: "Secure Dev Labs — Ethical Hacking Internship",
+    title: "Ethical Hacking Internship Certificate",
+    short: "SDL",
     issuer: "Secure Dev Labs",
-    desc: "One-month hands-on internship focused on reconnaissance, web mapping, vulnerability validation, and reporting. Instructor: Muhammad Saad Rajput. Intern: Husnain Fiaz.",
     date: "2026",
-    icon: "fa-briefcase"
-  }
+    category: "Internship",
+    categoryColor: "#f59e0b",
+    categoryBg: "rgba(245,158,11,0.08)",
+    categoryBorder: "rgba(245,158,11,0.2)",
+    desc: "One-month hands-on internship focusing on reconnaissance, web mapping, vulnerability validation, and structured reporting. Track: Ethical Hacking. Instructor: Muhammad Saad Rajput.",
+    icon: "fa-briefcase",
+    link: "/assets/internships/securedevlabs/secure-dev-labs.jpg",
+    isPdf: false,
+  },
+  {
+    img: null,
+    title: "CTF Participation Certificate",
+    short: "SecLeaf",
+    issuer: "SecLeaf CTF",
+    date: "2025",
+    category: "CTF",
+    categoryColor: "#06b6d4",
+    categoryBg: "rgba(6,182,212,0.08)",
+    categoryBorder: "rgba(6,182,212,0.2)",
+    desc: "Certificate of participation in the SecLeaf CTF competition. Competed in challenges spanning Web Exploitation, Reverse Engineering, Cryptography, and Forensics.",
+    icon: "fa-flag",
+    link: "/assets/ctfs/secleaf-ctf/certificate.pdf",
+    isPdf: true,
+  },
+  {
+    img: null,
+    title: "CTF Player Badge",
+    short: "Hack4Bug",
+    issuer: "Hack4Bug CTF",
+    date: "2025",
+    category: "CTF",
+    categoryColor: "#06b6d4",
+    categoryBg: "rgba(6,182,212,0.08)",
+    categoryBorder: "rgba(6,182,212,0.2)",
+    desc: "Official CTF Player Badge awarded for participation in the Hack4Bug security competition. Engaged in bug-hunting scenarios, real-world exploitation tasks, and team collaboration.",
+    icon: "fa-bug",
+    link: "/assets/ctfs/Hack4Bug-ctf/Hack4Bug - CTF Player Badge.pdf",
+    isPdf: true,
+  },
 ];
 
-const CertificatesPage = () => {
-  const [certs, setCerts] = useState([]);
+export const DEFAULT_FULL_CERTS = ALL_CERTS;
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const savedCerts = localStorage.getItem('portfolio-certs');
-    if (savedCerts) {
-      try {
-        setCerts(JSON.parse(savedCerts));
-      } catch (e) {
-        setCerts(DEFAULT_FULL_CERTS);
-      }
-    } else {
-      setCerts(DEFAULT_FULL_CERTS);
-      localStorage.setItem('portfolio-certs', JSON.stringify(DEFAULT_FULL_CERTS));
-    }
-  }, []);
-
-  return (
-    <div className="certificates-page-container">
-      <Link to="/" className="cert-back-link">
-        <i className="fas fa-arrow-left"></i> Back to Portfolio
-      </Link>
-      
-      <header className="certificates-page-header">
-        <h1>Certifications</h1>
-        <p className="certificates-page-subtitle">
-          Credentials, learning paths, and training achievements in cybersecurity and software engineering.
-        </p>
-      </header>
-
-      <div className="certificates-detailed-grid">
-        {certs.map((cert, index) => (
-          <CertCard 
-            key={index}
-            img={cert.img}
-            title={cert.title}
-            issuer={cert.issuer}
-            desc={cert.desc}
-          />
-        ))}
+const CertCard = ({ cert, onPreview }) => (
+  <div className="cert-page-card fade-in">
+    {/* Image preview or PDF placeholder */}
+    <div
+      className="cert-page-img-wrap"
+      onClick={() => onPreview(cert)}
+      style={{ cursor: 'pointer' }}
+      title="Click to preview"
+    >
+      {cert.img ? (
+        <img
+          src={cert.img}
+          alt={cert.title}
+          onError={(e) => {
+            e.target.src = 'https://ui-avatars.com/api/?name=Certificate&background=0f172a&color=00d9ff&size=400';
+          }}
+        />
+      ) : (
+        <div className="cert-pdf-placeholder">
+          <i className="fas fa-file-pdf"></i>
+          <span>PDF Document</span>
+        </div>
+      )}
+      <div className="cert-img-hover-overlay">
+        <i className="fas fa-expand"></i>
       </div>
     </div>
-  );
-};
 
-const CertCard = ({ img, title, issuer, desc }) => (
-  <div className="cert-page-card fade-in">
-    <div className="cert-page-img-wrap">
-      <img 
-        src={img} 
-        alt={title} 
-        onError={(e) => {
-          e.target.src = 'https://ui-avatars.com/api/?name=Certificate&background=0f172a&color=00d9ff&size=400';
-        }}
-      />
-    </div>
     <div className="cert-page-info">
-      <h3>{title}</h3>
-      <span className="cert-page-issuer">{issuer}</span>
-      <p>{desc}</p>
+      {/* Category tag + date */}
+      <div className="cert-meta-row">
+        <span
+          className="cert-category-tag"
+          style={{
+            color: cert.categoryColor,
+            backgroundColor: cert.categoryBg,
+            borderColor: cert.categoryBorder,
+          }}
+        >
+          <i className={`fas ${cert.icon}`}></i> {cert.category}
+        </span>
+        <span className="cert-date-badge">
+          <i className="fas fa-calendar-alt"></i> {cert.date}
+        </span>
+      </div>
+
+      <h3>{cert.title}</h3>
+      <span className="cert-page-issuer">
+        <i className="fas fa-building"></i> {cert.issuer}
+      </span>
+      <p>{cert.desc}</p>
+
       <div className="cert-page-actions">
-        <a href={img} target="_blank" rel="noreferrer" className="btn btn-secondary cert-page-btn">
-          <i className="fas fa-eye"></i> View Full Image
+        <button
+          className="cert-page-btn btn-preview"
+          onClick={() => onPreview(cert)}
+        >
+          <i className="fas fa-eye"></i> Preview
+        </button>
+        <a
+          href={cert.link}
+          target="_blank"
+          rel="noreferrer"
+          download={cert.isPdf}
+          className="cert-page-btn btn-download"
+        >
+          <i className={`fas ${cert.isPdf ? 'fa-download' : 'fa-external-link-alt'}`}></i>
+          {cert.isPdf ? 'Download PDF' : 'Open Full'}
         </a>
       </div>
     </div>
   </div>
 );
 
+const CertificatesPage = () => {
+  const [activeCert, setActiveCert] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const categories = ['All', ...Array.from(new Set(ALL_CERTS.map(c => c.category)))];
+
+  const filtered = activeCategory === 'All'
+    ? ALL_CERTS
+    : ALL_CERTS.filter(c => c.category === activeCategory);
+
+  return (
+    <div className="certificates-page-container">
+      <Link to="/" className="cert-back-link">
+        <i className="fas fa-arrow-left"></i> Back to Portfolio
+      </Link>
+
+      <header className="certificates-page-header">
+        <h1>Certifications</h1>
+        <p className="certificates-page-subtitle">
+          Credentials, learning paths, CTF badges and training achievements in cybersecurity.
+        </p>
+
+        {/* Category filter pills */}
+        <div className="cert-filter-row">
+          {categories.map(cat => (
+            <button
+              key={cat}
+              className={`cert-filter-btn ${activeCategory === cat ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </header>
+
+      <div className="certificates-detailed-grid">
+        {filtered.map((cert, i) => (
+          <CertCard key={i} cert={cert} onPreview={setActiveCert} />
+        ))}
+      </div>
+
+      {/* Lightbox Modal */}
+      {activeCert && (
+        <div className="cert-modal-overlay" onClick={() => setActiveCert(null)}>
+          <div className="cert-modal-content" onClick={e => e.stopPropagation()}>
+            <button
+              className="cert-modal-close"
+              onClick={() => setActiveCert(null)}
+              aria-label="Close"
+            >
+              <i className="fas fa-times"></i>
+            </button>
+            <div className="cert-modal-header">
+              <span
+                className="cert-category-tag"
+                style={{
+                  color: activeCert.categoryColor,
+                  backgroundColor: activeCert.categoryBg,
+                  borderColor: activeCert.categoryBorder,
+                }}
+              >
+                <i className={`fas ${activeCert.icon}`}></i> {activeCert.category}
+              </span>
+              <h3>{activeCert.title}</h3>
+              <p className="cert-modal-issuer">{activeCert.issuer} · {activeCert.date}</p>
+            </div>
+            <div className="cert-modal-body">
+              {activeCert.img ? (
+                <img src={activeCert.img} alt={activeCert.title} className="cert-modal-img" />
+              ) : (
+                <div className="cert-modal-pdf-notice">
+                  <i className="fas fa-file-pdf"></i>
+                  <p>This certificate is a PDF document.</p>
+                  <a
+                    href={activeCert.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <i className="fas fa-download"></i> Open / Download PDF
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default CertificatesPage;
-export { DEFAULT_FULL_CERTS };
