@@ -49,23 +49,51 @@ const Hero = () => {
 
   return (
     <section className="hero-section" id="home">
-      <div className="hero-container fade-in">
-        
-        {/* Main Grid: Profile Photo vs Intro Info */}
+      <div className="hero-container">
         <div className="hero-grid">
           
-          {/* Column 1: Introduction Details */}
+          {/* Column 1: Profile Picture (Left Column) */}
+          <div className="hero-visual animate-profile">
+            <div className="profile-img-container">
+              <div className="profile-img-glow"></div>
+              <img 
+                src="/assets/profile.png" 
+                alt="Husnain" 
+                className="profile-img-avatar"
+                onError={(e) => {
+                  e.target.src = 'https://ui-avatars.com/api/?name=Husnain&background=0f172a&color=00d9ff&size=300';
+                }}
+              />
+            </div>
+            
+            <div className="hero-social-under-pfp">
+              {socialLinks.map((social, index) => (
+                <a 
+                  key={index} 
+                  href={social.url} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="hero-pfp-social-icon"
+                  title={social.name}
+                >
+                  <i className={social.icon}></i>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Introduction Details (Right Column - Left Aligned for desktop) */}
           <div className="hero-details">
-            <span className="hero-badge">Cybersecurity Enthusiast</span>
-            <h1 className="hero-name">HUSNAIN</h1>
-            <p className="hero-title">BS Computer Science Student &amp; Security Researcher</p>
-            <p className="hero-bio">
+            <span className="hero-badge animate-text-1">Cybersecurity Enthusiast</span>
+            <h1 className="hero-name animate-text-2">HUSNAIN</h1>
+            <p className="hero-title animate-text-3">BS Computer Science Student &amp; Security Researcher</p>
+            <p className="hero-bio animate-text-4">
               Passionate about offensive security, ethical hacking, and building secure systems. 
               Currently pursuing my BS in Computer Science while actively practicing cybersecurity 
               methodologies. Top 2% global ranking on TryHackMe.
             </p>
             
-            <div className="hero-cta-buttons">
+            <div className="hero-cta-buttons animate-text-5">
               <a href="#projects" className="btn btn-primary">
                 View My Projects <i className="fas fa-arrow-right"></i>
               </a>
@@ -74,8 +102,7 @@ const Hero = () => {
               </a>
             </div>
 
-            {/* Redesigned Tech Stack coloring system with fetched online icons */}
-            <div className="hero-tech-tags">
+            <div className="hero-tech-tags animate-text-6">
               {techStack.map((tech, index) => (
                 <span 
                   key={index} 
@@ -100,39 +127,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Column 2: Profile Picture - Arranged Perfectly */}
-          <div className="hero-visual">
-            <div className="profile-img-container">
-              <div className="profile-img-glow"></div>
-              <img 
-                src="/assets/profile.png" 
-                alt="Husnain" 
-                className="profile-img-avatar"
-                onError={(e) => {
-                  e.target.src = 'https://ui-avatars.com/api/?name=Husnain&background=0f172a&color=00d9ff&size=300';
-                }}
-              />
-            </div>
-            
-            {/* Social media icons below the picture (Removed the THM status) */}
-            <div className="hero-social-under-pfp">
-              {socialLinks.map((social, index) => (
-                <a 
-                  key={index} 
-                  href={social.url} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="hero-pfp-social-icon"
-                  title={social.name}
-                >
-                  <i className={social.icon}></i>
-                </a>
-              ))}
-            </div>
-          </div>
-
         </div>
-
       </div>
     </section>
   );

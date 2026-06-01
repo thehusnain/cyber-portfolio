@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import CertificatesPage from './pages/CertificatesPage';
@@ -9,12 +9,14 @@ import InternshipsPage from './pages/InternshipsPage';
 import { useState, useEffect } from 'react';
 import './index.css';
 
-function App() {
+function AppContent() {
   // Theme state: default to dark theme
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('portfolio-theme');
     return savedTheme || 'dark';
   });
+
+  const location = useLocation();
 
   useEffect(() => {
     // Apply the theme to documentElement
@@ -27,9 +29,11 @@ function App() {
   };
 
   return (
-    <Router>
+    <>
       <Navigation theme={theme} onToggleTheme={toggleTheme} />
-      <main className="main-content">
+      
+      {/* key={location.pathname} forces animation to replay on page changes */}
+      <main className="main-content" key={location.pathname}>
         <Routes>
           <Route path="/" element={<Home theme={theme} />} />
           <Route path="/certificates" element={<CertificatesPage />} />
@@ -39,6 +43,14 @@ function App() {
           <Route path="/internship" element={<InternshipsPage />} />
         </Routes>
       </main>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

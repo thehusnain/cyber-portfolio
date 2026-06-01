@@ -18,6 +18,13 @@ const Experience = () => {
             icon="fa-graduation-cap"
           />
           <TimelineItem 
+            title="Diploma in Information Technology (DIT)"
+            subtitle="Govt College of Commerce, Haripur"
+            date="2022 - 2023"
+            description="Completed a one-year professional diploma covering software applications, web development foundations, database management, computer programming, and networking basics."
+            icon="fa-graduation-cap"
+          />
+          <TimelineItem 
             title="Self-Driven Cybersecurity Practice"
             subtitle="Offensive Security Training"
             date="2025 - Present"

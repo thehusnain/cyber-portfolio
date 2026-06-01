@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './CtfsPage.css';
 
@@ -45,8 +45,8 @@ const DEFAULT_CTFS = [
     title: "TechJam CTF",
     rank: "Individual Competitor",
     team: "Individual",
-    desc: "An introductory CTF experience at a local TechJam event hosted by my college. Great exposure to real-world security problems and CTF mechanics.",
-    stats: ["First CTF", "Learning Experience"],
+    desc: "My first physical CTF competition, held at PAF-IAST University. Got hands-on exposure to cybersecurity challenges, earning a certificate of participation.",
+    stats: ["First Physical CTF", "PAF-IAST University", "Participation Certificate"],
     gallery: [
       "/assets/ctfs/techjam-ctf/techjam.png"
     ]
@@ -85,6 +85,7 @@ const CtfsPage = () => {
   const [selectedCtf, setSelectedCtf] = useState(null);
   const [activeImgIdx, setActiveImgIdx] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const filmstripRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -97,6 +98,12 @@ const CtfsPage = () => {
         if (!Array.isArray(parsed) || parsed.length < DEFAULT_CTFS.length) {
           needsUpgrade = true;
         } else {
+          // Check if TechJam has the old description
+          const techJamCtf = parsed.find(c => c.title === "TechJam CTF");
+          if (techJamCtf && techJamCtf.desc.includes("hosted by my college")) {
+            needsUpgrade = true;
+          }
+
           // Check if any ctf has the old 'secleaf' path instead of 'secleaf-ctf'
           parsed = parsed.map(c => {
             if (c.img && c.img.includes('/assets/ctfs/secleaf/')) {
@@ -138,18 +145,39 @@ const CtfsPage = () => {
   // Autoplay Slideshow Effect
   useEffect(() => {
     let intervalId;
-    if (selectedCtf && selectedCtf.gallery && selectedCtf.gallery.length > 1 && isPlaying) {
+    if (selectedCtf && selectedCtf.combinedImages && selectedCtf.combinedImages.length > 1 && isPlaying) {
       intervalId = setInterval(() => {
-        setActiveImgIdx((prev) => (prev + 1) % selectedCtf.gallery.length);
-      }, 3000);
+        setActiveImgIdx((prev) => (prev + 1) % selectedCtf.combinedImages.length);
+      }, 3500);
     }
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
   }, [selectedCtf, isPlaying]);
 
+  // Continuous Filmstrip Scroll Sync
+  useEffect(() => {
+    if (filmstripRef.current && selectedCtf && selectedCtf.combinedImages) {
+      const activeThumb = filmstripRef.current.children[activeImgIdx];
+      if (activeThumb) {
+        filmstripRef.current.scrollTo({
+          left: activeThumb.offsetLeft - filmstripRef.current.offsetWidth / 2 + activeThumb.offsetWidth / 2,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [activeImgIdx, selectedCtf]);
+
   const handleOpenGallery = (ctf) => {
-    setSelectedCtf(ctf);
+    // Combine performance img and gallery list, ensuring unique, truthy image paths
+    const combinedImages = Array.from(
+      new Set([ctf.img, ...(ctf.gallery || [])])
+    ).filter(Boolean);
+
+    setSelectedCtf({
+      ...ctf,
+      combinedImages
+    });
     setActiveImgIdx(0);
     setIsPlaying(true);
   };
@@ -160,14 +188,14 @@ const CtfsPage = () => {
 
   const handlePrevImage = (e) => {
     e.stopPropagation();
-    if (!selectedCtf || !selectedCtf.gallery) return;
-    setActiveImgIdx((prev) => (prev - 1 + selectedCtf.gallery.length) % selectedCtf.gallery.length);
+    if (!selectedCtf || !selectedCtf.combinedImages) return;
+    setActiveImgIdx((prev) => (prev - 1 + selectedCtf.combinedImages.length) % selectedCtf.combinedImages.length);
   };
 
   const handleNextImage = (e) => {
     e.stopPropagation();
-    if (!selectedCtf || !selectedCtf.gallery) return;
-    setActiveImgIdx((prev) => (prev + 1) % selectedCtf.gallery.length);
+    if (!selectedCtf || !selectedCtf.combinedImages) return;
+    setActiveImgIdx((prev) => (prev + 1) % selectedCtf.combinedImages.length);
   };
 
   const togglePlay = (e) => {
@@ -201,30 +229,31 @@ const CtfsPage = () => {
             stats={ctf.stats || []}
             gallery={ctf.gallery}
             badge={ctf.badge}
-            onViewGallery={handleOpenGallery}
+            onViewGallery={() => handleOpenGallery(ctf)}
           />
         ))}
       </div>
 
       {/* Gallery Slideshow Modal with Blur Background */}
-      {selectedCtf && (
+      {selectedCtf && selectedCtf.combinedImages && (
         <div className="gallery-modal-overlay" onClick={handleCloseGallery}>
           <div className="gallery-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="gallery-modal-close" onClick={handleCloseGallery} aria-label="Close Gallery">
               <i className="fas fa-times"></i>
             </button>
 
+            {/* Container adjusts dynamically to active image dimensions */}
             <div className="gallery-slideshow-container">
               <div className="gallery-image-wrapper">
                 <img 
-                  src={selectedCtf.gallery[activeImgIdx]} 
+                  src={selectedCtf.combinedImages[activeImgIdx]} 
                   alt={`${selectedCtf.title} snapshot ${activeImgIdx + 1}`} 
-                  className="gallery-active-image"
-                  key={activeImgIdx} // key forces rerender for transition
+                  className="gallery-active-image animate-drift"
+                  key={activeImgIdx} // key forces re-mount for transition
                 />
               </div>
 
-              {selectedCtf.gallery.length > 1 && (
+              {selectedCtf.combinedImages.length > 1 && (
                 <>
                   <button className="gallery-nav-btn prev" onClick={handlePrevImage} aria-label="Previous Image">
                     <i className="fas fa-chevron-left"></i>
@@ -236,24 +265,51 @@ const CtfsPage = () => {
               )}
             </div>
 
+            {/* Continuous filmstrip scroll track at the bottom */}
+            {selectedCtf.combinedImages.length > 1 && (
+              <div 
+                className="gallery-filmstrip-track-container"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="gallery-filmstrip-scroller" ref={filmstripRef}>
+                  {selectedCtf.combinedImages.map((imagePath, i) => (
+                    <div 
+                      key={i}
+                      className={`gallery-filmstrip-thumb-wrapper ${i === activeImgIdx ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveImgIdx(i);
+                        setIsPlaying(false);
+                      }}
+                    >
+                      <img 
+                        src={imagePath} 
+                        alt="Thumbnail" 
+                        className="gallery-filmstrip-thumb"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="gallery-modal-footer">
               <div className="gallery-footer-info">
-                <h4>{selectedCtf.title} Achievements</h4>
-                <p>Evidence Image {activeImgIdx + 1} of {selectedCtf.gallery.length}</p>
+                <h4>{selectedCtf.title} Evidence</h4>
+                <p>Image {activeImgIdx + 1} of {selectedCtf.combinedImages.length}</p>
               </div>
 
               <div className="gallery-footer-controls">
-                {selectedCtf.gallery.length > 1 && (
+                {selectedCtf.combinedImages.length > 1 && (
                   <button className="gallery-control-btn play-pause" onClick={togglePlay}>
-                    <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-play'}`}></i> {isPlaying ? 'Pause' : 'Autoplay'}
+                    <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-play'}`}></i> {isPlaying ? 'Pause Autoplay' : 'Resume Autoplay'}
                   </button>
                 )}
               </div>
             </div>
 
-            {selectedCtf.gallery.length > 1 && (
+            {selectedCtf.combinedImages.length > 1 && (
               <div className="gallery-dots">
-                {selectedCtf.gallery.map((_, i) => (
+                {selectedCtf.combinedImages.map((_, i) => (
                   <button 
                     key={i} 
                     className={`gallery-dot ${i === activeImgIdx ? 'active' : ''}`}
@@ -284,15 +340,6 @@ const CtfCard = ({ accent = 0, img, title, rank, team, desc, stats, gallery, bad
 
       <p className="ctf-page-desc">{desc}</p>
 
-      {gallery && gallery.length > 0 && (
-        <button 
-          onClick={() => onViewGallery({ title, gallery })} 
-          className="btn btn-secondary ctf-gallery-trigger-btn"
-        >
-          <i className="fas fa-images"></i> View CTF Images
-        </button>
-      )}
-
       <div className="ctf-page-badges">
         {stats.map((stat, i) => (
           <span key={i} className="ctf-page-badge">{stat}</span>
@@ -300,11 +347,11 @@ const CtfCard = ({ accent = 0, img, title, rank, team, desc, stats, gallery, bad
       </div>
 
       <div className="ctf-page-actions">
-        <a href={img} target="_blank" rel="noreferrer" className="btn btn-secondary ctf-card-btn">
-          <i className="fas fa-expand"></i> Performance Image
-        </a>
+        <button onClick={onViewGallery} className="btn btn-primary ctf-card-btn view-performance-btn">
+          <i className="fas fa-chart-line"></i> View Performance
+        </button>
         {badge && (
-          <a href={badge} download className="btn btn-primary ctf-card-btn">
+          <a href={badge} download className="btn btn-secondary ctf-card-btn">
             <i className="fas fa-download"></i> Badge
           </a>
         )}

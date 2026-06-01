@@ -1,7 +1,8 @@
 .hero-section {
-  padding: 4rem 0;
+  padding: 4.5rem 0;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .hero-container {
@@ -9,16 +10,18 @@
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
+  position: relative;
 }
 
-/* Grid Layout */
+/* Grid Layout (0.85fr for Visual on left, 1.15fr for Details on right) */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 2rem;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 3.5rem;
   align-items: center;
-  max-width: 1000px;
+  max-width: 1050px;
   margin: 0 auto;
+  width: 100%;
 }
 
 @media (max-width: 991px) {
@@ -29,12 +32,41 @@
   }
 }
 
-/* Hero Details (Left Column) */
+/* Hero Details (Right Column - Left-aligned on Desktop) */
 .hero-details {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero-cta-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.hero-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-start;
+}
+
+@media (max-width: 991px) {
+  .hero-details {
+    align-items: center;
+    text-align: center;
+  }
+  .hero-cta-buttons {
+    justify-content: center;
+  }
+  .hero-tech-tags {
+    justify-content: center;
+  }
 }
 
 .hero-badge {
@@ -42,7 +74,7 @@
   background-color: var(--accent-cyber-bg);
   color: var(--accent-cyber);
   border: 1px solid var(--accent-cyber-border);
-  padding: 0.4rem 1rem;
+  padding: 0.45rem 1.1rem;
   font-size: 0.8rem;
   font-family: var(--font-header);
   font-weight: 600;
@@ -53,7 +85,7 @@
 }
 
 .hero-name {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
   line-height: 1.1;
   font-weight: 900;
   color: var(--text-primary);
@@ -65,43 +97,18 @@
   font-size: 1.25rem;
   font-weight: 500;
   color: var(--text-secondary);
-  margin-bottom: 0.75rem;
-}
-
-.hero-location {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .hero-bio {
   font-size: 1.05rem;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin: 0 auto 2.25rem auto;
+  line-height: 1.65;
+  margin-bottom: 2.25rem;
   max-width: 600px;
 }
 
-.hero-cta-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2.5rem;
-  width: 100%;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 /* Tech Tag Badges - Colored system */
-.hero-tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-}
-
 .tech-badge-colored {
   border-style: solid;
   border-width: 1px;
@@ -129,7 +136,7 @@
   display: inline-block;
 }
 
-/* Hero Visual & Profile Image (Right Column) */
+/* Hero Visual & Profile Image (Left Column) */
 .hero-visual {
   display: flex;
   flex-direction: column;
@@ -213,3 +220,50 @@
   transform: translateY(-3px);
   box-shadow: var(--shadow-md), var(--shadow-glow);
 }
+
+/* ==========================================================================
+   Sequential Written Text Reveal Animations
+   ========================================================================== */
+@keyframes heroTextReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroProfileReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-profile {
+  opacity: 0;
+  animation: heroProfileReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.1s;
+}
+
+.animate-text-1,
+.animate-text-2,
+.animate-text-3,
+.animate-text-4,
+.animate-text-5,
+.animate-text-6 {
+  opacity: 0;
+  animation: heroTextReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-text-1 { animation-delay: 0.15s; }
+.animate-text-2 { animation-delay: 0.28s; }
+.animate-text-3 { animation-delay: 0.38s; }
+.animate-text-4 { animation-delay: 0.48s; }
+.animate-text-5 { animation-delay: 0.58s; }
+.animate-text-6 { animation-delay: 0.68s; }

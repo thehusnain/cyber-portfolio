@@ -35,8 +35,8 @@ const About = () => {
               </div>
               <div className="card-desc">
                 <h4>Academic Education</h4>
-                <p className="card-main-val">BS in Computer Science</p>
-                <p className="card-sub-val">Government Akhtar Nawaz Khan Shaheed Degree College, KTS</p>
+                <p className="card-main-val">BS CS &amp; DIT</p>
+                <p className="card-sub-val">Govt Degree College, KTS / Govt College of Commerce, Haripur</p>
               </div>
             </div>
             

@@ -18,6 +18,14 @@ const DEFAULT_CERTS = [
     desc: "Comprehensive foundational coverage in networking concepts, operating systems, web applications, and cyber theory.",
     date: "2026",
     icon: "fa-network-wired"
+  },
+  {
+    img: "/assets/certificate-of-appreciation.png",
+    title: "Certificate of Appreciation",
+    issuer: "Govt Akhter Nawaz Khan Shaheed Degree College, KTS, Haripur",
+    desc: "Awarded for representing the college in cybersecurity and demonstrating technical excellence.",
+    date: "2026",
+    icon: "fa-award"
   }
 ];
 
@@ -29,13 +37,31 @@ const Certifications = () => {
     if (savedCerts) {
       try {
         const parsed = JSON.parse(savedCerts);
-        // Only show first two featured certs on homepage
-        setCerts(parsed.slice(0, 2));
+
+        // Force inject new certificate if missing, or update date if stored as 2025
+        const hasAppreciation = parsed.some(c => c.title.includes("Appreciation"));
+        if (!hasAppreciation) {
+          const updated = [...parsed, DEFAULT_CERTS[2]];
+          localStorage.setItem('portfolio-certs', JSON.stringify(updated));
+          setCerts(updated.slice(0, 3));
+        } else {
+          let modified = false;
+          parsed.forEach(c => {
+            if (c.title.includes("Appreciation") && c.date === "2025") {
+              c.date = "2026";
+              modified = true;
+            }
+          });
+          if (modified) {
+            localStorage.setItem('portfolio-certs', JSON.stringify(parsed));
+          }
+          setCerts(parsed.slice(0, 3));
+        }
       } catch (e) {
-        setCerts(DEFAULT_CERTS);
+        setCerts(DEFAULT_CERTS.slice(0, 3));
       }
     } else {
-      setCerts(DEFAULT_CERTS);
+      setCerts(DEFAULT_CERTS.slice(0, 3));
       localStorage.setItem('portfolio-certs', JSON.stringify(DEFAULT_CERTS));
     }
   }, []);
@@ -44,7 +70,7 @@ const Certifications = () => {
     <section id="certifications">
       <div className="section-container">
         <h2>Certifications</h2>
-        
+
         <div className="certifications-grid">
           {certs.map((cert, index) => (
             <div key={index} className="cert-card fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
@@ -62,7 +88,7 @@ const Certifications = () => {
             </div>
           ))}
         </div>
-        
+
         <div className="certifications-cta">
           <Link to="/certificates" className="btn btn-primary cert-view-all-btn">
             <i className="fas fa-award"></i> View All Certificates &rarr;

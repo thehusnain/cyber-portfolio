@@ -4,6 +4,21 @@ import './CertificatesPage.css';
 
 const ALL_CERTS = [
   {
+    img: "/assets/certificate-of-appreciation.png",
+    title: "Certificate of Appreciation",
+    short: "Appreciation",
+    issuer: "Govt Akhter Nawaz Khan Shaheed Degree College, KTS, Haripur",
+    date: "2025",
+    category: "Award",
+    categoryColor: "#ef4444",
+    categoryBg: "rgba(239,68,68,0.08)",
+    categoryBorder: "rgba(239,68,68,0.2)",
+    desc: "Awarded in recognition of representing the college in cybersecurity competitions and demonstrating exceptional skills in ethical hacking and digital forensics.",
+    icon: "fa-award",
+    link: "/assets/certificate-of-appreciation.png",
+    isPdf: false,
+  },
+  {
     img: "/assets/readteamcertificate.png",
     title: "Certified Threat Intelligence & Governance Analyst",
     short: "CTIGA",

@@ -352,3 +352,53 @@ p {
 [data-theme="light"] .typing-cursor {
   background-color: #2e7d32 !important;
 }
+
+/* ==========================================================================
+   Page Route Transitions & Card Cyber Glow Animations
+   ========================================================================== */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-content {
+  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Unified card hover states with glowing micro-animations */
+.project-card,
+.cert-card,
+.cert-page-card,
+.ctf-page-card,
+.dl-card,
+.about-info-card-stacked,
+.timeline-card {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover,
+.cert-card:hover,
+.cert-page-card:hover,
+.ctf-page-card:hover,
+.dl-card:hover,
+.about-info-card-stacked:hover {
+  transform: translateY(-5px) !important;
+  border-color: var(--accent-cyber) !important;
+  box-shadow: var(--shadow-md), 0 0 16px var(--accent-cyber-glow) !important;
+}
+
+/* Custom alignment for timeline horizontal movement with glow */
+.timeline-card:hover {
+  transform: translateX(6px) !important;
+  border-color: var(--accent-cyber) !important;
+  box-shadow: var(--shadow-md), 0 0 16px var(--accent-cyber-glow) !important;
+}
+
