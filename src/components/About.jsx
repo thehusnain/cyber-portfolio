@@ -11,19 +11,19 @@ const About = () => {
           {/* Left Column: Bio text */}
           <div className="about-details fade-in">
             <p>
-              Hello! I'm <strong className="highlight">Husnain</strong>, a dedicated Computer Science student 
-              specialized in cybersecurity, offensive security methodologies, and ethical hacking.
+              Hi, I'm <strong className="highlight">Husnain</strong>, a BS Computer Science student passionate about Cybersecurity, Linux, and Network Security.
             </p>
             <p>
-              My journey is fueled by a relentless passion for identifying vulnerabilities and understanding the 
-              intricacies of secure network systems. Through rigorous self-guided practice and academic coursework, 
-              I have developed hands-on capabilities in Web Application Penetration Testing, Cryptography, 
-              and Forensics analysis.
+              I enjoy exploring how systems work, solving security challenges, and building practical projects that improve my technical skills.
             </p>
             <p>
-              I actively participate in international Capture The Flag (CTF) competitions, collaborating with my team 
-              <strong className="highlight">FSOCIETY</strong>. In addition, I founded <strong className="highlight">Fsociety pk</strong>,
-              a local research collective that builds open-source security tools and trains emerging talent.
+              My experience includes working with Kali Linux, Python, Docker, SQL databases, networking concepts, and cybersecurity labs.
+            </p>
+            <p>
+              I actively participate in CTF competitions and continuously learn through hands-on practice, self-study, and real-world projects.
+            </p>
+            <p>
+              My goal is to grow as a cybersecurity professional while contributing to secure and innovative technology solutions.
             </p>
           </div>
 

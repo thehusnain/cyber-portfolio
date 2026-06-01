@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import CertificatesPage from './pages/CertificatesPage';
@@ -17,12 +17,22 @@ function AppContent() {
   });
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Apply the theme to documentElement
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('portfolio-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const fallbackRoute = searchParams.get('route');
+
+    if (fallbackRoute && fallbackRoute !== `${location.pathname}${location.search}${location.hash}`) {
+      navigate(fallbackRoute, { replace: true });
+    }
+  }, [location.hash, location.pathname, location.search, navigate]);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
