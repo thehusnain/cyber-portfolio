@@ -51,13 +51,27 @@ const Projects = () => {
     }
   }, []);
 
+  const displayProjects = [...projects]
+    .map((project, index) => ({ project, index }))
+    .sort((left, right) => {
+      const leftFeatured = Boolean(left.project.featured);
+      const rightFeatured = Boolean(right.project.featured);
+
+      if (leftFeatured !== rightFeatured) {
+        return leftFeatured ? -1 : 1;
+      }
+
+      return left.index - right.index;
+    })
+    .map(({ project }) => project);
+
   return (
     <section id="projects">
       <div className="section-container">
-        <h2>Featured Projects</h2>
+        <h2>My Project</h2>
         
         <div className="projects-grid">
-          {projects.map((project, index) => (
+          {displayProjects.map((project, index) => (
             <ProjectCard 
               key={index}
               title={project.title}

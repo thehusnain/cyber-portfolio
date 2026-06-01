@@ -666,15 +666,17 @@ const SheriffControlPage = () => {
                   </div>
                 </div>
                 <div className="db-card-actions">
-                  <button className="btn db-card-edit-btn" onClick={() => handleEditProject(idx)}>
+                  <button type="button" className="btn db-card-edit-btn" onClick={() => handleEditProject(idx)}>
                     <i className="fas fa-pen-to-square"></i>
+                    <span>Edit</span>
                   </button>
-                  <button className="btn db-card-feature-btn" onClick={() => handleToggleProjectFeatured(idx)}>
+                  <button type="button" className="btn db-card-feature-btn" onClick={() => handleToggleProjectFeatured(idx)}>
                     <i className={`fas ${proj.featured ? 'fa-star' : 'fa-star-half-stroke'}`}></i>
                     <span>{proj.featured ? 'Unfeature' : 'Feature'}</span>
                   </button>
-                  <button className="btn db-card-delete-btn" onClick={() => handleDeleteItem('projects', idx)}>
+                  <button type="button" className="btn db-card-delete-btn" onClick={() => handleDeleteItem('projects', idx)}>
                     <i className="fas fa-trash"></i>
+                    <span>Delete</span>
                   </button>
                 </div>
               </div>

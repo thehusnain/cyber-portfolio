@@ -341,26 +341,37 @@
 
 .db-card-actions {
   display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.9rem;
   flex-shrink: 0;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  width: 144px;
+  margin-left: auto;
 }
 
 .db-card-edit-btn,
-.db-card-feature-btn {
-  padding: 0.5rem 0.7rem;
-  height: 34px;
+.db-card-feature-btn,
+.db-card-delete-btn {
+  width: 100%;
+  min-height: 40px;
+  padding: 0.7rem 0.85rem;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
+  justify-content: flex-start;
+  gap: 0.65rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.db-card-edit-btn span,
+.db-card-feature-btn span,
+.db-card-delete-btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .db-card-edit-btn {
@@ -372,7 +383,7 @@
 .db-card-edit-btn:hover {
   background-color: var(--accent-cyber) !important;
   color: #081018 !important;
-  transform: scale(1.05);
+  transform: translateY(-1px);
 }
 
 .db-card-feature-btn {
@@ -384,10 +395,40 @@
 .db-card-feature-btn:hover {
   background-color: #fbbf24 !important;
   color: #111827 !important;
-  transform: scale(1.05);
+  transform: translateY(-1px);
 }
-  gap: 0.5rem;
-  flex-wrap: wrap;
+
+.db-card-delete-btn {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+  color: #ef4444 !important;
+}
+
+.db-card-delete-btn:hover {
+  background-color: #ef4444 !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .admin-db-card {
+    flex-direction: column;
+  }
+
+  .db-card-actions {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-left: 0;
+  }
+
+  .db-card-edit-btn,
+  .db-card-feature-btn,
+  .db-card-delete-btn {
+    width: auto;
+    flex: 1 1 140px;
+  }
 }
 
 .db-featured-badge {
