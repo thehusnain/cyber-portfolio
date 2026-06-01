@@ -20,10 +20,13 @@ const SheriffControlPage = () => {
   const [certs, setCerts] = useState([]);
   const [internships, setInternships] = useState([]);
 
-  // Form states
-  const [projectForm, setProjectForm] = useState({
+  const emptyProjectForm = {
     title: '', description: '', tags: '', repoLink: '', demoLink: '', icon: 'fa-code', featured: false
-  });
+  };
+
+  // Form states
+  const [projectForm, setProjectForm] = useState(emptyProjectForm);
+  const [editingProjectIndex, setEditingProjectIndex] = useState(null);
   
   const [ctfForm, setCtfForm] = useState({
     title: '', rank: '', team: 'Team: FSOCIETY', desc: '', stats: '', img: '', badge: ''
@@ -109,24 +112,56 @@ const SheriffControlPage = () => {
     setIsLoggedIn(false);
   };
 
+  const resetProjectForm = () => {
+    setProjectForm(emptyProjectForm);
+    setEditingProjectIndex(null);
+  };
+
+  const buildProjectFromForm = (form) => ({
+    ...form,
+    tags: form.tags.split(',').map(t => t.trim()).filter(Boolean)
+  });
+
   // Add Item actions
-  const handleAddProject = (e) => {
+  const handleSaveProject = (e) => {
     e.preventDefault();
     if (!projectForm.title || !projectForm.description) return;
-    
-    const newProject = {
-      ...projectForm,
-      tags: projectForm.tags.split(',').map(t => t.trim()).filter(Boolean)
-    };
 
-    const updated = [newProject, ...projects];
+    const projectPayload = buildProjectFromForm(projectForm);
+    const updated = editingProjectIndex === null
+      ? [projectPayload, ...projects]
+      : projects.map((project, index) => (index === editingProjectIndex ? projectPayload : project));
+
     setProjects(updated);
     localStorage.setItem('portfolio-projects', JSON.stringify(updated));
+    resetProjectForm();
+  };
 
-    // Reset Form
+  const handleEditProject = (index) => {
+    const project = projects[index];
+    setEditingProjectIndex(index);
     setProjectForm({
-      title: '', description: '', tags: '', repoLink: '', demoLink: '', icon: 'fa-code', featured: false
+      title: project.title || '',
+      description: project.description || '',
+      tags: Array.isArray(project.tags) ? project.tags.join(', ') : '',
+      repoLink: project.repoLink || '',
+      demoLink: project.demoLink || '',
+      icon: project.icon || 'fa-code',
+      featured: Boolean(project.featured)
     });
+  };
+
+  const handleToggleProjectFeatured = (index) => {
+    const updated = projects.map((project, projectIndex) => (
+      projectIndex === index ? { ...project, featured: !project.featured } : project
+    ));
+
+    setProjects(updated);
+    localStorage.setItem('portfolio-projects', JSON.stringify(updated));
+  };
+
+  const handleCancelProjectEdit = () => {
+    resetProjectForm();
   };
 
   const handleAddCtf = (e) => {
@@ -186,6 +221,9 @@ const SheriffControlPage = () => {
       const updated = projects.filter((_, i) => i !== index);
       setProjects(updated);
       localStorage.setItem('portfolio-projects', JSON.stringify(updated));
+      if (editingProjectIndex === index) {
+        resetProjectForm();
+      }
     } else if (category === 'ctfs') {
       const updated = ctfs.filter((_, i) => i !== index);
       setCtfs(updated);
@@ -208,6 +246,7 @@ const SheriffControlPage = () => {
     if (category === 'projects') {
       setProjects(DEFAULT_PROJECTS);
       localStorage.setItem('portfolio-projects', JSON.stringify(DEFAULT_PROJECTS));
+      resetProjectForm();
     } else if (category === 'ctfs') {
       setCtfs(DEFAULT_CTFS);
       localStorage.setItem('portfolio-ctfs', JSON.stringify(DEFAULT_CTFS));
@@ -305,7 +344,15 @@ const SheriffControlPage = () => {
           <h3>Add New {activeTab === 'projects' ? 'Project' : activeTab === 'ctfs' ? 'CTF Achievement' : activeTab === 'certs' ? 'Certificate' : 'Internship'}</h3>
           
           {activeTab === 'projects' && (
-            <form onSubmit={handleAddProject} className="admin-crud-form">
+            <form onSubmit={handleSaveProject} className="admin-crud-form">
+              {editingProjectIndex !== null && (
+                <div className="admin-edit-banner">
+                  <span><i className="fas fa-pen-to-square"></i> Editing project #{editingProjectIndex + 1}</span>
+                  <button type="button" className="btn btn-secondary admin-cancel-edit-btn" onClick={handleCancelProjectEdit}>
+                    Cancel Edit
+                  </button>
+                </div>
+              )}
               <div className="form-group">
                 <label>Project Title *</label>
                 <input 
@@ -376,7 +423,10 @@ const SheriffControlPage = () => {
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary crud-submit-btn"><i className="fas fa-plus"></i> Save Project</button>
+              <button type="submit" className="btn btn-primary crud-submit-btn">
+                <i className={`fas ${editingProjectIndex === null ? 'fa-plus' : 'fa-floppy-disk'}`}></i>
+                {editingProjectIndex === null ? ' Save Project' : ' Update Project'}
+              </button>
             </form>
           )}
 
@@ -615,9 +665,18 @@ const SheriffControlPage = () => {
                     {proj.tags && proj.tags.map((t, i) => <span key={i} className="db-tag">{t}</span>)}
                   </div>
                 </div>
-                <button className="btn db-card-delete-btn" onClick={() => handleDeleteItem('projects', idx)}>
-                  <i className="fas fa-trash"></i>
-                </button>
+                <div className="db-card-actions">
+                  <button className="btn db-card-edit-btn" onClick={() => handleEditProject(idx)}>
+                    <i className="fas fa-pen-to-square"></i>
+                  </button>
+                  <button className="btn db-card-feature-btn" onClick={() => handleToggleProjectFeatured(idx)}>
+                    <i className={`fas ${proj.featured ? 'fa-star' : 'fa-star-half-stroke'}`}></i>
+                    <span>{proj.featured ? 'Unfeature' : 'Feature'}</span>
+                  </button>
+                  <button className="btn db-card-delete-btn" onClick={() => handleDeleteItem('projects', idx)}>
+                    <i className="fas fa-trash"></i>
+                  </button>
+                </div>
               </div>
             ))}
 

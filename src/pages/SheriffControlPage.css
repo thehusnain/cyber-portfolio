@@ -252,6 +252,32 @@
   margin-top: 0.5rem;
 }
 
+.admin-edit-banner {
+  background-color: rgba(0, 217, 255, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.18);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.admin-edit-banner span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-cancel-edit-btn {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
 /* Database List section */
 .list-section-header {
   display: flex;
@@ -312,6 +338,54 @@
   color: var(--text-primary);
   display: flex;
   align-items: center;
+
+.db-card-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.db-card-edit-btn,
+.db-card-feature-btn {
+  padding: 0.5rem 0.7rem;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+
+.db-card-edit-btn {
+  background-color: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.2) !important;
+  color: var(--accent-cyber) !important;
+}
+
+.db-card-edit-btn:hover {
+  background-color: var(--accent-cyber) !important;
+  color: #081018 !important;
+  transform: scale(1.05);
+}
+
+.db-card-feature-btn {
+  background-color: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.18) !important;
+  color: #fbbf24 !important;
+}
+
+.db-card-feature-btn:hover {
+  background-color: #fbbf24 !important;
+  color: #111827 !important;
+  transform: scale(1.05);
+}
   gap: 0.5rem;
   flex-wrap: wrap;
 }
