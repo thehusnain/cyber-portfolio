@@ -18,12 +18,12 @@ const Downloads = () => {
             </div>
             <div className="dl-info">
               <span className="dl-label">Primary Document</span>
-              <h3 className="dl-name">Final_resume.pdf</h3>
+              <h3 className="dl-name">Resume.pdf</h3>
               <p className="dl-meta">PDF format · Fully Updated</p>
             </div>
             
             <a
-              href="/resume/Final_resume.pdf"
+              href="/assets/resume/Resume.pdf"
               download="Husnain_Resume_CV.pdf"
               className="btn btn-primary dl-btn"
               style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', width: '100%' }}
