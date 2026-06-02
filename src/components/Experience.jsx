@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollReveal from './ScrollReveal';
 import './Experience.css';
 
 const Experience = () => {
@@ -16,6 +17,8 @@ const Experience = () => {
             date="2023 - Present"
             description="Pursuing my Bachelor's degree in Computer Science, focusing on cybersecurity foundations, data structures, networking protocols, operating systems, and secure software development practices."
             icon="fa-graduation-cap"
+            delay={0.1}
+            bobClass="float-bob-1"
           />
           <TimelineItem 
             title="Diploma in Information Technology (DIT)"
@@ -23,6 +26,8 @@ const Experience = () => {
             date="2022 - 2023"
             description="Completed a one-year professional diploma covering software applications, web development foundations, database management, computer programming, and networking basics."
             icon="fa-graduation-cap"
+            delay={0.25}
+            bobClass="float-bob-2"
           />
           <TimelineItem 
             title="Self-Driven Cybersecurity Practice"
@@ -30,6 +35,8 @@ const Experience = () => {
             date="2025 - Present"
             description="Intense self-guided training on TryHackMe and CTF competitions. Building capabilities in web penetration testing, network analysis, cryptography foundations, and forensic investigation."
             icon="fa-laptop-code"
+            delay={0.4}
+            bobClass="float-bob-3"
           />
           <TimelineItem 
             title="Vulnerable Labs Creator"
@@ -37,6 +44,8 @@ const Experience = () => {
             date="2025 - Present"
             description="Creating and configuring custom vulnerable environments to safely practice exploitation, privilege escalation, and vulnerability mitigation. Writing documentation on security findings."
             icon="fa-shield-halved"
+            delay={0.55}
+            bobClass="float-bob-1"
           />
         </div>
       </div>
@@ -44,22 +53,24 @@ const Experience = () => {
   );
 };
 
-const TimelineItem = ({ title, subtitle, date, description, icon }) => (
-  <div className="timeline-item fade-in">
-    <div className="timeline-badge">
-      <i className={`fas ${icon}`}></i>
-    </div>
-    <div className="timeline-card">
-      <div className="timeline-header-block">
-        <div>
-          <h3>{title}</h3>
-          <span className="timeline-subtitle">{subtitle}</span>
-        </div>
-        <span className="timeline-date">{date}</span>
+const TimelineItem = ({ title, subtitle, date, description, icon, delay, bobClass }) => (
+  <ScrollReveal direction="up" delay={delay}>
+    <div className="timeline-item">
+      <div className="timeline-badge">
+        <i className={`fas ${icon}`}></i>
       </div>
-      <p className="timeline-description">{description}</p>
+      <div className={`timeline-card ${bobClass}`}>
+        <div className="timeline-header-block">
+          <div>
+            <h3>{title}</h3>
+            <span className="timeline-subtitle">{subtitle}</span>
+          </div>
+          <span className="timeline-date">{date}</span>
+        </div>
+        <p className="timeline-description">{description}</p>
+      </div>
     </div>
-  </div>
+  </ScrollReveal>
 );
 
 export default Experience;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ScrollReveal from './ScrollReveal';
 import './Projects.css';
 
 const DEFAULT_PROJECTS = [
@@ -71,26 +72,32 @@ const Projects = () => {
         <h2>My Project</h2>
         
         <div className="projects-grid">
-          {displayProjects.map((project, index) => (
-            <ProjectCard 
-              key={index}
-              title={project.title}
-              description={project.description}
-              tags={project.tags || []}
-              demoLink={project.demoLink}
-              repoLink={project.repoLink}
-              featured={project.featured}
-              icon={project.icon || "fa-code"}
-            />
-          ))}
+          {displayProjects.map((project, index) => {
+            const bobClasses = ['float-bob-1', 'float-bob-2', 'float-bob-3'];
+            const bobClass = bobClasses[index % bobClasses.length];
+            return (
+              <ScrollReveal key={index} direction="up" delay={index * 0.15}>
+                <ProjectCard 
+                  title={project.title}
+                  description={project.description}
+                  tags={project.tags || []}
+                  demoLink={project.demoLink}
+                  repoLink={project.repoLink}
+                  featured={project.featured}
+                  icon={project.icon || "fa-code"}
+                  bobClass={bobClass}
+                />
+              </ScrollReveal>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 };
 
-const ProjectCard = ({ title, description, tags, demoLink, repoLink, featured = false, icon }) => (
-  <div className={`project-card fade-in ${featured ? 'project-card-featured' : ''}`}>
+const ProjectCard = ({ title, description, tags, demoLink, repoLink, featured = false, icon, bobClass }) => (
+  <div className={`project-card ${featured ? 'project-card-featured' : ''} ${bobClass}`}>
     {featured && <span className="featured-flag"><i className="fas fa-star" /> Featured Project</span>}
     
     <div className="project-header">

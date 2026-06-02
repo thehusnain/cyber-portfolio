@@ -53,8 +53,8 @@ const Hero = () => {
         <div className="hero-grid">
           
           {/* Column 1: Profile Picture (Left Column) */}
-          <div className="hero-visual animate-profile">
-            <div className="profile-img-container">
+          <div className="hero-visual animate-profile" style={{ position: 'relative' }}>
+            <div className="profile-img-container float-bob-2">
               <div className="profile-img-glow"></div>
               <img 
                 src="/assets/profile.png" 
@@ -68,16 +68,18 @@ const Hero = () => {
             
             <div className="hero-social-under-pfp">
               {socialLinks.map((social, index) => (
-                <a 
-                  key={index} 
-                  href={social.url} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="hero-pfp-social-icon"
-                  title={social.name}
-                >
-                  <i className={social.icon}></i>
-                </a>
+                <div key={index} className="social-icon-wrapper">
+                  <a 
+                    href={social.url} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="hero-pfp-social-icon"
+                    title={social.name}
+                  >
+                    <i className={social.icon}></i>
+                  </a>
+                  <span className="social-icon-label">{social.name}</span>
+                </div>
               ))}
             </div>
           </div>

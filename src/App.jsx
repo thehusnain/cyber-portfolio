@@ -6,6 +6,7 @@ import CtfsPage from './pages/CtfsPage';
 import FsocietyPage from './pages/FsocietyPage';
 import SheriffControlPage from './pages/SheriffControlPage';
 import InternshipsPage from './pages/InternshipsPage';
+import AntiGravityBackground from './components/AntiGravityBackground';
 import { useState, useEffect } from 'react';
 import './index.css';
 
@@ -40,6 +41,7 @@ function AppContent() {
 
   return (
     <>
+      <AntiGravityBackground theme={theme} />
       <Navigation theme={theme} onToggleTheme={toggleTheme} />
       
       {/* key={location.pathname} forces animation to replay on page changes */}

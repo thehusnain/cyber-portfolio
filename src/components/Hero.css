@@ -192,10 +192,33 @@
 .hero-social-under-pfp {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.25rem;
   width: 100%;
-  max-width: 320px;
+  max-width: 360px;
   margin-top: 0.5rem;
+}
+
+.social-icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.social-icon-label {
+  font-family: var(--font-header);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: all var(--transition-fast);
+  pointer-events: none;
+}
+
+.social-icon-wrapper:hover .social-icon-label {
+  color: var(--accent-cyber);
+  text-shadow: 0 0 8px var(--accent-cyber-glow);
 }
 
 .hero-pfp-social-icon {

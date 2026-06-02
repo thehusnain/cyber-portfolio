@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollReveal from './ScrollReveal';
 import './Downloads.css';
 
 const Downloads = () => {
@@ -12,25 +13,27 @@ const Downloads = () => {
 
         <div className="downloads-cards" style={{ display: 'flex', justifyContent: 'center' }}>
           {/* Card: Resume/CV */}
-          <div className="dl-card dl-card-primary" style={{ maxWidth: '500px', width: '100%' }}>
-            <div className="dl-icon-wrap">
-              <i className="fas fa-file-pdf" />
+          <ScrollReveal direction="up" delay={0.15}>
+            <div className="dl-card dl-card-primary float-bob-2" style={{ maxWidth: '500px', width: '100%' }}>
+              <div className="dl-icon-wrap">
+                <i className="fas fa-file-pdf" />
+              </div>
+              <div className="dl-info">
+                <span className="dl-label">Primary Document</span>
+                <h3 className="dl-name">Resume.pdf</h3>
+                <p className="dl-meta">PDF format · Fully Updated</p>
+              </div>
+              
+              <a
+                href="/assets/resume/Resume.pdf"
+                download="Husnain_Resume_CV.pdf"
+                className="btn btn-primary dl-btn"
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', width: '100%' }}
+              >
+                <i className="fas fa-download" /> Download Resume/CV
+              </a>
             </div>
-            <div className="dl-info">
-              <span className="dl-label">Primary Document</span>
-              <h3 className="dl-name">Resume.pdf</h3>
-              <p className="dl-meta">PDF format · Fully Updated</p>
-            </div>
-            
-            <a
-              href="/assets/resume/Resume.pdf"
-              download="Husnain_Resume_CV.pdf"
-              className="btn btn-primary dl-btn"
-              style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', width: '100%' }}
-            >
-              <i className="fas fa-download" /> Download Resume/CV
-            </a>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Security verification strip */}
