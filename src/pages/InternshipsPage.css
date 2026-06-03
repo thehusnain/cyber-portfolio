@@ -383,3 +383,41 @@
     transform: scale(1) translateY(0);
   }
 }
+
+@media (max-width: 480px) {
+  .internships-page-container {
+    padding: 0 1rem 2.5rem;
+  }
+
+  .internships-page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .internships-page-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .intern-detail-card {
+    padding: 1.5rem;
+  }
+
+  .intern-role-title {
+    font-size: 1.3rem;
+  }
+
+  .intern-company-title {
+    font-size: 1rem;
+  }
+
+  .intern-card-footer {
+    gap: 0.75rem;
+  }
+
+  .intern-footer-btn {
+    width: 100%;
+  }
+
+  .cert-modal-overlay {
+    padding: 0.75rem;
+  }
+}

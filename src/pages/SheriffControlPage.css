@@ -531,3 +531,60 @@
     transform: scale(1.05);
   }
 }
+
+@media (max-width: 480px) {
+  .admin-login-container {
+    padding: 1rem;
+  }
+
+  .admin-login-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .admin-dashboard-container {
+    padding: 1rem 0;
+    gap: 1.25rem;
+  }
+
+  .admin-dashboard-header {
+    align-items: flex-start;
+  }
+
+  .admin-tabs {
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .admin-tab-btn {
+    white-space: nowrap;
+    padding: 0.7rem 1rem;
+  }
+
+  .admin-form-section,
+  .admin-list-section {
+    padding: 1.25rem;
+  }
+
+  .admin-edit-banner,
+  .list-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-db-card {
+    flex-direction: column;
+  }
+
+  .db-card-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-left: 0;
+  }
+
+  .db-card-edit-btn,
+  .db-card-feature-btn,
+  .db-card-delete-btn {
+    width: 100%;
+  }
+}

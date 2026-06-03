@@ -556,3 +556,47 @@
   transform: scale(1.4);
   box-shadow: 0 0 10px var(--accent-cyber);
 }
+
+@media (max-width: 480px) {
+  .ctfs-page-container {
+    padding: 1rem;
+    padding-top: 5rem;
+  }
+
+  .ctfs-page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .ctfs-page-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .ctf-page-info {
+    padding: 1.25rem;
+  }
+
+  .ctf-page-title {
+    font-size: 1.2rem;
+  }
+
+  .ctf-page-actions {
+    flex-direction: column;
+  }
+
+  .ctf-card-btn {
+    width: 100%;
+  }
+
+  .gallery-modal-overlay {
+    padding: 0.75rem;
+  }
+
+  .gallery-modal-footer {
+    padding: 1rem;
+  }
+
+  .gallery-nav-btn {
+    width: 42px;
+    height: 42px;
+  }
+}

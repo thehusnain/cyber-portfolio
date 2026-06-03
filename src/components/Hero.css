@@ -183,8 +183,54 @@
 
 @media (max-width: 480px) {
   .profile-img-container {
-    width: 220px;
-    height: 220px;
+    width: 190px;
+    height: 190px;
+  }
+
+  .hero-section {
+    padding: 2.5rem 0;
+  }
+
+  .hero-container {
+    gap: 2rem;
+  }
+
+  .hero-grid {
+    gap: 1.75rem;
+  }
+
+  .hero-name {
+    font-size: clamp(2rem, 11vw, 3rem);
+  }
+
+  .hero-title {
+    font-size: 1rem;
+  }
+
+  .hero-bio {
+    font-size: 0.95rem;
+  }
+
+  .hero-cta-buttons {
+    width: 100%;
+  }
+
+  .hero-cta-buttons .btn {
+    width: 100%;
+  }
+
+  .hero-tech-tags {
+    gap: 0.5rem;
+  }
+
+  .hero-social-under-pfp {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-pfp-social-icon {
+    width: 38px;
+    height: 38px;
   }
 }
 

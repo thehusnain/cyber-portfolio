@@ -14,6 +14,33 @@
 .fs-page-back-link {
   display: inline-flex;
   align-items: center;
+
+@media (max-width: 480px) {
+  .fsociety-page-container {
+    padding: 1rem;
+    padding-top: 1.25rem;
+  }
+
+  .fsociety-page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .fs-page-subtitle {
+    font-size: 0.98rem;
+  }
+
+  .fs-pillar-card {
+    padding: 1.5rem;
+  }
+
+  .fs-terminal-sidebar {
+    padding: 1.25rem;
+  }
+
+  .fs-terminal-workspace {
+    padding: 0.5rem;
+  }
+}
   gap: 0.5rem;
   font-family: var(--font-header);
   font-size: 0.9rem;

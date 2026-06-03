@@ -384,6 +384,49 @@
   background: #080c14;
 }
 
+@media (max-width: 480px) {
+  .certificates-page-container {
+    padding: 1rem;
+  }
+
+  .certificates-page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .certificates-page-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .cert-filter-row {
+    gap: 0.45rem;
+  }
+
+  .cert-page-info {
+    padding: 1.25rem;
+  }
+
+  .cert-page-actions {
+    flex-direction: column;
+  }
+
+  .cert-page-btn {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .cert-modal-overlay {
+    padding: 0.75rem;
+  }
+
+  .cert-modal-header {
+    padding: 1.25rem 1.25rem 0.75rem;
+  }
+
+  .cert-modal-body {
+    padding: 1rem;
+  }
+}
+
 /* PDF notice inside modal */
 .cert-modal-pdf-notice {
   display: flex;
