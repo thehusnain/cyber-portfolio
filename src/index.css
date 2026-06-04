@@ -35,8 +35,8 @@
   --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.4), 0 8px 10px -6px rgba(0,0,0,0.4);
   --shadow-glow: 0 0 20px rgba(0, 217, 255, 0.15);
   
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Light Theme Variables */
@@ -111,7 +111,7 @@ body {
   margin-left: 0;
   min-height: 100vh;
   padding: 2rem;
-  padding-top: 110px; /* Offset for the dual-line desktop navbar */
+  padding-top: 96px; /* Offset for the floating single-line capsule navbar */
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -494,14 +494,84 @@ p {
 .timeline-card,
 .contact-info-pane,
 .contact-form-pane {
-  background: rgba(15, 22, 40, 0.55) !important;
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(70px) saturate(160%);
+  -webkit-backdrop-filter: blur(70px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 
+    inset 2px -2px 20px rgba(255, 255, 255, 0.03),
+    inset -3px 3px 3px rgba(255, 255, 255, 0.12),
+    0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Ambient glassmorphic background blobs (rotating gradient) */
+.bg-gradient-blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  filter: blur(130px);
+  background-image: linear-gradient(135deg, var(--accent-cyber), #5b37eb, #f1307e);
+  animation: rotate-blob 22s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.6s ease;
+}
+
+[data-theme="light"] .bg-gradient-blob {
+  opacity: 0.06;
+  background-image: linear-gradient(135deg, var(--accent-cyber), #5b37eb, #f1307e);
+}
+
+.blob-1 {
+  top: -15%;
+  right: -10%;
+  animation-duration: 24s;
+}
+
+.blob-2 {
+  bottom: -20%;
+  left: -10%;
+  animation-duration: 28s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes rotate-blob {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.15);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Premium gradient top line highlight on tech cards */
+.project-card::before,
+.cert-card::before,
+.cert-page-card::before,
+.ctf-page-card::before,
+.dl-card::before,
+.about-info-card-stacked::before,
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyber), var(--accent-success));
+  opacity: 0.65;
+  transition: opacity 0.3s ease, height 0.3s ease;
+  z-index: 5;
 }
 
 [data-theme="light"] .project-card,
@@ -513,11 +583,11 @@ p {
 [data-theme="light"] .timeline-card,
 [data-theme="light"] .contact-info-pane,
 [data-theme="light"] .contact-form-pane {
-  background: rgba(255, 255, 255, 0.72) !important;
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08) !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.04) !important;
 }
 
 /* Hover lift — only on cards, NOT on contact panes (bad UX on forms) */
@@ -527,9 +597,20 @@ p {
 .ctf-page-card:hover,
 .dl-card:hover,
 .about-info-card-stacked:hover {
-  transform: translateY(-10px) scale(1.02) !important;
-  border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 217, 255, 0.25) !important;
+  transform: translateY(-8px) scale(1.015) !important;
+  border-color: rgba(0, 217, 255, 0.4) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 217, 255, 0.15) !important;
+}
+
+.project-card:hover::before,
+.cert-card:hover::before,
+.cert-page-card:hover::before,
+.ctf-page-card:hover::before,
+.dl-card:hover::before,
+.about-info-card-stacked:hover::before,
+.timeline-card:hover::before {
+  opacity: 1;
+  height: 4px;
 }
 
 /* Contact panes: glow border only, no translate (stable for form interaction) */
@@ -546,25 +627,25 @@ p {
 [data-theme="light"] .dl-card:hover,
 [data-theme="light"] .about-info-card-stacked:hover {
   border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.2) !important;
+  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.15) !important;
 }
 
 [data-theme="light"] .contact-info-pane:hover,
 [data-theme="light"] .contact-form-pane:hover {
   border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.14) !important;
+  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.1) !important;
 }
 
 /* Timeline specific slide-right glow hover */
 .timeline-card:hover {
-  transform: translateX(10px) scale(1.01) !important;
-  border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 217, 255, 0.2) !important;
+  transform: translateX(8px) scale(1.01) !important;
+  border-color: rgba(0, 217, 255, 0.4) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 217, 255, 0.15) !important;
 }
 
 [data-theme="light"] .timeline-card:hover {
   border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.15) !important;
+  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.12) !important;
 }
 
 /* Continuous anti-gravity bobbing animations */

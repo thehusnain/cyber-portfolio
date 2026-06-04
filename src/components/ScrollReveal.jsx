@@ -21,7 +21,7 @@ const ScrollReveal = ({
   direction,           // legacy prop
   delay = 0,
   duration = 0.75,
-  threshold = 0.12,
+  threshold = 0.05,
   stagger = false,
   staggerDelay = 90,
 }) => {
@@ -50,7 +50,7 @@ const ScrollReveal = ({
           observer.unobserve(entry.target);
         }
       },
-      { threshold, rootMargin: '0px 0px -60px 0px' }
+      { threshold, rootMargin: '0px 0px -20px 0px' }
     );
 
     observer.observe(el);

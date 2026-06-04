@@ -23,6 +23,10 @@ const AntiGravityBackground = ({ theme }) => {
       {/* WebGL Fluid simulation — only interactive background layer */}
       <WebGLFluidBackground isLight={isLight} />
 
+      {/* Ambient glassmorphic glowing blobs (rotating gradient) */}
+      <div className="bg-gradient-blob blob-1" />
+      <div className="bg-gradient-blob blob-2" />
+
       {/* Subtle dot-grid overlay for a premium techy feel */}
       <div
         style={{
@@ -32,7 +36,7 @@ const AntiGravityBackground = ({ theme }) => {
             ? 'radial-gradient(circle, rgba(15,23,42,0.07) 1px, transparent 1px)'
             : 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
           backgroundSize: '28px 28px',
-          zIndex: 1,
+          zIndex: 3,
           pointerEvents: 'none',
         }}
       />

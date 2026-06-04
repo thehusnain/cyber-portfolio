@@ -94,7 +94,7 @@ const ALL_CERTS = [
     isPdf: false,
   },
   {
-    img: null,
+    img: "/assets/ctfs/secleaf-ctf/certificate-page-1.png",
     title: "CTF Participation Certificate",
     short: "SecLeaf",
     issuer: "SecLeaf CTF",
@@ -109,7 +109,7 @@ const ALL_CERTS = [
     isPdf: true,
   },
   {
-    img: null,
+    img: "/assets/ctfs/Hack4Bug-ctf/badge-page-1.png",
     title: "CTF Player Badge",
     short: "Hack4Bug",
     issuer: "Hack4Bug CTF",

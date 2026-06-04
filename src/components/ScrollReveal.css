@@ -2,80 +2,84 @@
    ScrollReveal Animation System
    All animations use hardware-accelerated properties only
    (opacity, transform) for 60fps performance
-═══════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 
 /* ─── Base wrapper (hidden state) ────────────────────────────── */
 .sr-wrap {
   opacity: 0;
-  will-change: opacity, transform, filter;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
   transition:
     opacity   var(--sr-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1) var(--sr-delay, 0s),
     transform var(--sr-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1) var(--sr-delay, 0s),
     filter    var(--sr-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1) var(--sr-delay, 0s);
 }
 
-/* ─── Hidden states per variant ──────────────────────────────── */
-.sr-fade-up    { transform: translateY(52px); }
-.sr-fade-down  { transform: translateY(-52px); }
-.sr-fade-left  { transform: translateX(52px); }
-.sr-fade-right { transform: translateX(-52px); }
+/* ─── Hidden states per variant (incorporating premium scale depth) ── */
+.sr-fade-up    { transform: translateY(20px) scale(0.985); }
+.sr-fade-down  { transform: translateY(-20px) scale(0.985); }
+.sr-fade-left  { transform: translateX(20px) scale(0.985); }
+.sr-fade-right { transform: translateX(-20px) scale(0.985); }
 
 .sr-scale-up {
-  transform: scale(0.82) translateY(24px);
+  transform: scale(0.9) translateY(16px);
 }
 
 .sr-flip-up {
-  transform: perspective(600px) rotateX(22deg) translateY(32px);
+  transform: perspective(600px) rotateX(15deg) translateY(24px);
   transform-origin: bottom center;
 }
 
 .sr-zoom {
-  transform: scale(0.6);
+  transform: scale(0.85);
 }
 
 .sr-blur-in {
-  transform: translateY(28px);
-  filter: blur(10px);
+  transform: translateY(16px) scale(0.98);
+  filter: blur(8px);
 }
 
 /* ─── Visible (active) state — shared for all ────────────────── */
 .sr-visible {
   opacity: 1;
-  transform: none;
-  filter: none;
+  transform: translateY(0) translateX(0) scale(1) rotateX(0) perspective(1000px);
+  filter: blur(0px);
 }
 
 /* ─── Stagger: each direct child gets an incremental delay ──── */
-.sr-stagger > *:nth-child(1)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 0); }
-.sr-stagger > *:nth-child(2)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 1); }
-.sr-stagger > *:nth-child(3)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 2); }
-.sr-stagger > *:nth-child(4)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 3); }
-.sr-stagger > *:nth-child(5)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 4); }
-.sr-stagger > *:nth-child(6)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 5); }
-.sr-stagger > *:nth-child(7)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 6); }
-.sr-stagger > *:nth-child(8)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 7); }
-.sr-stagger > *:nth-child(9)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 8); }
-.sr-stagger > *:nth-child(10) { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 90ms) * 9); }
+.sr-stagger > *:nth-child(1)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 0); }
+.sr-stagger > *:nth-child(2)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 1); }
+.sr-stagger > *:nth-child(3)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 2); }
+.sr-stagger > *:nth-child(4)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 3); }
+.sr-stagger > *:nth-child(5)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 4); }
+.sr-stagger > *:nth-child(6)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 5); }
+.sr-stagger > *:nth-child(7)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 6); }
+.sr-stagger > *:nth-child(8)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 7); }
+.sr-stagger > *:nth-child(9)  { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 8); }
+.sr-stagger > *:nth-child(10) { transition-delay: calc(var(--sr-delay, 0s) + var(--sr-stagger, 70ms) * 9); }
 
 /* staggered children also start hidden and animate in */
 .sr-stagger > * {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(20px) scale(0.985);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
   transition:
-    opacity   0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity   var(--sr-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--sr-duration, 0.75s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* When the parent becomes visible, reveal all children */
 .sr-visible.sr-stagger > * {
   opacity: 1;
-  transform: none;
+  transform: translateY(0) scale(1);
 }
 
 /* ═══════════════════════════════════════════════════════════════
    Section Heading Reveal  (.section-h2-reveal)
    Split into line + animated underline bar
-═══════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 .section-h2-reveal {
   position: relative;
   display: inline-block;
@@ -104,8 +108,8 @@
   transform: translateY(110%);
   opacity: 0;
   transition:
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity   0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity   0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .section-h2-reveal.h2-visible span {
@@ -122,6 +126,27 @@
 
 /* ═══════════════════════════════════════════════════════════════
    Parallax Hero elements (applied via JS scroll listener)
-═══════════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════════ */
 .hero-parallax-slow { will-change: transform; }
 .hero-parallax-fast { will-change: transform; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Data-Animate template compatibility overrides
+   ═══════════════════════════════════════════════════════════════ */
+[data-animate] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: 
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-animate="bottom"] {
+  transform: translate3d(0, 24px, 0);
+}
+
+/* Trigger animation when class is applied */
+[data-animate].animate-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
