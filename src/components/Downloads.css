@@ -116,3 +116,18 @@
 .dl-strip i {
   color: var(--accent-success);
 }
+
+@media (max-width: 480px) {
+  .dl-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .dl-strip {
+    gap: 1rem;
+    font-size: 0.78rem;
+  }
+
+  .dl-btn {
+    max-width: 100%;
+  }
+}

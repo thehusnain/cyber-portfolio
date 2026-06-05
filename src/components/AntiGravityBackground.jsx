@@ -15,13 +15,23 @@ const AntiGravityBackground = ({ theme }) => {
         zIndex: -10,
         overflow: 'hidden',
         pointerEvents: 'none',
-        // Base background colour using CSS variable for smooth transition
-        backgroundColor: 'var(--bg-primary)',
-        transition: 'background-color 0.6s ease',
+        // Transparent — let the WebGL canvas own its own background completely
+        backgroundColor: 'transparent',
       }}
     >
       {/* WebGL Fluid simulation — only interactive background layer */}
       <WebGLFluidBackground isLight={isLight} />
+
+      {/* Very subtle dark overlay to improve text readability without killing fluid colors */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
+          zIndex: 1,
+          pointerEvents: 'none',
+        }}
+      />
 
       {/* Ambient glassmorphic glowing blobs (rotating gradient) */}
       <div className="bg-gradient-blob blob-1" />

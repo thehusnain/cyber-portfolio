@@ -534,6 +534,7 @@
 .enter-btn {
   pointer-events: auto;
   -webkit-appearance: none;
+  appearance: none;
   background: linear-gradient(90deg, rgba(0,217,255,0.12), rgba(0,255,140,0.08));
   color: #e6fff8;
   border: 1px solid rgba(0,255,140,0.16);
@@ -565,7 +566,7 @@
 .bc { border-color: rgba(var(--premium-c-1), 0.28); }
 .t-title { color: rgba(var(--premium-c-1), 0.6); }
 .t-badge { color: rgb(var(--premium-c-1)); border-color: rgba(var(--premium-c-1),0.18); }
-.t-banner-main { background: linear-gradient(90deg, rgba(var(--premium-c-1),1), rgba(var(--premium-c-2),0.95)); -webkit-background-clip: text; color: transparent; text-shadow: 0 8px 30px rgba(0,0,0,0.45); }
+.t-banner-main { background: linear-gradient(90deg, rgba(var(--premium-c-1),1), rgba(var(--premium-c-2),0.95)); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 8px 30px rgba(0,0,0,0.45); }
 .t-banner-sub { color: rgba(230,230,255,0.75); }
 .t-ok { color: rgb(var(--premium-c-1)); }
 .t-accent { color: rgb(var(--premium-c-2)); text-shadow: 0 0 10px rgba(var(--premium-c-2),0.18); }

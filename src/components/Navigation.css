@@ -136,8 +136,8 @@
 }
 
 .nav-item i {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
   transition: color 0.2s ease;
 }
 
@@ -152,6 +152,53 @@
 .nav-item:hover i,
 .nav-item.active i {
   color: var(--accent-cyber);
+}
+
+/* Thin divider between main links and icon-only page links */
+.nav-divider {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-color);
+  margin: 0 0.25rem;
+  border-radius: 1px;
+  opacity: 0.6;
+  align-self: center;
+}
+
+/* Icon-only compact links for pages */
+.nav-item-icon-only {
+  padding: 0.45rem 0.65rem;
+  position: relative;
+}
+
+.nav-item-icon-only i {
+  font-size: 1rem;
+}
+
+/* Floating tooltip shown on hover */
+.nav-icon-tooltip {
+  position: absolute;
+  bottom: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 14, 23, 0.95);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.7rem;
+  font-family: var(--font-header);
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1020;
+}
+
+.nav-item-icon-only:hover .nav-icon-tooltip {
+  opacity: 1;
 }
 
 /* ==========================================================================
@@ -314,14 +361,22 @@
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
-  width: 36px;
   height: 36px;
-  border-radius: 50%;
+  padding: 0 0.85rem;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.45rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.theme-toggle-label {
+  font-family: var(--font-header);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }
 
 .theme-light .theme-toggle-btn {
@@ -334,6 +389,11 @@
   background: var(--accent-cyber-bg);
   color: var(--accent-cyber);
   box-shadow: 0 0 12px var(--accent-cyber-glow);
+}
+
+@media (max-width: 480px) {
+  .theme-toggle-label { display: none; }
+  .theme-toggle-btn { width: 36px; padding: 0; justify-content: center; border-radius: 50%; }
 }
 
 /* ==========================================================================

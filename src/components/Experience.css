@@ -121,3 +121,28 @@
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  .timeline-item {
+    padding-left: 3.75rem;
+  }
+
+  .timeline-card {
+    padding: 1.25rem;
+  }
+
+  .timeline-header-block h3 {
+    font-size: 1.05rem;
+  }
+
+  .timeline-badge {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+    left: 4px;
+  }
+
+  .timeline-line {
+    left: 20px;
+  }
+}

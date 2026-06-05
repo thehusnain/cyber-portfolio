@@ -32,33 +32,33 @@ const WebGLFluidBackground = ({ isLight = false }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Simulation configuration — tuned per theme
+    // Simulation configuration — tuned for vivid, dramatic fluid
     const config = {
-      SIM_RESOLUTION: 128,
-      DYE_RESOLUTION: 1024,
+      SIM_RESOLUTION: 256,
+      DYE_RESOLUTION: 1440,
       CAPTURE_RESOLUTION: 512,
-      DENSITY_DISSIPATION: 1,
-      VELOCITY_DISSIPATION: 1,
-      PRESSURE: 0.25,
+      DENSITY_DISSIPATION: 0.97,
+      VELOCITY_DISSIPATION: 0.98,
+      PRESSURE: 0.8,
       PRESSURE_ITERATIONS: 20,
-      CURL: 30,
-      SPLAT_RADIUS: 0.18,
-      SPLAT_FORCE: 6000,
+      CURL: 40,
+      SPLAT_RADIUS: 0.22,
+      SPLAT_FORCE: 8000,
       SHADING: true,
       COLORFUL: true,
-      COLOR_UPDATE_SPEED: 10,
+      COLOR_UPDATE_SPEED: 8,
       PAUSED: false,
       BACK_COLOR: { r: 0, g: 0, b: 0 },
       TRANSPARENT: true,
-      BLOOM: false,
+      BLOOM: true,
       BLOOM_ITERATIONS: 8,
       BLOOM_RESOLUTION: 256,
-      BLOOM_INTENSITY: 0.8,
-      BLOOM_THRESHOLD: 0.6,
+      BLOOM_INTENSITY: 0.6,
+      BLOOM_THRESHOLD: 0.4,
       BLOOM_SOFT_KNEE: 0.7,
       SUNRAYS: true,
-      SUNRAYS_RESOLUTION: 196,
-      SUNRAYS_WEIGHT: 1.0,
+      SUNRAYS_RESOLUTION: 256,
+      SUNRAYS_WEIGHT: 1.2,
       RANDOM_COLORS: true,
       SPLAT_HUE: 0
     };
@@ -1780,8 +1780,7 @@ const WebGLFluidBackground = ({ isLight = false }) => {
         height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
-        mixBlendMode: 'screen',
-        opacity: 1.0,
+        opacity: 0.65,
         transition: 'opacity 0.6s ease',
       }}
     />

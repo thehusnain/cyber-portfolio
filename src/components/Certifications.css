@@ -11,6 +11,27 @@
   }
 }
 
+@media (max-width: 480px) {
+  .cert-card {
+    padding: 1.35rem;
+  }
+
+  .cert-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .cert-meta {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .cert-card-title {
+    font-size: 1.05rem;
+  }
+}
+
 .cert-card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);

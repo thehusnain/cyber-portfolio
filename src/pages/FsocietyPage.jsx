@@ -1,63 +1,97 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './FsocietyPage.css';
 
 const FsocietyPage = () => {
-  const [activeTab, setActiveTab] = useState('manifesto');
-  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const terminalDocs = {
-    manifesto: `[ Fsociety pk MANIFESTO ]
-==================================================
-1. We believe in open, accessible security education.
-2. We research, build, and publish open-source security tools.
-3. We operate under a strict ethical framework of legal disclosure.
-4. We foster collaboration among security professionals in Pakistan.
-==================================================
-Status: ACTIVE & COMPLIANT`,
-    
-    operators: `[ OPERATOR PROTOCOLS ]
---------------------------------------------------
-Founder & Lead:
-  - Husnain (Offensive Sec, Cryptography)
+  const manifestoPoints = [
+    {
+      title: "Accessible Security Education",
+      desc: "We believe that knowledge should be free and accessible to everyone aiming to defend systems ethically."
+    },
+    {
+      title: "Open-Source Dev Sec",
+      desc: "We research, design, and release open-source security utilities and scripts to empower security practitioners."
+    },
+    {
+      title: "Ethical & Legal Compliance",
+      desc: "Our members operate under a strict code of ethics, focusing on responsible disclosure and defense."
+    },
+    {
+      title: "Regional Security Collaboration",
+      desc: "Fostering synergy and coordination among computer science students and security researchers across Pakistan."
+    }
+  ];
 
-Focus Areas:
-  - Red Team Operations
-  - CTF Vulnerability Lab Development
-  - Web Application Auditing & Forensic Analysis
+  const projectsList = [
+    {
+      name: "WriteupForge",
+      status: "Active",
+      desc: "Automated AI-driven CTF write-up and security report generator utilizing local models and APIs.",
+      stack: ["Python", "Groq API", "Markdown"],
+      icon: "fas fa-magic"
+    },
+    {
+      name: "SecureWall CLI",
+      status: "Active",
+      desc: "Fast terminal utility for configuring host-level iptables, logging anomalies, and interface monitoring.",
+      stack: ["Bash", "Systemd", "Linux OS"],
+      icon: "fas fa-shield-alt"
+    },
+    {
+      name: "Future Labs",
+      status: "In Development",
+      desc: "Highly interactive vulnerable Docker containers designed for training academies and individual practices.",
+      stack: ["Docker", "CTF Labs", "Linux"],
+      icon: "fas fa-network-wired"
+    }
+  ];
 
-Collaborations:
-  - Open to partnerships with academic security clubs 
-    and local tech groups.`,
-    
-    projects: `[ OPEN SOURCE TOOLS & RESEARCH ]
---------------------------------------------------
-1. WriteupForge (Active)
-   - Category: AI-driven CTF reporting automation
-   - Stack: Python, Groq LLM API
-   
-2. SecureWall CLI (Active)
-   - Category: Linux firewall & interface monitoring
-   - Stack: Bash, Systemd integration
-   
-3. Future Labs (In-Development)
-   - Custom vulnerable containers for student practice.`,
-    
-    membership: `[ COLLABORATE WITH US ]
---------------------------------------------------
-Interested in joining our open-source research or CTF squad?
-Contact: contact@husnain.rocks
-
-Requirements:
-  - Consistent learning attitude.
-  - Active participation in TryHackMe or CTF challenges.
-  - Dedication to ethical, legal guidelines.
-
-"Building the next generation of security defenders."`
-  };
+  const orgSocials = [
+    {
+      name: "GitHub Organization",
+      url: "https://github.com/fsociety-pk",
+      icon: "fab fa-github",
+      color: "#e6edf3",
+      bg: "rgba(230, 237, 243, 0.04)",
+      border: "rgba(230, 237, 243, 0.15)",
+      glow: "rgba(230, 237, 243, 0.1)",
+      desc: "Browse our open-source codebase & active security repositories."
+    },
+    {
+      name: "Official Portal",
+      url: "https://fsocietypk.tech",
+      icon: "fas fa-globe",
+      color: "#10b981",
+      bg: "rgba(16, 185, 129, 0.04)",
+      border: "rgba(16, 185, 129, 0.15)",
+      glow: "rgba(16, 185, 129, 0.1)",
+      desc: "Official website for updates, news, and official announcements."
+    },
+    {
+      name: "Direct Contact",
+      url: "mailto:contact@husnain.rocks",
+      icon: "fas fa-envelope",
+      color: "#fb923c",
+      bg: "rgba(251, 146, 60, 0.04)",
+      border: "rgba(251, 146, 60, 0.15)",
+      glow: "rgba(251, 146, 60, 0.1)",
+      desc: "Reach out to us directly for sponsorships, queries, or partnerships."
+    },
+    {
+      name: "Discord Inquiries",
+      url: "https://discord.com/users/sheriffsec",
+      icon: "fab fa-discord",
+      color: "#5865f2",
+      bg: "rgba(88, 101, 242, 0.04)",
+      border: "rgba(88, 101, 242, 0.15)",
+      glow: "rgba(88, 101, 242, 0.1)",
+      desc: "Connect directly with our leadership team for immediate responses."
+    }
+  ];
 
   return (
     <div className="fsociety-page-container">
@@ -67,89 +101,156 @@ Requirements:
       
       {/* Header */}
       <header className="fsociety-page-header">
-        <h1>Fsociety pk</h1>
-        <div style={{ marginTop: '1.25rem' }}>
-          <span className="fs-page-badge">Official Organization Hub</span>
+        <h1>FSOCIETY PK</h1>
+        <div style={{ marginTop: '1rem' }}>
+          <span className="fs-page-badge">Security Research Collective</span>
         </div>
         <p className="fs-page-subtitle">
-          A security research collective and open-source development organization based in Pakistan.
+          An elite group of security researchers, ethical hackers, and open-source developers collaborating to build secure infrastructures and free education.
         </p>
       </header>
 
-      {/* Pillars Section */}
-      <div className="fs-pillars-grid">
-        <div className="fs-pillar-card">
-          <i className="fas fa-code-branch icon"></i>
-          <h3>Open Source Tools</h3>
-          <p>Developing secure scripts, automation utilities, and firewall logs monitors to assist security researchers globally.</p>
-        </div>
-        <div className="fs-pillar-card">
-          <i className="fas fa-award icon"></i>
-          <h3>Competitive CTF</h3>
-          <p>Assembling teams to represent Pakistani expertise in global Capture The Flag tournaments, solving Web, Crypto, and Pwn.</p>
-        </div>
-        <div className="fs-pillar-card">
-          <i className="fas fa-book icon"></i>
-          <h3>Free Resources</h3>
-          <p>Creating walkthroughs, vulnerable setups, and guides to help computer science students enter the security industry ethically.</p>
-        </div>
-      </div>
-
-      {/* Main interactive terminal card */}
-      <div className="fs-terminal-card fade-in">
-        <div className="fs-terminal-sidebar">
-          <h4>Directories</h4>
-          <button 
-            className={`fs-dir-btn ${activeTab === 'manifesto' ? 'active' : ''}`}
-            onClick={() => setActiveTab('manifesto')}
-          >
-            <i className="fas fa-file-alt"></i> manifesto.txt
-          </button>
-          <button 
-            className={`fs-dir-btn ${activeTab === 'operators' ? 'active' : ''}`}
-            onClick={() => setActiveTab('operators')}
-          >
-            <i className="fas fa-file-code"></i> operators.db
-          </button>
-          <button 
-            className={`fs-dir-btn ${activeTab === 'projects' ? 'active' : ''}`}
-            onClick={() => setActiveTab('projects')}
-          >
-            <i className="fas fa-folder-open"></i> tools_manifest.json
-          </button>
-          <button 
-            className={`fs-dir-btn ${activeTab === 'membership' ? 'active' : ''}`}
-            onClick={() => setActiveTab('membership')}
-          >
-            <i className="fas fa-paper-plane"></i> join_collective.cfg
-          </button>
-        </div>
-        
-        <div className="fs-terminal-workspace">
-          <div className="code-window">
-            <div className="code-header">
-              <div className="code-dot dot-red"></div>
-              <div className="code-dot dot-yellow"></div>
-              <div className="code-dot dot-green"></div>
-              <span className="code-title">Fsocietypk@CONSOLE:~/org$ cat {activeTab === 'manifesto' ? 'manifesto.txt' : activeTab === 'operators' ? 'operators.db' : activeTab === 'projects' ? 'tools_manifest.json' : 'join_collective.cfg'}</span>
-            </div>
-            <div className="code-content fs-console-workspace">
-              <pre><code>{terminalDocs[activeTab]}</code><span className="typing-cursor"></span></pre>
+      {/* Leadership & Founder Spotlight Section */}
+      <section className="fs-founder-section">
+        <div className="fs-founder-card">
+          <div className="fs-founder-avatar-wrap">
+            <img 
+              src="/assets/profile.png" 
+              alt="Husnain" 
+              className="fs-founder-avatar"
+              onError={(e) => {
+                e.target.src = 'https://ui-avatars.com/api/?name=Husnain&background=0f172a&color=10b981&size=150';
+              }}
+            />
+            <span className="fs-badge-founder">FOUNDER</span>
+          </div>
+          <div className="fs-founder-details">
+            <span className="fs-subtitle-cyber">Leadership Spotlight</span>
+            <h2>Husnain</h2>
+            <h4 className="fs-founder-role">Founder &amp; Project Manager</h4>
+            <p>
+              Under my direction as founder and project manager, Fsociety pk coordinates competitive CTF campaigns, 
+              maintains defensive Linux scripts, and establishes partnerships to prepare the next generation of security professionals.
+            </p>
+            <div className="fs-founder-meta">
+              <span className="founder-tag"><i className="fas fa-shield-alt"></i> Offensive Security</span>
+              <span className="founder-tag"><i className="fas fa-code"></i> Project Management</span>
+              <span className="founder-tag"><i className="fas fa-users"></i> Collective Ops</span>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Org Actions */}
-      <div className="fs-page-actions">
-        <a href="https://github.com/fsociety-pk" target="_blank" rel="noreferrer" className="btn btn-primary">
-          <i className="fab fa-github"></i> Visit GitHub Org
-        </a>
-        <a href="mailto:contact@husnain.rocks" className="btn btn-secondary">
-          <i className="fas fa-envelope"></i> Core Inquiries
-        </a>
-      </div>
+      {/* Manifesto Section */}
+      <section className="fs-manifesto-section">
+        <div className="section-title-wrap">
+          <span className="section-prefix">// 01</span>
+          <h2>Our Core Manifesto</h2>
+        </div>
+        <div className="fs-manifesto-grid">
+          {manifestoPoints.map((item, idx) => (
+            <div key={idx} className="manifesto-card">
+              <div className="manifesto-number">0{idx + 1}</div>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
+      {/* Projects Grid Section */}
+      <section className="fs-projects-section">
+        <div className="section-title-wrap">
+          <span className="section-prefix">// 02</span>
+          <h2>Open Source Repositories</h2>
+        </div>
+        <div className="fs-projects-grid">
+          {projectsList.map((project, idx) => (
+            <div key={idx} className="fs-project-card">
+              <div className="project-card-header">
+                <div className="project-icon-box">
+                  <i className={project.icon}></i>
+                </div>
+                <span className={`project-status-chip ${project.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                  {project.status}
+                </span>
+              </div>
+              <h3>{project.name}</h3>
+              <p>{project.desc}</p>
+              <div className="project-stack-wrap">
+                {project.stack.map((tech, tIdx) => (
+                  <span key={tIdx} className="project-tech-tag">{tech}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Collaboration / Join collective section */}
+      <section className="fs-collaborate-section">
+        <div className="fs-collab-card">
+          <div className="fs-collab-details">
+            <span className="fs-subtitle-cyber">Operator Admission</span>
+            <h2>Join Our Security Collective</h2>
+            <p>
+              We are constantly seeking passionate security students, tool developers, and CTF enthusiasts in Pakistan.
+            </p>
+            <div className="fs-collab-reqs">
+              <h4>Requirements for entry:</h4>
+              <ul>
+                <li><i className="fas fa-chevron-right"></i> Consistent learning attitude &amp; technical drive</li>
+                <li><i className="fas fa-chevron-right"></i> Active practice labs engagement (TryHackMe, HackTheBox, etc.)</li>
+                <li><i className="fas fa-chevron-right"></i> Absolute dedication to ethical, guidelines</li>
+              </ul>
+            </div>
+          </div>
+          <div className="fs-collab-cta">
+            <p>Ready to deploy your skills with FSOCIETY?</p>
+            <a href="mailto:contact@husnain.rocks" className="btn btn-primary collab-btn">
+              Apply for Collective <i className="fas fa-paper-plane" style={{ marginLeft: '0.50rem' }}></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Beautiful Organization Socials Section */}
+      <section className="fs-socials-section">
+        <div className="section-title-wrap text-center-wrap">
+          <span className="section-prefix">// 03</span>
+          <h2>Connect &amp; Collaborate</h2>
+          <p className="section-subtext">Access our official organization portals and communication lines below.</p>
+        </div>
+        
+        <div className="fs-org-socials-grid">
+          {orgSocials.map((social, idx) => (
+            <a 
+              key={idx}
+              href={social.url}
+              target="_blank"
+              rel="noreferrer"
+              className="fs-org-social-card"
+              style={{
+                '--hover-color': social.color,
+                '--hover-bg': social.bg,
+                '--hover-border': social.border,
+                '--hover-glow': social.glow,
+              }}
+            >
+              <div className="social-card-icon" style={{ color: social.color, borderColor: social.border }}>
+                <i className={social.icon}></i>
+              </div>
+              <div className="social-card-content">
+                <h3>{social.name}</h3>
+                <p>{social.desc}</p>
+              </div>
+              <div className="social-card-arrow">
+                <i className="fas fa-arrow-right"></i>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

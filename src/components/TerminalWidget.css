@@ -11,32 +11,38 @@
 
 /* Floating Action Button (FAB) */
 .terminal-fab {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  border: 2px solid var(--accent-cyber, #00d9ff);
-  color: var(--accent-cyber, #00d9ff);
+  width: 120px;
+  height: 120px;
+  border-radius: 28px;
+  background: transparent;
+  border: none;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3), inset 0 0 10px rgba(0, 217, 255, 0.1);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   outline: none;
+  box-shadow: none;
 }
 
 .terminal-fab:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 8px 30px rgba(0, 217, 255, 0.5), inset 0 0 15px rgba(0, 217, 255, 0.2);
-  color: #fff;
-  border-color: #fff;
+  transform: scale(1.12);
 }
 
-.terminal-fab i {
-  font-size: 1.4rem;
-  filter: drop-shadow(0 0 5px currentColor);
+.terminal-lottie-container {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-lottie-container svg {
+  width: 100% !important;
+  height: 100% !important;
+  filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.5));
 }
 
 /* Tooltip badge */
@@ -258,5 +264,30 @@
     width: calc(100vw - 32px);
     right: -8px;
     height: 400px;
+  }
+
+  .terminal-widget-container {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .terminal-fab,
+  .terminal-lottie-container {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 360px) {
+  .terminal-window {
+    width: calc(100vw - 20px);
+    right: -4px;
+    height: 360px;
+  }
+
+  .terminal-fab,
+  .terminal-lottie-container {
+    width: 56px;
+    height: 56px;
   }
 }

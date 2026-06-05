@@ -23,24 +23,9 @@ const CtfsSummary = () => {
               discover hidden forensic indicators, and exploit vulnerable web infrastructures under intense time constraints.
             </p>
 
-            <div className="ctf-metrics-strip">
-              <div className="metric-box">
-                <span className="metric-val">Top 2%</span>
-                <span className="metric-lbl">TryHackMe Global</span>
-              </div>
-              <div className="metric-box">
-                <span className="metric-val">Rank 22</span>
-                <span className="metric-lbl">Ramadan CTF 2026</span>
-              </div>
-              <div className="metric-box">
-                <span className="metric-val">5800 pts</span>
-                <span className="metric-lbl">picoCTF Personal Score</span>
-              </div>
-            </div>
-
             <div className="ctf-summary-cta">
               <Link to="/ctfs" className="btn btn-primary ctf-summary-btn">
-                View Full CTF Writeups &amp; Metrics <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
+                View All CTFs <i className="fas fa-arrow-right" style={{ marginLeft: '0.5rem' }}></i>
               </Link>
             </div>
           </div>

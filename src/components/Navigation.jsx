@@ -61,6 +61,13 @@ const Navigation = ({ theme, onToggleTheme }) => {
     { name: 'Resume/CV', path: '/#downloads', icon: 'fa-file-pdf', desc: 'Download PDF resume' },
   ];
 
+  const pageLinks = [
+    { name: 'Certificates', path: '/certificates', icon: 'fa-award' },
+    { name: 'CTFs', path: '/ctfs', icon: 'fa-flag' },
+    { name: 'Fsociety', path: '/fsociety', icon: 'fa-user-secret' },
+    { name: 'Internship', path: '/internship', icon: 'fa-user-shield' },
+  ];
+
   const handleLinkClick = (path) => {
     setIsOpen(false);
     if (path.startsWith('/#')) {
@@ -101,43 +108,24 @@ const Navigation = ({ theme, onToggleTheme }) => {
               </Link>
             ))}
 
-            {/* Dropdown for More Pages */}
-            <div 
-              className={`nav-item-dropdown-container ${dropdownOpen ? 'open' : ''}`}
-              ref={dropdownRef}
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
-            >
-              <button 
-                className="nav-item dropdown-trigger"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <i className="fas fa-ellipsis-h"></i>
-                <span>More</span>
-                <i className="fas fa-chevron-down arrow-icon"></i>
-              </button>
+            {/* Divider */}
+            <span className="nav-divider"></span>
 
-              <div className="nav-dropdown-menu">
-                <div className="dropdown-grid">
-                  {dropdownLinks.map((link, i) => (
-                    <Link 
-                      to={link.path} 
-                      key={i} 
-                      className={`dropdown-link-item ${isLinkActive(link.path) ? 'active' : ''}`}
-                      onClick={() => handleLinkClick(link.path)}
-                    >
-                      <div className="dropdown-link-icon">
-                        <i className={`fas ${link.icon}`}></i>
-                      </div>
-                      <div className="dropdown-link-details">
-                        <span className="dropdown-link-name">{link.name}</span>
-                        <span className="dropdown-link-desc">{link.desc}</span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
+            {/* Icon-only compact page links */}
+            {pageLinks.map((link, i) => (
+              <Link
+                to={link.path}
+                key={`page-${i}`}
+                className={`nav-item nav-item-icon-only ${isLinkActive(link.path) ? 'active' : ''}`}
+                onClick={() => handleLinkClick(link.path)}
+                title={link.name}
+              >
+                <i className={`fas ${link.icon}`}></i>
+                <span className="nav-icon-tooltip">{link.name}</span>
+              </Link>
+            ))}
+
+            {/* Dropdown for More Pages removed */}
           </nav>
 
           {/* Actions: Theme toggle & Hamburger menu */}
@@ -148,7 +136,17 @@ const Navigation = ({ theme, onToggleTheme }) => {
               title={theme === 'dark' ? 'Switch to Red Team Theme' : 'Switch to Dark Green Theme'}
               aria-label="Toggle Theme"
             >
-              {theme === 'dark' ? <i className="fas fa-user-secret" style={{ color: '#ef4444' }}></i> : <i className="fas fa-shield-alt" style={{ color: '#10b981' }}></i>}
+              {theme === 'dark' ? (
+                <>
+                  <i className="fas fa-user-secret" style={{ color: '#ef4444' }}></i>
+                  <span className="theme-toggle-label">Red Team</span>
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-shield-alt" style={{ color: '#10b981' }}></i>
+                  <span className="theme-toggle-label">Cyber</span>
+                </>
+              )}
             </button>
             
             <button 

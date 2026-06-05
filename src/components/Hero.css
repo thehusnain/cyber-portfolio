@@ -32,6 +32,26 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 3rem 0;
+  }
+
+  .hero-bio {
+    font-size: 0.98rem;
+  }
+
+  .hero-cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-cta-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Hero Details (Right Column - Left-aligned on Desktop) */
 .hero-details {
   display: flex;
@@ -88,24 +108,27 @@
   font-size: clamp(2.5rem, 5vw, 4.25rem);
   line-height: 1.1;
   font-weight: 900;
-  color: var(--text-primary);
+  color: #ffffff;
   margin-bottom: 0.5rem;
   letter-spacing: -0.04em;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .hero-title {
   font-size: 1.25rem;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: #e2e8f0;
   margin-bottom: 1rem;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
 }
 
 .hero-bio {
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color: #cbd5e1;
   line-height: 1.65;
   margin-bottom: 2.25rem;
   max-width: 600px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* Tech Tag Badges - Colored system */
@@ -200,48 +223,42 @@
   }
 
   .hero-name {
-    font-size: clamp(2rem, 11vw, 3rem);
+    font-size: clamp(1.9rem, 10vw, 3rem);
   }
 
   .hero-title {
-    font-size: 1rem;
-  }
-
-  .hero-bio {
     font-size: 0.95rem;
   }
 
-  .hero-cta-buttons {
-    width: 100%;
-  }
-
-  .hero-cta-buttons .btn {
-    width: 100%;
-  }
-
-  .hero-tech-tags {
-    gap: 0.5rem;
+  .hero-bio {
+    font-size: 0.92rem;
   }
 
   .hero-social-under-pfp {
-    gap: 0.75rem;
+    gap: 0.65rem;
     flex-wrap: wrap;
   }
 
   .hero-pfp-social-icon {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
+    font-size: 1.05rem;
+  }
+
+  .social-icon-label {
+    font-size: 0.58rem;
   }
 }
 
 /* Social Media Icons below main profile picture */
 .hero-social-under-pfp {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 0.85rem 1.1rem;
   justify-content: center;
-  gap: 1.25rem;
   width: 100%;
-  max-width: 360px;
-  margin-top: 0.5rem;
+  max-width: 320px;
+  margin-top: 0.75rem;
 }
 
 .social-icon-wrapper {
@@ -253,41 +270,39 @@
 
 .social-icon-label {
   font-family: var(--font-header);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   transition: all var(--transition-fast);
   pointer-events: none;
+  /* color is set inline from JS per-platform */
+  opacity: 0.75;
 }
 
 .social-icon-wrapper:hover .social-icon-label {
-  color: var(--accent-cyber);
-  text-shadow: 0 0 8px var(--accent-cyber-glow);
+  opacity: 1;
 }
 
 .hero-pfp-social-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   background-color: var(--bg-secondary);
-  border-radius: 50%;
-  color: var(--text-secondary);
-  font-size: 1.2rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.25rem;
   border: 1px solid var(--border-color);
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-sm);
+  /* color/bg/border come from inline styles */
 }
 
 .hero-pfp-social-icon:hover {
-  background-color: var(--accent-cyber-bg);
-  border-color: var(--accent-cyber);
-  color: var(--accent-cyber);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md), var(--shadow-glow);
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: var(--shadow-md), 0 0 16px var(--social-glow, rgba(255,255,255,0.15));
+  filter: brightness(1.2);
 }
 
 /* ==========================================================================

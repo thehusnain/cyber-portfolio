@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import lottie from 'lottie-web';
 import './TerminalWidget.css';
 
 const TerminalWidget = () => {
@@ -12,6 +13,7 @@ const TerminalWidget = () => {
 
   const bodyRef = useRef(null);
   const inputRef = useRef(null);
+  const lottieContainerRef = useRef(null);
 
   // Auto scroll to bottom
   useEffect(() => {
@@ -25,6 +27,23 @@ const TerminalWidget = () => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
+  }, [isOpen]);
+
+  // Load Lottie JSON Animation
+  useEffect(() => {
+    let anim;
+    if (!isOpen && lottieContainerRef.current) {
+      anim = lottie.loadAnimation({
+        container: lottieContainerRef.current,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/assets/icons/Code%20or%20Terminal.json'
+      });
+    }
+    return () => {
+      if (anim) anim.destroy();
+    };
   }, [isOpen]);
 
   const handleCommand = (cmdStr) => {
@@ -133,7 +152,7 @@ const TerminalWidget = () => {
       {/* Floating Action Button (FAB) */}
       {!isOpen && (
         <button className="terminal-fab" onClick={() => setIsOpen(true)}>
-          <i className="fas fa-terminal"></i>
+          <div ref={lottieContainerRef} className="terminal-lottie-container"></div>
         </button>
       )}
 
@@ -144,7 +163,7 @@ const TerminalWidget = () => {
           <div className="terminal-header">
             <div className="terminal-title">
               <i className="fas fa-terminal term-cyber"></i>
-              <span>guest@fsociety: ~</span>
+              <span>sheriff@sec: ~</span>
             </div>
             <div className="terminal-controls">
               <button className="term-btn term-min" onClick={() => setIsOpen(false)} title="Minimize"></button>
@@ -159,7 +178,7 @@ const TerminalWidget = () => {
                 <div key={idx} className="terminal-line">
                   {line.type === 'command' ? (
                     <p>
-                      <span className="term-prompt">guest@fsociety:~$</span>{' '}
+                      <span className="term-prompt">sheriff@sec:~$</span>{' '}
                       <span className="term-cmd">{line.text}</span>
                     </p>
                   ) : typeof line.text === 'string' ? (
@@ -173,7 +192,7 @@ const TerminalWidget = () => {
 
             {/* Input Line */}
             <div className="terminal-input-row">
-              <span className="term-prompt">guest@fsociety:~$</span>
+              <span className="term-prompt">sheriff@sec:~$</span>
               <input
                 ref={inputRef}
                 type="text"

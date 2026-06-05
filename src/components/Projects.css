@@ -11,6 +11,29 @@
   }
 }
 
+@media (max-width: 480px) {
+  .project-card {
+    padding: 1.35rem;
+  }
+
+  .project-header {
+    gap: 0.75rem;
+  }
+
+  .project-header h3 {
+    font-size: 1.15rem;
+  }
+
+  .project-actions {
+    flex-direction: column;
+  }
+
+  .project-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Project Card Base */
 .project-card {
   background-color: var(--bg-secondary);

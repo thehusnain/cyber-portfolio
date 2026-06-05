@@ -2,49 +2,61 @@ import React from 'react';
 import './Hero.css';
 
 const Hero = () => {
-  const techStack = [
-    { 
-      name: 'Kali Linux', 
-      icon: 'https://cdn.simpleicons.org/kalilinux/7964ae', 
-      color: '#8c62ff', 
-      bg: 'rgba(121, 100, 174, 0.08)', 
-      border: 'rgba(121, 100, 174, 0.25)' 
-    },
-    { 
-      name: 'Burp Suite', 
-      icon: 'https://cdn.simpleicons.org/portswigger/ff6600', 
-      color: '#ff6600', 
-      bg: 'rgba(255, 102, 0, 0.08)', 
-      border: 'rgba(255, 102, 0, 0.25)' 
-    },
-    { 
-      name: 'Nmap', 
-      icon: 'https://cdn.simpleicons.org/nmap/2ba9e1', 
-      color: '#2ba9e1', 
-      bg: 'rgba(43, 169, 225, 0.08)', 
-      border: 'rgba(43, 169, 225, 0.25)' 
-    },
-    { 
-      name: 'Wireshark', 
-      icon: 'https://cdn.simpleicons.org/wireshark/1679b7', 
-      color: '#1679b7', 
-      bg: 'rgba(22, 121, 183, 0.08)', 
-      border: 'rgba(22, 121, 183, 0.25)' 
-    },
-    { 
-      name: 'Metasploit', 
-      icon: 'https://cdn.simpleicons.org/metasploit/3f51b5', 
-      color: '#3f51b5', 
-      bg: 'rgba(63, 81, 181, 0.08)', 
-      border: 'rgba(63, 81, 181, 0.25)' 
-    },
-  ];
-
   const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/thehusnain', icon: 'fab fa-github' },
-    { name: 'TryHackMe', url: 'https://tryhackme.com/p/thehusnain', icon: 'fas fa-terminal' },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/husnain-fiaz-7a4761369', icon: 'fab fa-linkedin' },
-    { name: 'Email', url: 'mailto:contact@husnain.rocks', icon: 'fas fa-envelope' }
+    { 
+      name: 'GitHub', 
+      url: 'https://github.com/thehusnain', 
+      icon: 'fab fa-github',
+      color: '#e6edf3',
+      bg: 'rgba(230, 237, 243, 0.08)',
+      border: 'rgba(230, 237, 243, 0.18)',
+      glow: 'rgba(230, 237, 243, 0.15)'
+    },
+    { 
+      name: 'TryHackMe', 
+      url: 'https://tryhackme.com/p/thehusnain', 
+      icon: 'fas fa-terminal',
+      color: '#c11111',
+      bg: 'rgba(193, 17, 17, 0.08)',
+      border: 'rgba(193, 17, 17, 0.25)',
+      glow: 'rgba(193, 17, 17, 0.2)'
+    },
+    { 
+      name: 'LinkedIn', 
+      url: 'https://linkedin.com/in/husnain-fiaz-7a4761369', 
+      icon: 'fab fa-linkedin',
+      color: '#0a66c2',
+      bg: 'rgba(10, 102, 194, 0.08)',
+      border: 'rgba(10, 102, 194, 0.25)',
+      glow: 'rgba(10, 102, 194, 0.2)'
+    },
+    { 
+      name: 'Discord', 
+      url: 'https://discord.com/users/sheriffsec', 
+      icon: 'fab fa-discord',
+      color: '#5865f2',
+      bg: 'rgba(88, 101, 242, 0.08)',
+      border: 'rgba(88, 101, 242, 0.25)',
+      glow: 'rgba(88, 101, 242, 0.2)'
+    },
+    { 
+      name: 'Instagram', 
+      url: 'https://instagram.com/thehusnain.sec', 
+      icon: 'fab fa-instagram',
+      color: '#e1306c',
+      bg: 'rgba(225, 48, 108, 0.08)',
+      border: 'rgba(225, 48, 108, 0.25)',
+      glow: 'rgba(225, 48, 108, 0.2)'
+    },
+    { 
+      name: 'Email', 
+      url: 'mailto:contact@husnain.rocks', 
+      icon: 'fas fa-envelope',
+      color: '#10b981',
+      bg: 'rgba(16, 185, 129, 0.08)',
+      border: 'rgba(16, 185, 129, 0.25)',
+      glow: 'rgba(16, 185, 129, 0.2)'
+    }
   ];
 
   return (
@@ -75,10 +87,16 @@ const Hero = () => {
                     rel="noreferrer" 
                     className="hero-pfp-social-icon"
                     title={social.name}
+                    style={{
+                      backgroundColor: social.bg,
+                      borderColor: social.border,
+                      color: social.color,
+                      '--social-glow': social.glow,
+                    }}
                   >
                     <i className={social.icon}></i>
                   </a>
-                  <span className="social-icon-label">{social.name}</span>
+                  <span className="social-icon-label" style={{ color: social.color }}>{social.name}</span>
                 </div>
               ))}
             </div>
@@ -102,30 +120,6 @@ const Hero = () => {
               <a href="#contact" className="btn btn-secondary">
                 Get In Touch
               </a>
-            </div>
-
-            <div className="hero-tech-tags animate-text-6">
-              {techStack.map((tech, index) => (
-                <span 
-                  key={index} 
-                  className="tech-badge-colored"
-                  style={{
-                    backgroundColor: tech.bg,
-                    borderColor: tech.border,
-                    color: tech.color
-                  }}
-                >
-                  <img 
-                    src={tech.icon} 
-                    alt={tech.name} 
-                    className="tech-badge-icon"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-                  {tech.name}
-                </span>
-              ))}
             </div>
           </div>
 
