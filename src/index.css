@@ -1,24 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Dark Mode (Default) variables */
+  /* Dark Mode (Default) variables - Neon Green Primary */
   --bg-primary: #0a0e17;
   --bg-secondary: #0f1524;
   --bg-card: #161f33;
   --bg-card-hover: #1e2942;
   --border-color: rgba(255, 255, 255, 0.07);
-  --border-glow: rgba(0, 217, 255, 0.15);
+  --border-glow: rgba(16, 185, 129, 0.15);
   
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   
-  --accent-cyber: #00d9ff;
-  --accent-cyber-glow: rgba(0, 217, 255, 0.4);
+  --accent-cyber: #10b981;
+  --accent-cyber-glow: rgba(16, 185, 129, 0.4);
   --accent-success: #10b981;
   --accent-success-glow: rgba(16, 185, 129, 0.3);
-  --accent-cyber-bg: rgba(0, 217, 255, 0.08);
-  --accent-cyber-border: rgba(0, 217, 255, 0.2);
+  --accent-cyber-bg: rgba(16, 185, 129, 0.08);
+  --accent-cyber-border: rgba(16, 185, 129, 0.2);
   
   --font-body: 'Inter', sans-serif;
   --font-header: 'Plus Jakarta Sans', sans-serif;
@@ -33,36 +33,36 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.06);
   --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.4), 0 8px 10px -6px rgba(0,0,0,0.4);
-  --shadow-glow: 0 0 20px rgba(0, 217, 255, 0.15);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
   
   --transition-fast: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-normal: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Light Theme Variables */
+/* Red Team Theme Variables (internally data-theme="light") */
 [data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-card: #f1f5f9;
-  --bg-card-hover: #e2e8f0;
-  --border-color: rgba(15, 23, 42, 0.08);
-  --border-glow: rgba(2, 132, 199, 0.15);
+  --bg-primary: #0a0505;
+  --bg-secondary: #120808;
+  --bg-card: #1c0e0e;
+  --bg-card-hover: #261414;
+  --border-color: rgba(255, 255, 255, 0.07);
+  --border-glow: rgba(239, 68, 68, 0.15);
   
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #888888;
   
-  --accent-cyber: #0284c7;
-  --accent-cyber-glow: rgba(2, 132, 199, 0.4);
-  --accent-success: #059669;
-  --accent-success-glow: rgba(5, 150, 105, 0.3);
-  --accent-cyber-bg: rgba(2, 132, 199, 0.08);
-  --accent-cyber-border: rgba(2, 132, 199, 0.2);
+  --accent-cyber: #ef4444;
+  --accent-cyber-glow: rgba(239, 68, 68, 0.4);
+  --accent-success: #ef4444;
+  --accent-success-glow: rgba(239, 68, 68, 0.3);
+  --accent-cyber-bg: rgba(239, 68, 68, 0.08);
+  --accent-cyber-border: rgba(239, 68, 68, 0.2);
   
-  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
-  --shadow-glow: 0 0 20px rgba(2, 132, 199, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.4), 0 8px 10px -6px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 20px rgba(239, 68, 68, 0.15);
 }
 
 /* Global Reset */
@@ -442,28 +442,28 @@ p {
   }
 }
 
-/* Light mode specific terminal color updates (Green light theme) */
+/* Red theme specific terminal color updates (Red Team theme) */
 [data-theme="light"] .code-window {
-  background: #e8f5e9 !important;
-  border-color: rgba(46, 125, 50, 0.3) !important;
+  background: #120808 !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
 }
 
 [data-theme="light"] .code-header {
-  background: #c8e6c9 !important;
-  border-bottom: 1px solid rgba(46, 125, 50, 0.2) !important;
+  background: #1c0e0e !important;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.2) !important;
 }
 
 [data-theme="light"] .code-title {
-  color: #1b5e20 !important;
+  color: #ef4444 !important;
 }
 
 [data-theme="light"] .code-content {
-  color: #1b5e20 !important;
-  background: #e8f5e9 !important;
+  color: #ff8a8a !important;
+  background: #120808 !important;
 }
 
 [data-theme="light"] .typing-cursor {
-  background-color: #2e7d32 !important;
+  background-color: #ef4444 !important;
 }
 
 /* ==========================================================================
@@ -574,22 +574,6 @@ p {
   z-index: 5;
 }
 
-[data-theme="light"] .project-card,
-[data-theme="light"] .cert-card,
-[data-theme="light"] .cert-page-card,
-[data-theme="light"] .ctf-page-card,
-[data-theme="light"] .dl-card,
-[data-theme="light"] .about-info-card-stacked,
-[data-theme="light"] .timeline-card,
-[data-theme="light"] .contact-info-pane,
-[data-theme="light"] .contact-form-pane {
-  background: rgba(255, 255, 255, 0.75) !important;
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 8px 30px 0 rgba(31, 38, 135, 0.04) !important;
-}
-
 /* Hover lift — only on cards, NOT on contact panes (bad UX on forms) */
 .project-card:hover,
 .cert-card:hover,
@@ -598,8 +582,8 @@ p {
 .dl-card:hover,
 .about-info-card-stacked:hover {
   transform: translateY(-8px) scale(1.015) !important;
-  border-color: rgba(0, 217, 255, 0.4) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 217, 255, 0.15) !important;
+  border-color: var(--accent-cyber) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px var(--accent-cyber-glow) !important;
 }
 
 .project-card:hover::before,
@@ -617,35 +601,14 @@ p {
 .contact-info-pane:hover,
 .contact-form-pane:hover {
   border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 217, 255, 0.18) !important;
-}
-
-[data-theme="light"] .project-card:hover,
-[data-theme="light"] .cert-card:hover,
-[data-theme="light"] .cert-page-card:hover,
-[data-theme="light"] .ctf-page-card:hover,
-[data-theme="light"] .dl-card:hover,
-[data-theme="light"] .about-info-card-stacked:hover {
-  border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.15) !important;
-}
-
-[data-theme="light"] .contact-info-pane:hover,
-[data-theme="light"] .contact-form-pane:hover {
-  border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.1) !important;
+  box-shadow: 0 12px 40px var(--border-glow) !important;
 }
 
 /* Timeline specific slide-right glow hover */
 .timeline-card:hover {
   transform: translateX(8px) scale(1.01) !important;
-  border-color: rgba(0, 217, 255, 0.4) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 217, 255, 0.15) !important;
-}
-
-[data-theme="light"] .timeline-card:hover {
   border-color: var(--accent-cyber) !important;
-  box-shadow: 0 12px 40px 0 rgba(2, 132, 199, 0.12) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px var(--accent-cyber-glow) !important;
 }
 
 /* Continuous anti-gravity bobbing animations */

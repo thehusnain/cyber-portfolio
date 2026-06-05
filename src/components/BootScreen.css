@@ -554,9 +554,9 @@
 
 /* ── PREMIUM PALETTE OVERRIDES (tone down hacker aesthetics) ── */
 :root {
-  --premium-c-1: 110,231,247; /* cyan */
-  --premium-c-2: 155,92,255;  /* purple */
-  --muted-white: 230,255,248;
+  --premium-c-1: 16, 185, 129; /* emerald green */
+  --premium-c-2: 52, 211, 153;  /* minty green */
+  --muted-white: 230, 255, 248;
 }
 
 /* softer matrix and terminal tones */

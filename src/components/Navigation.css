@@ -33,12 +33,12 @@
   transform: translateX(-50%) translateY(-150%);
 }
 
-/* Light Theme Styling */
+/* Red Team Navigation Styling (Internally theme-light) */
 .top-navbar.theme-light {
-  background: rgba(248, 250, 252, 0.82);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+  background: rgba(18, 8, 8, 0.82);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.06);
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.04);
 }
 
 /* Default state: hide mobile navigation drawer on desktop */
@@ -62,7 +62,7 @@
   }
   
   .top-navbar.menu-expanded.theme-light {
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(18, 8, 8, 0.98);
   }
 }
 
@@ -200,9 +200,9 @@
 }
 
 .theme-light .nav-dropdown-menu {
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+  background: rgba(28, 14, 14, 0.98);
+  border: 1px solid rgba(239, 68, 68, 0.08);
+  box-shadow: 0 15px 40px rgba(239, 68, 68, 0.08);
 }
 
 /* Trigger reveal dropdown on hover or open */
@@ -248,8 +248,8 @@
 }
 
 .theme-light .dropdown-link-icon {
-  background: rgba(15, 23, 42, 0.02);
-  border: 1px solid rgba(15, 23, 42, 0.04);
+  background: rgba(239, 68, 68, 0.02);
+  border: 1px solid rgba(239, 68, 68, 0.04);
 }
 
 .dropdown-link-details {
@@ -325,8 +325,8 @@
 }
 
 .theme-light .theme-toggle-btn {
-  background: rgba(15, 23, 42, 0.03);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(239, 68, 68, 0.03);
+  border: 1px solid rgba(239, 68, 68, 0.08);
 }
 
 .theme-toggle-btn:hover {
@@ -442,9 +442,9 @@
   }
 
   .theme-light .mobile-nav-drawer {
-    background: rgba(255, 255, 255, 0.98);
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+    background: rgba(18, 8, 8, 0.98);
+    border-bottom: 1px solid rgba(239, 68, 68, 0.08);
+    box-shadow: 0 20px 40px rgba(239, 68, 68, 0.06);
   }
 
   /* When menu is active, push the drawer down under the full header */
@@ -483,7 +483,7 @@
   }
 
   .theme-light .mobile-section-label {
-    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+    border-bottom: 1px solid rgba(239, 68, 68, 0.05);
   }
 
   .mobile-links-vertical {
@@ -510,8 +510,8 @@
   }
 
   .theme-light .mobile-nav-item {
-    background: rgba(15, 23, 42, 0.01);
-    border: 1px solid rgba(15, 23, 42, 0.04);
+    background: rgba(239, 68, 68, 0.01);
+    border: 1px solid rgba(239, 68, 68, 0.04);
   }
 
   .mobile-item-icon {

@@ -40,9 +40,9 @@ const ALL_CERTS = [
     issuer: "Cisco Networking Academy",
     date: "2026",
     category: "Networking",
-    categoryColor: "#00d9ff",
-    categoryBg: "rgba(0,217,255,0.08)",
-    categoryBorder: "rgba(0,217,255,0.2)",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16,185,129,0.08)",
+    categoryBorder: "rgba(16,185,129,0.2)",
     desc: "Fundamental concepts in cybersecurity: online safety, data confidentiality, vulnerability identification, and mitigation strategies using Cisco frameworks.",
     icon: "fa-network-wired",
     link: "/assets/cisco.png",
@@ -100,9 +100,9 @@ const ALL_CERTS = [
     issuer: "SecLeaf CTF",
     date: "2025",
     category: "CTF",
-    categoryColor: "#06b6d4",
-    categoryBg: "rgba(6,182,212,0.08)",
-    categoryBorder: "rgba(6,182,212,0.2)",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16,185,129,0.08)",
+    categoryBorder: "rgba(16,185,129,0.2)",
     desc: "Certificate of participation in the SecLeaf CTF competition. Competed in challenges spanning Web Exploitation, Reverse Engineering, Cryptography, and Forensics.",
     icon: "fa-flag",
     link: "/assets/ctfs/secleaf-ctf/certificate.pdf",
@@ -115,9 +115,9 @@ const ALL_CERTS = [
     issuer: "Hack4Bug CTF",
     date: "2025",
     category: "CTF",
-    categoryColor: "#06b6d4",
-    categoryBg: "rgba(6,182,212,0.08)",
-    categoryBorder: "rgba(6,182,212,0.2)",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16,185,129,0.08)",
+    categoryBorder: "rgba(16,185,129,0.2)",
     desc: "Official CTF Player Badge awarded for participation in the Hack4Bug security competition. Engaged in bug-hunting scenarios, real-world exploitation tasks, and team collaboration.",
     icon: "fa-bug",
     link: "/assets/ctfs/Hack4Bug-ctf/Hack4Bug - CTF Player Badge.pdf",
@@ -141,7 +141,7 @@ const CertCard = ({ cert, onPreview }) => (
           src={cert.img}
           alt={cert.title}
           onError={(e) => {
-            e.target.src = 'https://ui-avatars.com/api/?name=Certificate&background=0f172a&color=00d9ff&size=400';
+            e.target.src = 'https://ui-avatars.com/api/?name=Certificate&background=0f172a&color=10b981&size=400';
           }}
         />
       ) : (

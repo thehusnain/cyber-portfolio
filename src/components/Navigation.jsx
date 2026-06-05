@@ -145,10 +145,10 @@ const Navigation = ({ theme, onToggleTheme }) => {
             <button 
               className="theme-toggle-btn" 
               onClick={onToggleTheme} 
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              title={theme === 'dark' ? 'Switch to Red Team Theme' : 'Switch to Dark Green Theme'}
               aria-label="Toggle Theme"
             >
-              {theme === 'dark' ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
+              {theme === 'dark' ? <i className="fas fa-user-secret" style={{ color: '#ef4444' }}></i> : <i className="fas fa-shield-alt" style={{ color: '#10b981' }}></i>}
             </button>
             
             <button 

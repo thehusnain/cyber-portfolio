@@ -4,7 +4,7 @@ import './Fsociety.css';
 
 const Fsociety = () => {
   const tags = [
-    { label: 'Offensive Security', color: '#00d9ff', bg: 'rgba(0,217,255,0.08)', border: 'rgba(0,217,255,0.2)' },
+    { label: 'Offensive Security', color: '#10b981', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.2)' },
     { label: 'CTF Team',           color: '#a855f7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.2)' },
     { label: 'Open-Source Tools',  color: '#10b981', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.2)' },
     { label: 'Research Collective',color: '#f59e0b', bg: 'rgba(245,158,11,0.08)',  border: 'rgba(245,158,11,0.2)' },

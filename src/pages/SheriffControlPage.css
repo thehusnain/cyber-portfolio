@@ -294,32 +294,6 @@
   font-family: var(--font-mono);
 }
 
-.reset-db-btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.visitor-admin-note {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.25rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(0, 255, 140, 0.08), rgba(0, 0, 0, 0.15));
-}
-
-.visitor-admin-note h4 {
-  margin: 0;
-  color: var(--text-primary);
-  font-size: 1rem;
-}
-
-.visitor-admin-note p {
-  margin: 0;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
 
 .admin-db-list {
   display: flex;
@@ -351,14 +325,6 @@
 
 .admin-db-card:hover {
   border-color: var(--border-glow);
-}
-
-.visitor-dashboard-frame {
-  width: 100%;
-  min-height: 760px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  background: #0b1020;
 }
 
 .db-card-info {

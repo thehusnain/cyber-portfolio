@@ -11,7 +11,7 @@ const SheriffControlPage = () => {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  // Active Admin Tab: 'projects' | 'ctfs' | 'certs' | 'interns' | 'visitors'
+  // Active Admin Tab: 'projects' | 'ctfs' | 'certs' | 'interns'
   const [activeTab, setActiveTab] = useState('projects');
 
   // Database states
@@ -19,9 +19,6 @@ const SheriffControlPage = () => {
   const [ctfs, setCtfs] = useState([]);
   const [certs, setCerts] = useState([]);
   const [internships, setInternships] = useState([]);
-  const [visitorDashboardHtml, setVisitorDashboardHtml] = useState('');
-  const [visitorLoading, setVisitorLoading] = useState(false);
-  const [visitorError, setVisitorError] = useState('');
 
   const emptyProjectForm = {
     title: '', description: '', tags: '', repoLink: '', demoLink: '', icon: 'fa-code', featured: false
@@ -93,38 +90,7 @@ const SheriffControlPage = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (!isLoggedIn || activeTab !== 'visitors') return;
 
-    const loadVisitorDashboard = async () => {
-      setVisitorLoading(true);
-      setVisitorError('');
-
-      try {
-        const apiBaseUrl = import.meta.env.VITE_TRACKER_API_URL || 'http://127.0.0.1:8000';
-        const apiToken = import.meta.env.VITE_TRACKER_API_TOKEN || '';
-        const response = await fetch(`${apiBaseUrl}/api/dashboard`, {
-          headers: {
-            'X-API-Token': apiToken,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to load visitor dashboard (${response.status})`);
-        }
-
-        const html = await response.text();
-        setVisitorDashboardHtml(html);
-      } catch (error) {
-        setVisitorError(error instanceof Error ? error.message : 'Failed to load visitor dashboard.');
-        setVisitorDashboardHtml('');
-      } finally {
-        setVisitorLoading(false);
-      }
-    };
-
-    loadVisitorDashboard();
-  }, [activeTab, isLoggedIn]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -277,8 +243,6 @@ const SheriffControlPage = () => {
 
   // Reset database to default
   const handleResetToDefault = (category) => {
-    if (category === 'visitors') return;
-
     if (!window.confirm(`Are you sure you want to reset all ${category} to defaults? Custom entries will be lost.`)) return;
 
     if (category === 'projects') {
@@ -373,19 +337,13 @@ const SheriffControlPage = () => {
         >
           <i className="fas fa-building"></i> Internships
         </button>
-        <button
-          className={`admin-tab-btn ${activeTab === 'visitors' ? 'active' : ''}`}
-          onClick={() => setActiveTab('visitors')}
-        >
-          <i className="fas fa-user-shield"></i> Visitors
-        </button>
       </div>
 
       <div className="admin-dashboard-grid">
         
         {/* Left Column: Form to Add */}
         <div className="admin-form-section">
-          <h3>Add New {activeTab === 'projects' ? 'Project' : activeTab === 'ctfs' ? 'CTF Achievement' : activeTab === 'certs' ? 'Certificate' : activeTab === 'interns' ? 'Internship' : 'Visitor Data'}</h3>
+          <h3>Add New {activeTab === 'projects' ? 'Project' : activeTab === 'ctfs' ? 'CTF Achievement' : activeTab === 'certs' ? 'Certificate' : 'Internship'}</h3>
           
           {activeTab === 'projects' && (
             <form onSubmit={handleSaveProject} className="admin-crud-form">
@@ -688,40 +646,19 @@ const SheriffControlPage = () => {
             </form>
           )}
 
-          {activeTab === 'visitors' && (
-            <div className="admin-crud-form">
-              <div className="visitor-admin-note">
-                <h4>Visitor analytics are loaded from the separate FastAPI backend.</h4>
-                <p>This panel is read-only so IP hashes stay visible only inside the admin route.</p>
-              </div>
-            </div>
-          )}
+
         </div>
 
         {/* Right Column: Database list */}
         <div className="admin-list-section">
           <div className="list-section-header">
-            <h3>{activeTab === 'visitors' ? 'Visitor Dashboard' : 'Active Elements Database'}</h3>
-            <button className="btn btn-secondary reset-db-btn" onClick={() => handleResetToDefault(activeTab)} disabled={activeTab === 'visitors'}>
+            <h3>Active Elements Database</h3>
+            <button className="btn btn-secondary reset-db-btn" onClick={() => handleResetToDefault(activeTab)}>
               <i className="fas fa-rotate-left"></i> Revert to Default
             </button>
           </div>
           
           <div className="admin-db-list">
-            {activeTab === 'visitors' && (
-              <>
-                {visitorLoading && <p className="db-empty-msg">Loading visitor dashboard...</p>}
-                {!visitorLoading && visitorError && <p className="db-empty-msg">{visitorError}</p>}
-                {!visitorLoading && !visitorError && visitorDashboardHtml && (
-                  <iframe
-                    title="Visitor Dashboard"
-                    className="visitor-dashboard-frame"
-                    srcDoc={visitorDashboardHtml}
-                  />
-                )}
-              </>
-            )}
-
             {activeTab === 'projects' && projects.length === 0 && <p className="db-empty-msg">No active projects found.</p>}
             {activeTab === 'projects' && projects.map((proj, idx) => (
               <div key={idx} className="admin-db-card">
@@ -791,9 +728,7 @@ const SheriffControlPage = () => {
               </div>
             ))}
 
-            {activeTab === 'visitors' && !visitorLoading && !visitorError && !visitorDashboardHtml && (
-              <p className="db-empty-msg">No visitor dashboard content returned from the backend.</p>
-            )}
+
           </div>
         </div>
 

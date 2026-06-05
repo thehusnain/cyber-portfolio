@@ -7,8 +7,13 @@ import FsocietyPage from './pages/FsocietyPage';
 import SheriffControlPage from './pages/SheriffControlPage';
 import InternshipsPage from './pages/InternshipsPage';
 import AntiGravityBackground from './components/AntiGravityBackground';
+import TerminalWidget from './components/TerminalWidget';
 import { useState, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './index.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function AppContent() {
   // Theme state: default to dark theme
@@ -35,64 +40,39 @@ function AppContent() {
     }
   }, [location.hash, location.pathname, location.search, navigate]);
 
-  // Telemetry: Track page and section visits
+  // Global ScrollTrigger for [data-animate] template elements
   useEffect(() => {
-    const trackVisit = async () => {
-      try {
-        const apiBaseUrl = import.meta.env.VITE_TRACKER_API_URL || 'http://127.0.0.1:8000';
-        const payload = {
-          page: `${window.location.pathname}${window.location.hash || ''}`,
-          referrer: document.referrer || '',
-          screenSize: `${window.innerWidth}x${window.innerHeight}`,
-          language: navigator.language || '',
-        };
-        
-        await fetch(`${apiBaseUrl}/api/track`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-      } catch (err) {
-        console.warn('Telemetry check skipped:', err.message);
-      }
-    };
+    const triggers = [];
 
-    trackVisit();
-  }, [location.pathname, location.hash]);
-
-  // Global scroll reveal observer for [data-animate] template elements
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-visible');
-            // Unobserve once triggered to lock animation in visible state
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
-    );
-
-    // Query both current document and set up observer
-    const observeElements = () => {
+    const setupAnimations = () => {
       const elements = document.querySelectorAll('[data-animate]');
-      elements.forEach((el) => observer.observe(el));
+      elements.forEach((el) => {
+        if (el.dataset.gsapDone) return;
+        el.dataset.gsapDone = '1';
+
+        const trigger = ScrollTrigger.create({
+          trigger: el,
+          start: 'top 92%',
+          onEnter: () => {
+            el.classList.add('animate-visible');
+          },
+          once: true,
+        });
+
+        triggers.push(trigger);
+      });
     };
 
-    // Run observation
-    observeElements();
-
-    // Re-run observations slightly delayed to allow React components to fully mount
-    const timer = setTimeout(observeElements, 100);
+    setupAnimations();
+    const timer = setTimeout(setupAnimations, 150);
 
     return () => {
       clearTimeout(timer);
-      const elements = document.querySelectorAll('[data-animate]');
-      elements.forEach((el) => observer.unobserve(el));
+      // Kill only the specific triggers set up in this hook instance
+      triggers.forEach((trigger) => trigger.kill());
+      document.querySelectorAll('[data-gsap-done]').forEach((el) => {
+        delete el.dataset.gsapDone;
+      });
     };
   }, [location.pathname]);
 
@@ -104,7 +84,7 @@ function AppContent() {
     <>
       <AntiGravityBackground theme={theme} />
       <Navigation theme={theme} onToggleTheme={toggleTheme} />
-      
+
       {/* key={location.pathname} forces animation to replay on page changes */}
       <main className="main-content" key={location.pathname}>
         <Routes>
@@ -116,6 +96,9 @@ function AppContent() {
           <Route path="/internship" element={<InternshipsPage />} />
         </Routes>
       </main>
+
+      {/* Floating interactive terminal chatbot */}
+      <TerminalWidget />
     </>
   );
 }

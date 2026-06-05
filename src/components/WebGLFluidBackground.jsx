@@ -35,17 +35,16 @@ const WebGLFluidBackground = ({ isLight = false }) => {
     // Simulation configuration — tuned per theme
     const config = {
       SIM_RESOLUTION: 128,
-      DYE_RESOLUTION: isLight ? 512 : 1024,
+      DYE_RESOLUTION: 1024,
       CAPTURE_RESOLUTION: 512,
-      // Light mode: dissipate faster so trails don't linger too long on white
-      DENSITY_DISSIPATION: isLight ? 2.5 : 1,
-      VELOCITY_DISSIPATION: isLight ? 1.5 : 1,
+      DENSITY_DISSIPATION: 1,
+      VELOCITY_DISSIPATION: 1,
       PRESSURE: 0.25,
       PRESSURE_ITERATIONS: 20,
-      CURL: isLight ? 10 : 0,
+      CURL: 30,
       SPLAT_RADIUS: 0.18,
       SPLAT_FORCE: 6000,
-      SHADING: !isLight, // shading looks better on dark
+      SHADING: true,
       COLORFUL: true,
       COLOR_UPDATE_SPEED: 10,
       PAUSED: false,
@@ -57,7 +56,7 @@ const WebGLFluidBackground = ({ isLight = false }) => {
       BLOOM_INTENSITY: 0.8,
       BLOOM_THRESHOLD: 0.6,
       BLOOM_SOFT_KNEE: 0.7,
-      SUNRAYS: !isLight, // sunrays only in dark mode
+      SUNRAYS: true,
       SUNRAYS_RESOLUTION: 196,
       SUNRAYS_WEIGHT: 1.0,
       RANDOM_COLORS: true,
@@ -1781,10 +1780,8 @@ const WebGLFluidBackground = ({ isLight = false }) => {
         height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
-        // Dark mode: screen blend makes neon colours pop on the dark base
-        // Light mode: multiply blend makes colours visible on the light base, lower opacity keeps it subtle
-        mixBlendMode: isLight ? 'multiply' : 'screen',
-        opacity: isLight ? 0.55 : 0.9,
+        mixBlendMode: 'screen',
+        opacity: 1.0,
         transition: 'opacity 0.6s ease',
       }}
     />

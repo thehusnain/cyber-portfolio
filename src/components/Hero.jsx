@@ -61,7 +61,7 @@ const Hero = () => {
                 alt="Husnain" 
                 className="profile-img-avatar"
                 onError={(e) => {
-                  e.target.src = 'https://ui-avatars.com/api/?name=Husnain&background=0f172a&color=00d9ff&size=300';
+                  e.target.src = 'https://ui-avatars.com/api/?name=Husnain&background=0f172a&color=10b981&size=300';
                 }}
               />
             </div>

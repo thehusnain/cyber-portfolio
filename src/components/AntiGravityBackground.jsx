@@ -15,8 +15,8 @@ const AntiGravityBackground = ({ theme }) => {
         zIndex: -10,
         overflow: 'hidden',
         pointerEvents: 'none',
-        // Solid base colour so the fluid dye has something to blend against
-        backgroundColor: isLight ? '#e8f4fd' : '#060c18',
+        // Base background colour using CSS variable for smooth transition
+        backgroundColor: 'var(--bg-primary)',
         transition: 'background-color 0.6s ease',
       }}
     >
@@ -32,9 +32,7 @@ const AntiGravityBackground = ({ theme }) => {
         style={{
           position: 'absolute',
           inset: 0,
-          backgroundImage: isLight
-            ? 'radial-gradient(circle, rgba(15,23,42,0.07) 1px, transparent 1px)'
-            : 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, var(--border-color) 1px, transparent 1px)',
           backgroundSize: '28px 28px',
           zIndex: 3,
           pointerEvents: 'none',

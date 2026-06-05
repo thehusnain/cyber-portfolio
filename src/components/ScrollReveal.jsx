@@ -1,40 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ScrollReveal.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 /**
- * ScrollReveal — premium scroll-triggered animation wrapper
- *
- * Props:
- *  variant   : 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right'
- *              | 'scale-up' | 'flip-up' | 'zoom' | 'blur-in'
- *  delay     : number (seconds)
- *  duration  : number (seconds)
- *  threshold : 0-1  (how much of element must be visible before triggering)
- *  stagger   : boolean — stagger animate each direct child in sequence
- *  staggerDelay : number (ms between each staggered child)
- *
- * Backward compat: the old `direction` prop still maps to the new variants.
+ * ScrollReveal — GSAP ScrollTrigger-driven animation component.
+ * Uses ScrollTrigger to toggle CSS classes for bulletproof layout performance.
  */
 const ScrollReveal = ({
   children,
   variant,
-  direction,           // legacy prop
+  direction,
   delay = 0,
-  duration = 0.75,
+  duration = 0.8,
   threshold = 0.05,
   stagger = false,
-  staggerDelay = 90,
+  staggerDelay = 0.09,
 }) => {
   const ref = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
 
-  // Map legacy `direction` → new variant names
+  // Map legacy directions
   const resolvedVariant = variant || (() => {
     switch (direction) {
       case 'up':    return 'fade-up';
       case 'down':  return 'fade-down';
-      case 'left':  return 'fade-right';   // "direction=left" means slide from left → fade-right
-      case 'right': return 'fade-left';    // "direction=right" means slide from right → fade-left
+      case 'left':  return 'fade-right';
+      case 'right': return 'fade-left';
       default:      return 'fade-up';
     }
   })();
@@ -43,28 +36,28 @@ const ScrollReveal = ({
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: `top 92%`, // Triggers when the top of the element hits 92% of viewport height
+      onEnter: () => {
+        el.classList.add('sr-visible');
       },
-      { threshold, rootMargin: '0px 0px -20px 0px' }
-    );
+      once: true,
+    });
 
-    observer.observe(el);
-    return () => observer.unobserve(el);
-  }, [threshold]);
+    return () => {
+      st.kill();
+    };
+  }, []);
 
   return (
     <div
       ref={ref}
-      className={`sr-wrap sr-${resolvedVariant} ${isVisible ? 'sr-visible' : ''} ${stagger ? 'sr-stagger' : ''}`}
+      className={`sr-wrap sr-${resolvedVariant} ${stagger ? 'sr-stagger' : ''}`}
       style={{
         '--sr-duration': `${duration}s`,
         '--sr-delay': `${delay}s`,
-        '--sr-stagger': `${staggerDelay}ms`,
+        '--sr-stagger': `${staggerDelay * 1000}ms`,
       }}
     >
       {children}
