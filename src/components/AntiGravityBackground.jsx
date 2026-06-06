@@ -15,8 +15,8 @@ const AntiGravityBackground = ({ theme }) => {
         zIndex: -10,
         overflow: 'hidden',
         pointerEvents: 'none',
-        // Transparent — let the WebGL canvas own its own background completely
-        backgroundColor: 'transparent',
+        // Use CSS theme background so dark-green / red themes show correctly
+        backgroundColor: 'var(--bg-primary)',
       }}
     >
       {/* WebGL Fluid simulation — only interactive background layer */}

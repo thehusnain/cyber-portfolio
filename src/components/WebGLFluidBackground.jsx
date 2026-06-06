@@ -49,7 +49,7 @@ const WebGLFluidBackground = ({ isLight = false }) => {
       COLOR_UPDATE_SPEED: 10,
       PAUSED: false,
       BACK_COLOR: { r: 255, g: 255, b: 255 },
-      TRANSPARENT: false,
+      TRANSPARENT: true, // render fluid over page background (CSS) for better readability
       BLOOM: false,
       BLOOM_ITERATIONS: 8,
       BLOOM_RESOLUTION: 256,
@@ -118,6 +118,17 @@ const WebGLFluidBackground = ({ isLight = false }) => {
         config.SHADING = false;
         config.BLOOM = false;
         config.SUNRAYS = false;
+      }
+
+      // Respect theme: make canvas transparent and pick a fallback BACK_COLOR per theme
+      // so the page CSS background (dark green or red) shows through.
+      config.TRANSPARENT = true;
+      if (isLight) {
+        // Red theme fallback (matches --bg-primary for red theme)
+        config.BACK_COLOR = { r: 10, g: 5, b: 5 };
+      } else {
+        // Dark green theme fallback (matches --bg-primary for dark theme)
+        config.BACK_COLOR = { r: 10, g: 14, b: 23 };
       }
 
       function getWebGLContext(canvas) {
