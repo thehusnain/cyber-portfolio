@@ -21,7 +21,8 @@ const SheriffControlPage = () => {
   const [internships, setInternships] = useState([]);
 
   const emptyProjectForm = {
-    title: '', description: '', tags: '', repoLink: '', demoLink: '', icon: 'fa-code', featured: false
+    title: '', description: '', tags: '', repoLink: '', demoLink: '', icon: 'fa-code', featured: false,
+    category: '', status: 'Active'
   };
 
   // Form states
@@ -149,7 +150,9 @@ const SheriffControlPage = () => {
       repoLink: project.repoLink || '',
       demoLink: project.demoLink || '',
       icon: project.icon || 'fa-code',
-      featured: Boolean(project.featured)
+      featured: Boolean(project.featured),
+      category: project.category || '',
+      status: project.status || 'Active'
     });
   };
 
@@ -413,6 +416,26 @@ const SheriffControlPage = () => {
                     value={projectForm.icon} 
                     onChange={(e) => setProjectForm({...projectForm, icon: e.target.value})} 
                     placeholder="fa-code" 
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Category</label>
+                  <input 
+                    type="text" 
+                    value={projectForm.category} 
+                    onChange={(e) => setProjectForm({...projectForm, category: e.target.value})} 
+                    placeholder="e.g. Security, AI Tool, Scanner" 
+                  />
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Status</label>
+                  <input 
+                    type="text" 
+                    value={projectForm.status} 
+                    onChange={(e) => setProjectForm({...projectForm, status: e.target.value})} 
+                    placeholder="Active / In Progress / Archived" 
                   />
                 </div>
                 <div className="form-group checkbox-group">

@@ -1,158 +1,541 @@
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
+/* ═══════════════════════════════════════════════════════
+   3D Boarding-Pass Folding Project Cards (2-Fold Edition)
+   ═══════════════════════════════════════════════════════ */
 
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .project-card {
-    padding: 1.35rem;
-  }
-
-  .project-header {
-    gap: 0.75rem;
-  }
-
-  .project-header h3 {
-    font-size: 1.15rem;
-  }
-
-  .project-actions {
-    flex-direction: column;
-  }
-
-  .project-action-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-/* Project Card Base */
-.project-card {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
+/* ── Board Layout ── */
+.bp-board {
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-fast);
+  gap: 1.5rem;
+  perspective: 1200px;
+}
+
+/* ── Main Container ── */
+.bp-card-container {
   position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 14px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  height: 110px;
+  transition: height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-[data-theme="light"] .project-card {
-  background-color: var(--bg-secondary);
+.bp-active {
+  /* Collapsed (110) + fold 1 (110) + fold 2 (100) = 320px */
+  height: 320px;
 }
 
-.project-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent-cyber);
-  box-shadow: var(--shadow-md);
+/* Featured glow style */
+.bp-featured {
+  box-shadow: 0 0 0 1px var(--accent-cyber-border), 0 0 25px var(--accent-cyber-glow);
 }
 
-/* Featured Project takes up full width on desktop */
-.project-card-featured {
-  grid-column: 1 / -1;
-  border-color: var(--accent-cyber-border);
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(0, 217, 255, 0.03) 100%);
-}
-
-.featured-flag {
+/* ═══════════════════════════════════════════════════
+   1. COLLAPSED VIEW (bp-first-display)
+   ═══════════════════════════════════════════════════ */
+.bp-first-display {
+  width: 100%;
+  height: 110px;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: rgba(251, 191, 36, 0.1);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
-  font-size: 0.75rem;
-  font-family: var(--font-header);
-  font-weight: 700;
-  text-transform: uppercase;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  border-radius: 14px;
+  
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(70px) saturate(160%);
+  -webkit-backdrop-filter: blur(70px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 
+    inset 2px -2px 20px rgba(255, 255, 255, 0.03),
+    inset -3px 3px 3px rgba(255, 255, 255, 0.12),
+    0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+  
+  z-index: 1;
 }
 
-/* Project Header & Icon */
-.project-header {
+.bp-active .bp-first-display {
+  border-radius: 14px 14px 0 0 !important;
+  border-bottom: none !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   2. THE FOLDING SEGMENTS & 3D CHAIN (Exactly 2 Folds)
+   ═══════════════════════════════════════════════════ */
+
+/* ── First Fold Segment (Flips UP) ── */
+.bp-first-fold {
+  width: 100%;
+  height: 110px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  transform-origin: bottom center;
+  transition: transform 0.5s ease;
+  z-index: 2;
+}
+
+/* Top Face of First Fold (Flipping cover) */
+.bp-first-top {
+  width: 100%;
+  height: 110px;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  border-radius: 14px;
+  
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(70px) saturate(160%);
+  -webkit-backdrop-filter: blur(70px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 
+    inset 2px -2px 20px rgba(255, 255, 255, 0.03),
+    inset -3px 3px 3px rgba(255, 255, 255, 0.12),
+    0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  z-index: 3;
 }
 
-.project-icon-wrap {
-  width: 44px;
-  height: 44px;
+.bp-active .bp-first-top {
+  border-radius: 14px 14px 0 0 !important;
+}
+
+/* Behind Face of First Fold (Reveals description) */
+.bp-first-behind {
+  width: 100%;
+  height: 110px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate3d(1, 0, 0, -180deg);
+  transform-origin: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  z-index: 2;
+}
+
+.bp-first-behind-display {
+  width: 100%;
+  height: 110px;
+  position: absolute;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(70px) saturate(160%);
+  -webkit-backdrop-filter: blur(70px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15) !important;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0px 11px 25px -1px rgba(0, 0, 0, 0.17);
+}
+
+/* ── Second Fold Segment (Flips DOWN from First Fold's Bottom) ── */
+.bp-second-fold {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: -2px; /* Bind to bottom of Fold 1 */
+  left: 0;
+  transform-style: preserve-3d;
+  transform-origin: bottom center;
+  transition: transform 0.3s ease;
+  z-index: 4;
+}
+
+.bp-second-top {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  border-radius: 0 0 14px 14px;
+  background: rgba(25, 30, 45, 0.7);
+  backdrop-filter: blur(20px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.bp-second-behind {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate3d(1, 0, 0, -180deg);
+  transform-origin: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 0 0 14px 14px !important;
+  overflow: hidden;
+}
+
+.bp-second-behind::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(25, 30, 45, 0.92) !important;
+  backdrop-filter: blur(70px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: none !important;
+  border-radius: 0 0 14px 14px !important;
+  z-index: -1;
+}
+
+.bp-second-behind-display {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* ═══════════════════════════════════════════════════
+   3. INTERNAL CONTENT ELEMENTS
+   ═══════════════════════════════════════════════════ */
+
+/* Left preview metadata block */
+.bp-preview-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.bp-icon-wrap {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
   background-color: var(--accent-cyber-bg);
   border: 1px solid var(--accent-cyber-border);
   color: var(--accent-cyber);
-  border-radius: var(--radius-md);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
+  transition: all 0.3s ease;
 }
 
-.project-header h3 {
-  font-size: 1.35rem;
+.bp-card-container:hover .bp-icon-wrap,
+.bp-active .bp-icon-wrap {
+  background-color: var(--accent-cyber);
+  color: #000;
+  box-shadow: 0 0 15px var(--accent-cyber-glow);
+}
+
+.bp-preview-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.bp-title {
+  font-family: var(--font-header);
+  font-size: 1.15rem;
   font-weight: 700;
-  margin-bottom: 0;
   color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.project-desc {
-  font-size: 0.95rem;
+.bp-category {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyber);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Middle flight dot animations */
+.bp-preview-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  padding: 0 1.5rem;
+}
+
+.bp-anim-track {
+  width: 60px;
+  height: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bp-dot-runner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: absolute;
+  animation: bp-dots-slide 1.2s linear infinite;
+}
+
+@keyframes bp-dots-slide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-24px); }
+}
+
+.bp-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-cyber);
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+.bp-status {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Right side featured + caretaker chevron */
+.bp-preview-right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+}
+
+.bp-featured-tag {
+  background-color: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  color: #fbbf24;
+  font-size: 0.72rem;
+  font-family: var(--font-header);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.75rem;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.bp-caret {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent-cyber-bg);
+  border: 1px solid var(--accent-cyber-border);
+  color: var(--accent-cyber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease;
+}
+
+.bp-caret--open {
+  transform: rotate(180deg);
+  background: var(--accent-cyber);
+  color: #000;
+}
+
+/* Project Description text */
+.bp-desc {
+  font-size: 0.85rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 1.75rem;
-  flex-grow: 1;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 85px;
 }
 
-/* Tech Badges */
-.project-tags {
+/* Tech tag badges with colorful real icons */
+.bp-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.75rem;
+  flex: 1;
 }
 
-.project-tag-badge {
+.bp-tag {
   background-color: var(--bg-primary);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  padding: 0.3rem 0.6rem;
-  border-radius: var(--radius-sm);
+  padding: 0.22rem 0.65rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-[data-theme="light"] .project-tag-badge {
-  background-color: var(--bg-card);
+.bp-tag-icon {
+  margin-right: 6px;
+  font-size: 0.82rem;
 }
 
-/* Project Actions */
-.project-actions {
+/* Actions buttons (Code / Demo) */
+.bp-actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: auto;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .project-action-btn {
   font-size: 0.85rem;
-  padding: 0.5rem 1.1rem;
+  padding: 0.45rem 1.1rem;
   border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+/* ═══════════════════════════════════════════════════
+   4. RED TEAM THEME SPECIFICS (data-theme="light")
+   ═══════════════════════════════════════════════════ */
+[data-theme="light"] .bp-second-top {
+  background: rgba(40, 15, 15, 0.7);
+}
+
+[data-theme="light"] .bp-second-behind::after {
+  background: rgba(40, 15, 15, 0.92) !important;
+}
+
+[data-theme="light"] .bp-tag {
+  background-color: #1c0e0e;
+}
+
+/* ═══════════════════════════════════════════════════
+   5. RESPONSIVENESS (PC, Desktop, Tablet, Mobile)
+   ═══════════════════════════════════════════════════ */
+
+/* Tablet & Smaller Screens */
+@media (max-width: 768px) {
+  .bp-preview-mid {
+    display: none; /* Hide runway dots on smaller screens */
+  }
+
+  .bp-first-display,
+  .bp-first-top,
+  .bp-first-behind-display,
+  .bp-second-behind-display {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+/* Mobile Screens */
+@media (max-width: 580px) {
+  .bp-card-container {
+    height: 100px;
+  }
+
+  .bp-active {
+    /* Collapsed (100) + fold 1 (100) + fold 2 (120) = 320px */
+    height: 320px;
+  }
+
+  .bp-first-display,
+  .bp-first-fold,
+  .bp-first-top,
+  .bp-first-behind {
+    height: 100px;
+  }
+
+  .bp-first-behind-display {
+    height: 100px;
+    padding: 0.75rem 1rem;
+  }
+
+  .bp-second-fold,
+  .bp-second-top,
+  .bp-second-behind {
+    height: 120px;
+  }
+
+  .bp-second-behind-display {
+    height: 120px;
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .bp-desc {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    -webkit-line-clamp: 3;
+    max-height: 60px;
+  }
+
+  .bp-preview-meta .bp-title {
+    font-size: 1rem;
+  }
+
+  .bp-icon-wrap {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  .bp-featured-tag {
+    display: none; /* Hide featured text tag to prevent overlap */
+  }
+
+  .bp-tags {
+    justify-content: flex-start;
+  }
+
+  .bp-actions {
+    justify-content: stretch;
+    gap: 0.5rem;
+  }
+
+  .project-action-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* Very Small Devices */
+@media (max-width: 360px) {
+  .bp-preview-left {
+    gap: 0.65rem;
+  }
+
+  .bp-title {
+    font-size: 0.9rem;
+  }
 }
