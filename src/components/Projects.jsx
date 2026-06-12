@@ -232,18 +232,13 @@ const Projects = () => {
     .map(({ p }) => p);
 
   return (
-    <section id="projects">
-      <div className="section-container">
-        <h2>My Projects</h2>
-        <div className="bp-board">
-          {displayProjects.map((project, index) => (
-            <ScrollReveal key={index} direction="up" delay={index * 0.12}>
-              <BoardingPassCard project={project} index={index} />
-            </ScrollReveal>
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="bp-board">
+      {displayProjects.map((project, index) => (
+        <ScrollReveal key={index} direction="up" delay={index * 0.12}>
+          <BoardingPassCard project={project} index={index} />
+        </ScrollReveal>
+      ))}
+    </div>
   );
 };
 

@@ -4,6 +4,36 @@ import './CertificatesPage.css';
 
 const ALL_CERTS = [
   {
+    img: "/assets/cisco.png",
+    title: "Networking Basics",
+    short: "Cisco",
+    issuer: "Cisco Networking Academy",
+    date: "2026",
+    category: "Networking",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16,185,129,0.08)",
+    categoryBorder: "rgba(16,185,129,0.2)",
+    desc: "Fundamental concepts of networking: network architecture, routing, switching, IP addressing, and basic network configuration.",
+    icon: "fa-network-wired",
+    link: "/assets/Networking-Basic-From-CISCO.pdf",
+    isPdf: true,
+  },
+  {
+    img: "/assets/CCSDF_Certificate_CCSDF-2026-IT-CH-190.png",
+    title: "CCSDF IT Quiz Competition - 37th Place",
+    short: "CCSDF",
+    issuer: "CCSDF",
+    date: "2026",
+    category: "Award",
+    categoryColor: "#ef4444",
+    categoryBg: "rgba(239,68,68,0.08)",
+    categoryBorder: "rgba(239,68,68,0.2)",
+    desc: "Awarded for achieving the 37th position in the final round out of 60 competitors in the CCSDF national IT quiz competition.",
+    icon: "fa-award",
+    link: "/assets/CCSDF_Certificate_CCSDF-2026-IT-CH-190.png",
+    isPdf: false,
+  },
+  {
     img: "/assets/certificate-of-appreciation.png",
     title: "Certificate of Appreciation",
     short: "Appreciation",
@@ -269,7 +299,15 @@ const CertificatesPage = () => {
               <p className="cert-modal-issuer">{activeCert.issuer} · {activeCert.date}</p>
             </div>
             <div className="cert-modal-body">
-              {activeCert.img ? (
+              {activeCert.isPdf ? (
+                <div className="w-full h-[65vh] min-h-[450px]">
+                  <iframe
+                    src={`${activeCert.link}#toolbar=0`}
+                    title={activeCert.title}
+                    className="w-full h-full border-0 rounded-lg bg-[#0f1020]"
+                  />
+                </div>
+              ) : activeCert.img ? (
                 <img src={activeCert.img} alt={activeCert.title} className="cert-modal-img" />
               ) : (
                 <div className="cert-modal-pdf-notice">
