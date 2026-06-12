@@ -1,103 +1,72 @@
-import React, { useEffect, useState } from "react";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
+import React, { useCallback } from "react";
+import { Particles, ParticlesProvider } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 
-const ParticlesContainer = () => {
-  const [init, setInit] = useState(false);
+const particlesOptions = {
+  fullScreen: { enable: false },
+  background: {
+    color: { value: "" },
+  },
+  fpsLimit: 120,
+  interactivity: {
+    events: {
+      onClick: { enable: false, mode: "push" },
+      onHover: { enable: true, mode: "repulse" },
+      resize: true,
+    },
+    modes: {
+      push: { quantity: 90 },
+      repulse: { distance: 200, duration: 0.4 },
+    },
+  },
+  particles: {
+    color: { value: "#f13024" },
+    links: {
+      color: "#f13024",
+      distance: 150,
+      enable: true,
+      opacity: 0.3,
+      width: 1,
+    },
+    collisions: { enable: true },
+    move: {
+      direction: "none",
+      enable: true,
+      outModes: { default: "bounce" },
+      random: false,
+      speed: 1,
+      straight: false,
+    },
+    number: {
+      density: { enable: true, area: 800 },
+      value: 80,
+    },
+    opacity: { value: 0.5 },
+    shape: { type: "circle" },
+    size: { value: { min: 1, max: 5 } },
+  },
+  detectRetina: true,
+};
 
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadFull(engine);
-    }).then(() => {
-      setInit(true);
-    });
-  }, []);
-
-  if (!init) {
-    return null;
-  }
-
+const ParticlesInner = () => {
   return (
     <Particles
       className="w-full h-full absolute translate-z-0"
       id="tsparticles"
-      options={{
-        fullScreen: { enable: false },
-        background: {
-          color: {
-            value: "",
-          },
-        },
-        fpsLimit: 120,
-        interactivity: {
-          events: {
-            onClick: {
-              enable: false,
-              mode: "push",
-            },
-            onHover: {
-              enable: true,
-              mode: "repulse",
-            },
-            resize: true,
-          },
-          modes: {
-            push: {
-              quantity: 90,
-            },
-            repulse: {
-              distance: 200,
-              duration: 0.4,
-            },
-          },
-        },
-        particles: {
-          color: {
-            value: "#f13024",
-          },
-          links: {
-            color: "#f13024",
-            distance: 150,
-            enable: true,
-            opacity: 0.3,
-            width: 1,
-          },
-          collisions: {
-            enable: true,
-          },
-          move: {
-            direction: "none",
-            enable: true,
-            outMode: {
-              default: "bounce",
-            },
-            random: false,
-            speed: 1,
-            straight: false,
-          },
-          number: {
-            density: {
-              enable: true,
-              area: 800,
-            },
-            value: 80,
-          },
-          opacity: {
-            value: 0.5,
-          },
-          shape: {
-            type: "circle",
-          },
-          size: {
-            value: {
-              min: 1,
-              max: 5,
-            },
-          },
-        },
-        detectRetina: true,
-      }}
+      options={particlesOptions}
     />
+  );
+};
+
+const ParticlesContainer = () => {
+  const init = useCallback(async (engine) => {
+    await loadFull(engine);
+  }, []);
+
+  return (
+    <ParticlesProvider init={init}>
+      <ParticlesInner />
+    </ParticlesProvider>
   );
 };
 
