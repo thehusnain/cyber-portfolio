@@ -4,7 +4,7 @@ import './CertificatesPage.css';
 
 const ALL_CERTS = [
   {
-    img: "/assets/cisco.png",
+    img: "/assets/Networking-Basic-From-CISCO.pdf",
     title: "Networking Basics",
     short: "Cisco",
     issuer: "Cisco Networking Academy",
