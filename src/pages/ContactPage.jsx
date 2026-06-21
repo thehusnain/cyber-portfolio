@@ -12,7 +12,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="h-full min-h-screen bg-primary/30 py-32 flex items-center relative overflow-hidden">
+    <div className="h-full min-h-screen bg-primary/30 pt-20 pb-28 xl:py-32 flex items-center relative overflow-x-hidden">
       <div className="container mx-auto text-center xl:text-left flex items-center justify-center h-full z-10 px-4 xl:px-0">
         {/* text & form */}
         <div className="flex flex-col w-full max-w-[700px]">

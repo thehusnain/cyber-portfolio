@@ -4,7 +4,7 @@ import './CertificatesPage.css';
 
 const ALL_CERTS = [
   {
-    img: "/assets/Networking-Basic-From-CISCO.pdf",
+    img: "/assets/Networking-Basic-From-CISCO.png",
     title: "Networking Basics",
     short: "Cisco",
     issuer: "Cisco Networking Academy",
@@ -153,6 +153,21 @@ const ALL_CERTS = [
     link: "/assets/ctfs/Hack4Bug-ctf/Hack4Bug - CTF Player Badge.pdf",
     isPdf: true,
   },
+  {
+    img: "/assets/ctfs/boro-ctf/boroCTF-2026-certificate.png",
+    title: "boroCTF Participant Certificate",
+    short: "boroCTF",
+    issuer: "boroCTF",
+    date: "June 2026",
+    category: "CTF",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16,185,129,0.08)",
+    categoryBorder: "rgba(16,185,129,0.2)",
+    desc: "Certificate of participation in boroCTF 2026. Achieved rank #76 in the Open Division with Team Fsociety, scoring 10,600 points.",
+    icon: "fa-flag",
+    link: "/assets/ctfs/boro-ctf/boroCTF-2026-certificate.pdf",
+    isPdf: true,
+  },
 ];
 
 export const DEFAULT_FULL_CERTS = ALL_CERTS;
@@ -299,7 +314,9 @@ const CertificatesPage = () => {
               <p className="cert-modal-issuer">{activeCert.issuer} · {activeCert.date}</p>
             </div>
             <div className="cert-modal-body">
-              {activeCert.isPdf ? (
+              {activeCert.img ? (
+                <img src={activeCert.img} alt={activeCert.title} className="cert-modal-img" />
+              ) : activeCert.isPdf ? (
                 <div className="w-full h-[65vh] min-h-[450px]">
                   <iframe
                     src={`${activeCert.link}#toolbar=0`}
@@ -307,8 +324,6 @@ const CertificatesPage = () => {
                     className="w-full h-full border-0 rounded-lg bg-[#0f1020]"
                   />
                 </div>
-              ) : activeCert.img ? (
-                <img src={activeCert.img} alt={activeCert.title} className="cert-modal-img" />
               ) : (
                 <div className="cert-modal-pdf-notice">
                   <i className="fas fa-file-pdf"></i>

@@ -7,7 +7,7 @@ import Projects from "../components/Projects";
 
 const WorkPage = () => {
   return (
-    <div className="min-h-screen bg-primary/30 pt-20 pb-16 xl:pt-24 xl:pb-20 flex flex-col justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-primary/30 pt-20 pb-28 xl:pt-24 xl:pb-20 flex flex-col justify-center relative overflow-x-hidden">
       <Circles />
       <div className="container mx-auto z-10 px-4 xl:px-0">
         <div className="flex flex-col gap-y-4">

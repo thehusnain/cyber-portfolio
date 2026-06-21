@@ -1,6 +1,6 @@
-.internships-page-container { padding: 7rem 2rem 4rem; max-width: 900px; margin: 0 auto; min-height: 80vh; }
-@media (max-width: 768px) { .internships-page-container { padding: 6rem 1.25rem 3rem; } }
-@media (max-width: 480px) { .internships-page-container { padding: 5.5rem 1rem 2.5rem; } }
+.internships-page-container { padding: 7rem 2rem 5rem; max-width: 900px; margin: 0 auto; min-height: 80vh; }
+@media (max-width: 768px) { .internships-page-container { padding: 6rem 1.25rem 7.5rem; } }
+@media (max-width: 480px) { .internships-page-container { padding: 5.5rem 1rem 7.5rem; } }
 
 .intern-back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.4); margin-bottom: 2rem; text-decoration: none; transition: color 0.25s; }
 .intern-back-link:hover { color: #f13024; }

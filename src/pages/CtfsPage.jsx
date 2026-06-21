@@ -14,7 +14,8 @@ const DEFAULT_CTFS = [
       "/assets/ctfs/Hack4Bug-ctf/scoreboard.png",
       "/assets/ctfs/Hack4Bug-ctf/team.png",
     ],
-    badge: "/assets/ctfs/Hack4Bug-ctf/Hack4Bug - CTF Player Badge.pdf"
+    badge: "/assets/ctfs/Hack4Bug-ctf/Hack4Bug - CTF Player Badge.pdf",
+    badgeImg: "/assets/ctfs/Hack4Bug-ctf/badge-page-1.png"
   },
   {
     img: "/assets/ctfs/ramadan-ctf-2025/ramadan-ctf.png",
@@ -27,6 +28,21 @@ const DEFAULT_CTFS = [
       "/assets/ctfs/ramadan-ctf-2025/scoreboard.png",
       "/assets/ctfs/ramadan-ctf-2025/team.png"
     ]
+  },
+  {
+    img: "/assets/ctfs/boro-ctf/homepage.png",
+    title: "boroCTF 2026",
+    rank: "Rank #76 (Open Division)",
+    team: "Team: Fsociety",
+    desc: "Competed in boroCTF 2026 and achieved rank #76 in the Open Division with Team Fsociety, scoring 10,600 points. Solved various cyber security challenges including binary exploitation, reverse engineering, web application security, forensics, and cryptography.",
+    stats: ["10,600 Points", "Rank #76", "Open Division"],
+    gallery: [
+      "/assets/ctfs/boro-ctf/overall-scoreboard.png",
+      "/assets/ctfs/boro-ctf/hs-divison-scoreboard.png",
+      "/assets/ctfs/boro-ctf/team.png"
+    ],
+    badge: "/assets/ctfs/boro-ctf/boroCTF-2026-certificate.pdf",
+    badgeImg: "/assets/ctfs/boro-ctf/boroCTF-2026-certificate.png"
   },
   {
     img: "/assets/ctfs/pico-ctf/my-performance.png",
@@ -63,7 +79,8 @@ const DEFAULT_CTFS = [
       "/assets/ctfs/secleaf-ctf/team.png",
       "/assets/ctfs/secleaf-ctf/ctf-homepage.png"
     ],
-    badge: "/assets/ctfs/secleaf-ctf/certificate.pdf"
+    badge: "/assets/ctfs/secleaf-ctf/certificate.pdf",
+    badgeImg: "/assets/ctfs/secleaf-ctf/certificate-page-1.png"
   },
   {
     img: "/assets/ctfs/umass-ctf/ctf-homepage.png",
@@ -169,9 +186,9 @@ const CtfsPage = () => {
   }, [activeImgIdx, selectedCtf]);
 
   const handleOpenGallery = (ctf) => {
-    // Combine performance img and gallery list, ensuring unique, truthy image paths
+    // Combine performance img, badgeImg, and gallery list, ensuring unique, truthy image paths
     const combinedImages = Array.from(
-      new Set([ctf.img, ...(ctf.gallery || [])])
+      new Set([ctf.img, ctf.badgeImg, ...(ctf.gallery || [])])
     ).filter(Boolean);
 
     setSelectedCtf({

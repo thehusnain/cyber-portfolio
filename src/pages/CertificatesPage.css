@@ -1,12 +1,12 @@
 /* ── Page wrapper ── */
 .certificates-page-container {
-  padding: 7rem 2rem 4rem;
+  padding: 7rem 2rem 5rem;
   max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
 }
 @media (max-width: 768px) {
-  .certificates-page-container { padding: 6rem 1.25rem 3rem; }
+  .certificates-page-container { padding: 6rem 1.25rem 7.5rem; }
 }
 
 /* ── Page header ── */
