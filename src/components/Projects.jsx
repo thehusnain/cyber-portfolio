@@ -125,7 +125,7 @@ const BoardingPassCard = ({ project, index }) => {
         className="bp-first-fold"
         style={{
           transform: active ? 'rotate3d(1, 0, 0, -180deg)' : 'rotate3d(1, 0, 0, 0deg)',
-          transitionDelay: active ? '0s' : '0.2s'
+          transitionDelay: active ? '0s' : '0.15s'
         }}
       >
         {/* Cover flap: flips up to show the backside when rotating */}
@@ -150,6 +150,7 @@ const BoardingPassCard = ({ project, index }) => {
         <div className="bp-first-behind">
           <div className="bp-first-behind-display">
             <p className="bp-desc">{project.description}</p>
+            <div className="bp-shadow-overlay" style={{ opacity: active ? 0 : 0.8 }} />
           </div>
 
           {/* Second Fold (Tech Stack with colorful icons + Links) */}
@@ -157,7 +158,7 @@ const BoardingPassCard = ({ project, index }) => {
             className="bp-second-fold"
             style={{
               transform: active ? 'rotate3d(1, 0, 0, -180deg)' : 'rotate3d(1, 0, 0, 0deg)',
-              transitionDelay: active ? '0.2s' : '0s'
+              transitionDelay: active ? '0.15s' : '0s'
             }}
           >
             <div className="bp-second-top" />
@@ -200,6 +201,7 @@ const BoardingPassCard = ({ project, index }) => {
                   )}
                 </div>
               </div>
+              <div className="bp-shadow-overlay" style={{ opacity: active ? 0 : 0.8 }} />
             </div>
           </div>
         </div>

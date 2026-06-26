@@ -26,22 +26,17 @@ const Header = () => {
         setIsScrolled(false);
       }
 
-      // Handle mobile show/hide on scroll
-      if (window.innerWidth < 1024) {
-        if (currentScrollY > 60) {
-          if (currentScrollY > lastScrollVal) {
-            // Scrolling down -> hide
-            setIsVisible(false);
-          } else {
-            // Scrolling up -> show
-            setIsVisible(true);
-          }
+      // Handle show/hide on scroll (both mobile and desktop)
+      if (currentScrollY > 60) {
+        if (currentScrollY > lastScrollVal) {
+          // Scrolling down -> hide
+          setIsVisible(false);
         } else {
-          // Near the top -> always show
+          // Scrolling up -> show
           setIsVisible(true);
         }
       } else {
-        // Always show on desktop
+        // Near the top -> always show
         setIsVisible(true);
       }
 
