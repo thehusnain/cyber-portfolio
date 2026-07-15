@@ -5,6 +5,67 @@ import { DEFAULT_INTERNSHIPS } from '../components/Internships';
 import { fadeIn } from '../variants';
 import './InternshipsPage.css';
 
+// Premium 3D Card Tilt and Glare overlay
+const TiltCard = ({ children, className, style = {}, maxTilt = 12 }) => {
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const normX = (x / rect.width) - 0.5;
+    const normY = (y / rect.height) - 0.5;
+    
+    const rotateX = -normY * maxTilt;
+    const rotateY = normX * maxTilt;
+    
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    
+    setTilt({ rotateX, rotateY });
+    setGlare({ x: glareX, y: glareY, opacity: 0.12 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+    setGlare({ x: 50, y: 50, opacity: 0 });
+  };
+
+  return (
+    <div
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        ...style,
+        transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale3d(1.01, 1.01, 1.01)`,
+        transition: 'transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.3s ease',
+        transformStyle: 'preserve-3d',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 65%)`,
+          opacity: glare.opacity,
+          pointerEvents: 'none',
+          zIndex: 10,
+          mixBlendMode: 'overlay',
+          borderRadius: 'inherit',
+          transition: 'opacity 0.25s ease',
+        }}
+      />
+      <div style={{ transform: 'translateZ(15px)', transformStyle: 'preserve-3d', height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {children}
+      </div>
+    </div>
+  );
+};
+
 const SKILLS_LIST = [
   "Reconnaissance",
   "Web Mapping",
@@ -98,6 +159,7 @@ const WEEKLY_LOGS = [
 const InternshipsPage = () => {
   const [internships, setInternships] = useState([]);
   const [activeCert, setActiveCert] = useState(null);
+  const [activeWeekTab, setActiveWeekTab] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -156,12 +218,12 @@ const InternshipsPage = () => {
             variants={fadeIn("up", 0.4 + index * 0.1)}
             initial="hidden"
             animate="show"
-            className="intern-detail-card"
+            style={{ width: '100%' }}
           >
-            <div className="intern-dashboard-grid">
-              
-              {/* Left Column: Internship Info & Skills */}
-              <div className="intern-dashboard-main">
+            <TiltCard className="intern-detail-card" maxTilt={3}>
+              <div className="intern-dashboard-single-col" style={{ transform: 'translateZ(10px)', transformStyle: 'preserve-3d' }}>
+                
+                {/* 1. Header Details */}
                 <div className="intern-card-header-v2">
                   <div className="intern-badge-v2">
                     <i className="fas fa-user-shield"></i>
@@ -178,54 +240,80 @@ const InternshipsPage = () => {
                   </div>
                 </div>
 
-                <div className="intern-description-section-v2">
-                  <h4 className="section-label"><i className="fas fa-terminal"></i> Overview &amp; Responsibilities</h4>
-                  <p className="section-text">{intern.desc}</p>
-                </div>
+                {/* 2. About the Internship */}
+                <div className="intern-about-block">
+                  <div className="intern-description-section-v2">
+                    <h4 className="section-label"><i className="fas fa-terminal"></i> Overview &amp; Responsibilities</h4>
+                    <p className="section-text">{intern.desc}</p>
+                  </div>
 
-                <div className="intern-skills-section-v2">
-                  <h4 className="section-label"><i className="fas fa-circle-nodes"></i> Core Skills &amp; Methodology</h4>
-                  <div className="intern-skills-tags-v2">
-                    {SKILLS_LIST.map((skill, i) => {
-                      const meta = getInternSkillMeta(skill);
-                      return (
-                        <span 
-                          key={i} 
-                          className="skill-tag-v2"
-                          style={{
-                            color: meta.color,
-                            backgroundColor: meta.bg,
-                            borderColor: meta.border,
-                            boxShadow: `0 2px 10px ${meta.bg}`
-                          }}
-                        >
-                          <i className={`${meta.icon} tag-icon-v2`}></i>
-                          {skill}
-                        </span>
-                      );
-                    })}
+                  <div className="intern-skills-section-v2">
+                    <h4 className="section-label"><i className="fas fa-circle-nodes"></i> Core Skills &amp; Methodology</h4>
+                    <div className="intern-skills-tags-v2">
+                      {SKILLS_LIST.map((skill, i) => {
+                        const meta = getInternSkillMeta(skill);
+                        return (
+                          <span 
+                            key={i} 
+                            className="skill-tag-v2"
+                            style={{
+                              color: meta.color,
+                              backgroundColor: meta.bg,
+                              borderColor: meta.border,
+                              boxShadow: `0 2px 10px ${meta.bg}`
+                            }}
+                          >
+                            <i className={`${meta.icon} tag-icon-v2`}></i>
+                            {skill}
+                          </span>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
-                <div className="intern-card-footer-v2">
-                  {intern.repoLink && (
-                    <a href={intern.repoLink} className="btn btn-secondary intern-footer-btn-v2" target="_blank" rel="noreferrer">
-                      <i className="fab fa-github"></i> Repository
-                    </a>
-                  )}
-                  {intern.certificateLink && intern.certificateLink !== "#" && (
-                    <a href={intern.certificateLink} download className="btn btn-primary intern-footer-btn-v2">
-                      <i className="fas fa-download"></i> Download Certificate
-                    </a>
-                  )}
-                </div>
-              </div>
+                {/* 3. LinkedIn Weekly Logs (Tabbed Interface) */}
+                <div className="intern-logs-section">
+                  <h4 className="section-label"><i className="fab fa-linkedin"></i> Internship Logs &amp; Activity</h4>
+                  <p className="section-subtext">Click on the weekly tabs to view milestones, research summaries, and embedded LinkedIn posts.</p>
+                  
+                  <div className="week-tabs-container">
+                    {WEEKLY_LOGS.map((log, idx) => (
+                      <button
+                        key={idx}
+                        className={`week-tab-btn ${activeWeekTab === idx ? 'active' : ''}`}
+                        onClick={() => setActiveWeekTab(idx)}
+                      >
+                        {log.week}
+                      </button>
+                    ))}
+                  </div>
 
-              {/* Right Column: Beautiful Certificate Display Frame */}
-              {intern.certificateLink && intern.certificateLink !== "#" && (
-                <div className="intern-dashboard-sidebar">
-                  <div className="certificate-frame-container">
-                    <h4 className="section-label text-center"><i className="fas fa-award"></i> Internship Certificate</h4>
+                  <div className="active-log-card">
+                    <div className="active-log-header">
+                      <h5 className="active-log-title">{WEEKLY_LOGS[activeWeekTab].title}</h5>
+                      <span className="active-log-badge"><i className="fas fa-check-circle"></i> Completed</span>
+                    </div>
+                    <p className="active-log-desc">{WEEKLY_LOGS[activeWeekTab].desc}</p>
+                    
+                    <div className="linkedin-iframe-container">
+                      <iframe 
+                        src={WEEKLY_LOGS[activeWeekTab].iframeSrc}
+                        height="100%" 
+                        width="100%" 
+                        frameBorder="0" 
+                        allowFullScreen={true}
+                        title={`LinkedIn embed ${WEEKLY_LOGS[activeWeekTab].week}`}
+                        key={activeWeekTab}
+                      ></iframe>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. Completion Certificate & Action Footer */}
+                {intern.certificateLink && intern.certificateLink !== "#" && (
+                  <div className="intern-certificate-section">
+                    <h4 className="section-label text-center"><i className="fas fa-award"></i> Completion Certificate</h4>
                     
                     <div 
                       className="certificate-interactive-frame"
@@ -252,58 +340,27 @@ const InternshipsPage = () => {
                     <p className="certificate-frame-caption">
                       Click image to inspect verification details.
                     </p>
-                  </div>
-                </div>
-              )}
 
-            </div>
+                    <div className="intern-card-footer-v2">
+                      {intern.repoLink && (
+                        <a href={intern.repoLink} className="btn btn-secondary intern-footer-btn-v2" target="_blank" rel="noreferrer">
+                          <i className="fab fa-github"></i> Repository
+                        </a>
+                      )}
+                      {intern.certificateLink && intern.certificateLink !== "#" && (
+                        <a href={intern.certificateLink} download className="btn btn-primary intern-footer-btn-v2">
+                          <i className="fas fa-download"></i> Download Certificate
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </TiltCard>
           </motion.div>
         ))}
       </div>
-
-      {/* LinkedIn Embeds Section */}
-      <motion.section 
-        variants={fadeIn("up", 0.5)}
-        initial="hidden"
-        animate="show"
-        className="linkedin-embeds-section"
-      >
-        <div className="linkedin-header">
-          <div className="linkedin-logo-badge">
-            <i className="fab fa-linkedin"></i>
-          </div>
-          <div className="linkedin-title-wrapper">
-            <h2>Internship Logs &amp; Activity</h2>
-            <p>Weekly milestones and research summaries published during the internship program.</p>
-          </div>
-        </div>
-
-        <div className="linkedin-posts-grid">
-          {WEEKLY_LOGS.map((post, idx) => (
-            <div key={idx} className="linkedin-post-card">
-              <div className="linkedin-post-header">
-                <div className="linkedin-week-indicator">
-                  <span className="status-dot"></span>
-                  {post.week}
-                </div>
-                <h3 className="linkedin-post-title">{post.title}</h3>
-              </div>
-              <p className="linkedin-post-desc">{post.desc}</p>
-              
-              <div className="linkedin-iframe-container">
-                <iframe 
-                  src={post.iframeSrc}
-                  height="567" 
-                  width="100%" 
-                  frameBorder="0" 
-                  allowFullScreen={true}
-                  title={`LinkedIn embed ${post.week}`}
-                ></iframe>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.section>
 
       {/* Certificate Lightbox Modal with Blur Backdrop */}
       {activeCert && (

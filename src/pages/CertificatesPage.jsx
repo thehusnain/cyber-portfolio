@@ -4,6 +4,21 @@ import './CertificatesPage.css';
 
 const ALL_CERTS = [
   {
+    img: "/assets/hackiver-CORE.png",
+    title: "Certified Cybersecurity Foundations (CORE)",
+    short: "Hackviser",
+    issuer: "Hackviser",
+    date: "July 14, 2026",
+    category: "Cybersecurity",
+    categoryColor: "#ff5f7e",
+    categoryBg: "rgba(255,95,126,0.08)",
+    categoryBorder: "rgba(255,95,126,0.2)",
+    desc: "Earned Certified Cybersecurity Foundations (CORE) certification by completing training modules and practical security exercises on the Hackviser platform.",
+    icon: "fa-shield-halved",
+    link: "/assets/hackiver-CORE.pdf",
+    isPdf: true,
+  },
+  {
     img: "/assets/Networking-Basic-From-CISCO.png",
     title: "Networking Basics",
     short: "Cisco",
@@ -172,13 +187,78 @@ const ALL_CERTS = [
 
 export const DEFAULT_FULL_CERTS = ALL_CERTS;
 
+// Premium 3D Card Tilt and Glare overlay
+const TiltCard = ({ children, className, style = {} }) => {
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const normX = (x / rect.width) - 0.5;
+    const normY = (y / rect.height) - 0.5;
+    
+    // Smooth 3D tilt calculation
+    const rotateX = -normY * 12;
+    const rotateY = normX * 12;
+    
+    // Dynamic Glare location
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    
+    setTilt({ rotateX, rotateY });
+    setGlare({ x: glareX, y: glareY, opacity: 0.15 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+    setGlare({ x: 50, y: 50, opacity: 0 });
+  };
+
+  return (
+    <div
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        ...style,
+        transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale3d(1.015, 1.015, 1.015)`,
+        transition: 'transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.3s ease',
+        transformStyle: 'preserve-3d',
+      }}
+    >
+      {/* Glowing Glare Overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 65%)`,
+          opacity: glare.opacity,
+          pointerEvents: 'none',
+          zIndex: 10,
+          mixBlendMode: 'overlay',
+          borderRadius: 'inherit',
+          transition: 'opacity 0.25s ease',
+        }}
+      />
+      {/* 3D Content Depth Wrapper */}
+      <div style={{ transform: 'translateZ(18px)', transformStyle: 'preserve-3d', height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {children}
+      </div>
+    </div>
+  );
+};
+
 const CertCard = ({ cert, onPreview }) => (
-  <div className="cert-page-card fade-in">
-    {/* Image preview or PDF placeholder */}
+  <TiltCard className="cert-page-card fade-in">
+    {/* Image preview area with 3D Parallax Depth */}
     <div
       className="cert-page-img-wrap"
       onClick={() => onPreview(cert)}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', transform: 'translateZ(10px)' }}
       title="Click to preview"
     >
       {cert.img ? (
@@ -200,7 +280,7 @@ const CertCard = ({ cert, onPreview }) => (
       </div>
     </div>
 
-    <div className="cert-page-info">
+    <div className="cert-page-info" style={{ transform: 'translateZ(15px)' }}>
       {/* Category tag + date */}
       <div className="cert-meta-row">
         <span
@@ -224,7 +304,7 @@ const CertCard = ({ cert, onPreview }) => (
       </span>
       <p>{cert.desc}</p>
 
-      <div className="cert-page-actions">
+      <div className="cert-page-actions" style={{ transform: 'translateZ(5px)' }}>
         <button
           className="cert-page-btn btn-preview"
           onClick={() => onPreview(cert)}
@@ -243,7 +323,7 @@ const CertCard = ({ cert, onPreview }) => (
         </a>
       </div>
     </div>
-  </div>
+  </TiltCard>
 );
 
 const CertificatesPage = () => {

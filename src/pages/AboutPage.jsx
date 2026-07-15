@@ -90,6 +90,12 @@ const aboutData = [
         desc: "Currently pursuing a bachelor's degree in Computer Science, focusing on system designs, algorithms, databases, and network architectures."
       },
       {
+        title: "Certified Cybersecurity Foundations (CORE)",
+        stage: "Hackviser",
+        date: "July 2026",
+        desc: "Demonstrated competence in core security fields by completing hands-on modules and practical cybersecurity validation exercises."
+      },
+      {
         title: "Threat Intelligence & Governance Analyst (CTIGA)",
         stage: "Red Team Leaders",
         date: "2026",

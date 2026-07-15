@@ -123,7 +123,15 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .intern-detail-card {
+    padding: 1.5rem;
+  }
 }
 
 .intern-detail-card::before {
@@ -137,25 +145,18 @@
 }
 
 .intern-detail-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(241, 48, 36, 0.25);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 30px rgba(241, 48, 36, 0.08);
+  border-color: rgba(241, 48, 36, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 30px rgba(241, 48, 36, 0.12);
 }
 
-/* Grid Layout */
-.intern-dashboard-grid {
-  display: grid;
-  grid-template-cols: 1fr;
+/* Single Column Dashboard Layout */
+.intern-dashboard-single-col {
+  display: flex;
+  flex-direction: column;
   gap: 2.5rem;
 }
 
-@media (min-width: 992px) {
-  .intern-dashboard-grid {
-    grid-template-cols: 1.4fr 1fr;
-  }
-}
-
-.intern-dashboard-main {
+.intern-about-block {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
@@ -570,67 +571,113 @@
   }
 }
 
-.linkedin-post-card {
-  background: #111222;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* ── Tabbed Weekly Logs Section ── */
+.intern-logs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 2rem;
+}
+
+.section-subtext {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: -0.5rem;
+  line-height: 1.5;
+}
+
+.week-tabs-container {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.week-tab-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 1.25rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  white-space: nowrap;
+}
+
+.week-tab-btn:hover {
+  background: rgba(241, 48, 36, 0.08);
+  border-color: rgba(241, 48, 36, 0.35);
+  color: #f13024;
+}
+
+.week-tab-btn.active {
+  background: rgba(241, 48, 36, 0.15);
+  border-color: #f13024;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(241, 48, 36, 0.2);
+}
+
+.active-log-card {
+  background: rgba(10, 11, 22, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 20px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  gap: 1.25rem;
+  box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.25);
+  animation: logCardFadeIn 0.4s ease;
 }
 
-.linkedin-post-card:hover {
-  border-color: rgba(0, 119, 181, 0.3);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 15px rgba(0, 119, 181, 0.05);
+@keyframes logCardFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.linkedin-post-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.linkedin-week-indicator {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #0077b5;
-  letter-spacing: 0.08em;
-  font-family: monospace;
+.active-log-header {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-}
-
-.linkedin-post-title {
-  font-size: 1.15rem;
-  color: #fff;
+.active-log-title {
+  font-size: 1.2rem;
   font-weight: 800;
+  color: #fff;
   margin: 0;
-  letter-spacing: -0.01em;
 }
 
-.linkedin-post-desc {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.55;
+.active-log-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.active-log-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
   margin: 0;
 }
 
 /* Responsive Iframe Container */
 .linkedin-iframe-container {
   width: 100%;
+  height: 400px;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
@@ -641,10 +688,34 @@
 
 .linkedin-iframe-container iframe {
   width: 100%;
-  max-width: 100%;
+  height: 100%;
   display: block;
   border: none;
   background: transparent;
+}
+
+/* ── Completion Certificate Section ── */
+.intern-certificate-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 2.5rem;
+}
+
+.intern-certificate-section .certificate-interactive-frame {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.intern-certificate-section .intern-card-footer-v2 {
+  max-width: 500px;
+  width: 100%;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 

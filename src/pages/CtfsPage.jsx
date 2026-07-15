@@ -343,27 +343,92 @@ const CtfsPage = () => {
   );
 };
 
+// Premium 3D Card Tilt and Glare overlay
+const TiltCard = ({ children, className, style = {} }) => {
+  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const normX = (x / rect.width) - 0.5;
+    const normY = (y / rect.height) - 0.5;
+    
+    // Smooth 3D tilt calculation
+    const rotateX = -normY * 12;
+    const rotateY = normX * 12;
+    
+    // Dynamic Glare location
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    
+    setTilt({ rotateX, rotateY });
+    setGlare({ x: glareX, y: glareY, opacity: 0.15 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ rotateX: 0, rotateY: 0 });
+    setGlare({ x: 50, y: 50, opacity: 0 });
+  };
+
+  return (
+    <div
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        ...style,
+        transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale3d(1.015, 1.015, 1.015)`,
+        transition: 'transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.3s ease',
+        transformStyle: 'preserve-3d',
+      }}
+    >
+      {/* Glowing Glare Overlay */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 65%)`,
+          opacity: glare.opacity,
+          pointerEvents: 'none',
+          zIndex: 10,
+          mixBlendMode: 'overlay',
+          borderRadius: 'inherit',
+          transition: 'opacity 0.25s ease',
+        }}
+      />
+      {/* 3D Content Depth Wrapper */}
+      <div style={{ transform: 'translateZ(18px)', transformStyle: 'preserve-3d', height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {children}
+      </div>
+    </div>
+  );
+};
+
 const CtfCard = ({ accent = 0, img, title, rank, team, desc, stats, gallery, badge, onViewGallery }) => (
-  <div className={`ctf-page-card fade-in ctf-accent-${accent % 6}`}>
-    <div className="ctf-page-info">
-      <div className="ctf-card-header-row">
+  <TiltCard className={`ctf-page-card fade-in ctf-accent-${accent % 6}`}>
+    <div className="ctf-page-info" style={{ transform: 'translateZ(15px)', transformStyle: 'preserve-3d' }}>
+      <div className="ctf-card-header-row" style={{ transform: 'translateZ(10px)' }}>
         <span className="ctf-page-team"><i className="fas fa-users-cog"></i> {team}</span>
         <span className="ctf-page-rank"><i className="fas fa-trophy"></i> {rank}</span>
       </div>
 
-      <h3 className="ctf-page-title">
+      <h3 className="ctf-page-title" style={{ transform: 'translateZ(12px)' }}>
         {title}
       </h3>
 
-      <p className="ctf-page-desc">{desc}</p>
+      <p className="ctf-page-desc" style={{ transform: 'translateZ(8px)' }}>{desc}</p>
 
-      <div className="ctf-page-badges">
+      <div className="ctf-page-badges" style={{ transform: 'translateZ(10px)' }}>
         {stats.map((stat, i) => (
           <span key={i} className="ctf-page-badge">{stat}</span>
         ))}
       </div>
 
-      <div className="ctf-page-actions">
+      <div className="ctf-page-actions" style={{ transform: 'translateZ(5px)' }}>
         <button onClick={onViewGallery} className="btn btn-primary ctf-card-btn view-performance-btn">
           <i className="fas fa-chart-line"></i> View Performance
         </button>
@@ -374,7 +439,7 @@ const CtfCard = ({ accent = 0, img, title, rank, team, desc, stats, gallery, bad
         )}
       </div>
     </div>
-  </div>
+  </TiltCard>
 );
 
 export default CtfsPage;
