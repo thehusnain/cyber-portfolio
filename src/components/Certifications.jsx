@@ -12,6 +12,22 @@ const DEFAULT_CERTS = [
     icon: "fa-shield-halved"
   },
   {
+    img: "/assets/introduction-to-forensic.png",
+    title: "Introduction to Digital Forensics",
+    issuer: "TryHackMe",
+    desc: "Hands-on certification covering Linux file systems, CLI analysis, password cracking, steganography, and mock disk image investigation.",
+    date: "Aug 2026",
+    icon: "fa-magnifying-glass"
+  },
+  {
+    img: "/assets/linux-unhatched.png",
+    title: "Linux Unhatched",
+    issuer: "Cisco Networking Academy",
+    desc: "Issued by Cisco Networking Academy for mastering fundamental Linux command-line concepts, file permissions, and OS administration.",
+    date: "Aug 2026",
+    icon: "fa-terminal"
+  },
+  {
     img: "/assets/readteamcertificate.png",
     title: "Certified Threat Intelligence & Governance Analyst (CTIGA)",
     issuer: "Red Team Leaders",

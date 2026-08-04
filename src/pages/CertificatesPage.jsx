@@ -19,6 +19,36 @@ const ALL_CERTS = [
     isPdf: true,
   },
   {
+    img: "/assets/introduction-to-forensic.png",
+    title: "Introduction to Digital Forensics",
+    short: "THM",
+    issuer: "TryHackMe",
+    date: "Aug 1, 2026",
+    category: "Cybersecurity",
+    categoryColor: "#3b82f6",
+    categoryBg: "rgba(59,130,246,0.08)",
+    categoryBorder: "rgba(59,130,246,0.2)",
+    desc: "Hands-on certification in digital forensics covering Linux file system investigation, CLI analysis, ZIP password cracking, steganography, and mock disk image analysis.",
+    icon: "fa-magnifying-glass",
+    link: "/assets/Introduction to Digital Forensics-course.pdf",
+    isPdf: true,
+  },
+  {
+    img: "/assets/linux-unhatched.png",
+    title: "Linux Unhatched",
+    short: "Cisco",
+    issuer: "Cisco Networking Academy",
+    date: "Aug 4, 2026",
+    category: "Networking",
+    categoryColor: "#10b981",
+    categoryBg: "rgba(16,185,129,0.08)",
+    categoryBorder: "rgba(16,185,129,0.2)",
+    desc: "Issued by Cisco Networking Academy for mastering fundamental Linux command-line concepts, directory navigation, permissions, and core Linux operating system operations.",
+    icon: "fa-terminal",
+    link: "/assets/Linux-Unhatched-Certificate.pdf",
+    isPdf: true,
+  },
+  {
     img: "/assets/Networking-Basic-From-CISCO.png",
     title: "Networking Basics",
     short: "Cisco",
@@ -309,17 +339,18 @@ const CertCard = ({ cert, onPreview }) => (
           className="cert-page-btn btn-preview"
           onClick={() => onPreview(cert)}
         >
-          <i className="fas fa-eye"></i> Preview
+          <i className="fas fa-image"></i> View Image
         </button>
         <a
           href={cert.link}
           target="_blank"
           rel="noreferrer"
-          download={cert.isPdf}
+          download={cert.isPdf ? true : undefined}
           className="cert-page-btn btn-download"
+          title={cert.isPdf ? "Download PDF Certificate" : "Open Certificate Asset"}
         >
-          <i className={`fas ${cert.isPdf ? 'fa-download' : 'fa-external-link-alt'}`}></i>
-          {cert.isPdf ? 'Download PDF' : 'Open Full'}
+          <i className={`fas ${cert.isPdf ? 'fa-file-pdf' : 'fa-external-link-alt'}`}></i>
+          {cert.isPdf ? 'Download PDF' : 'Open Image'}
         </a>
       </div>
     </div>
@@ -393,31 +424,40 @@ const CertificatesPage = () => {
               <h3>{activeCert.title}</h3>
               <p className="cert-modal-issuer">{activeCert.issuer} · {activeCert.date}</p>
             </div>
+
             <div className="cert-modal-body">
-              {activeCert.img ? (
-                <img src={activeCert.img} alt={activeCert.title} className="cert-modal-img" />
-              ) : activeCert.isPdf ? (
-                <div className="w-full h-[65vh] min-h-[450px]">
-                  <iframe
-                    src={`${activeCert.link}#toolbar=0`}
-                    title={activeCert.title}
-                    className="w-full h-full border-0 rounded-lg bg-[#0f1020]"
-                  />
-                </div>
-              ) : (
-                <div className="cert-modal-pdf-notice">
-                  <i className="fas fa-file-pdf"></i>
-                  <p>This certificate is a PDF document.</p>
-                  <a
-                    href={activeCert.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="btn btn-primary"
-                  >
-                    <i className="fas fa-download"></i> Open / Download PDF
-                  </a>
-                </div>
+              <img
+                src={activeCert.img}
+                alt={activeCert.title}
+                className="cert-modal-img"
+                onError={(e) => {
+                  e.target.src = 'https://ui-avatars.com/api/?name=Certificate&background=0f172a&color=10b981&size=600';
+                }}
+              />
+            </div>
+
+            <div className="cert-modal-footer" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
+              {activeCert.isPdf && (
+                <a
+                  href={activeCert.link}
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cert-page-btn btn-download"
+                  style={{ padding: '0.6rem 1.4rem', fontSize: '0.95rem' }}
+                >
+                  <i className="fas fa-file-pdf"></i> Download PDF Certificate
+                </a>
               )}
+              <a
+                href={activeCert.img}
+                target="_blank"
+                rel="noreferrer"
+                className="cert-page-btn btn-preview"
+                style={{ padding: '0.6rem 1.4rem', fontSize: '0.95rem' }}
+              >
+                <i className="fas fa-expand"></i> View Raw Image
+              </a>
             </div>
           </div>
         </div>
